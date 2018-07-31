@@ -10,9 +10,15 @@
 | to using a Closure or controller method. Build something great!
 |
 */
+use Illuminate\Support\Facades\Gate;
 
 Route::get('/', function () {
-    return view('welcome');
+    if (Gate::allows('access-admin')){
+        echo "Usuário com permissão de admin";
+    }else{
+        echo "Usuário sem permissão de admin";
+    }
+//    return view('welcome');
 });
 
 Auth::routes();
