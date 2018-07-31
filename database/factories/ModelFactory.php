@@ -21,3 +21,9 @@ $factory->define(CodeFin\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->state(\CodeFin\User::class,'admin',function (Faker\Generator $faker){
+    return [
+        'role' => \CodeFin\User::ROLE_ADMIN
+    ];
+});
