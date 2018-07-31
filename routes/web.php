@@ -10,17 +10,21 @@
 | to using a Closure or controller method. Build something great!
 |
 */
-use Illuminate\Support\Facades\Gate;
 
 Route::get('/', function () {
-    if (Gate::allows('access-admin')){
-        echo "Usuário com permissão de admin";
-    }else{
-        echo "Usuário sem permissão de admin";
-    }
-//    return view('welcome');
-});
+    return view('welcome');
+})->middleware('can:access-admin');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+Route::get('/home', function (){
+    return redirect()->route('admin.home');
+});
+
+Route::group([
+    'prefix' => 'admin',
+    'middleware' => 'can:access-admin',
+    'as' => 'admin.'
+],function (){
+    Route::get('/home', 'HomeController@index')->name('home');
+});
