@@ -15,6 +15,6 @@ require('./bootstrap');
 
 Vue.component('example', require('./components/Example.vue'));
 
-const app = new Vue({
+const admin = new Vue({
     el: '#app'
 });

@@ -21,5 +21,5 @@ elixir(mix => {
         host: '0.0.0.0',
         proxy: 'http://0.0.0.0:8000'
     })
-       //.webpack('app.js');
+       //.webpack('admin.js');
 })
