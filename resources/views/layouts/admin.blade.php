@@ -80,8 +80,7 @@
 
         @yield('content')
     </div>
-
     <!-- Scripts -->
-    <script src="/js/admin.js"></script>
+    <script src="{{ asset('build/admin.bundle.js')  }}"></script>
 </body>
 </html>

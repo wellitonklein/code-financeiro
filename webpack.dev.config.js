@@ -1,4 +1,4 @@
-let webpack = require('webpack')
+var webpack = require('webpack')
 
 module.exports = {
     devtool: 'source-map',

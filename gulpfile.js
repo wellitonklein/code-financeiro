@@ -25,8 +25,11 @@ Elixir.webpack.mergeConfig(webpackDevConfig)
  */
 
 gulp.task('webpack-dev-server', () => {
-    let config = Elixir.webpack.config
+    var config = Elixir.webpack.config
     new WebpackDevServer(webpack(config),{
+        proxy:{
+            '*': 'http://0.0.0.0:8000'
+        },
         watchOptions: {
             poll: true,
             aggregateTimeout: 300
@@ -34,7 +37,7 @@ gulp.task('webpack-dev-server', () => {
         publicPath: config.output.publicPath,
         noInfo: true,
         stats: { colors: true }
-    }).listen(8080,"0.0.0.0",function () {
+    }).listen(8080,"0.0.0.0", () => {
         console.log("Bundling project...")
     })
 })
@@ -43,9 +46,11 @@ elixir(mix => {
     mix.sass('./resources/assets/admin/sass/admin.scss')
         .copy('./node_modules/materialize-css/fonts/roboto','./public/fonts/roboto')
 
+    gulp.start('webpack-dev-server')
+
     mix.browserSync({
         host: '0.0.0.0',
-        proxy: 'http://0.0.0.0:8000'
+        proxy: 'http://0.0.0.0:8080'
     })
        //.webpack('admin.js');
 })
