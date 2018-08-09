@@ -15,6 +15,7 @@
     "vue-resource": "^1.0.3",
     "vue-router": "^0.7.13",
     "webpack": "^1.13.2",
-    "webpack-dev-server": "^1.16.2"
+    "webpack-dev-server": "^1.16.2",
+    "webpack-merge": "^0.14.1"
   }
 }
