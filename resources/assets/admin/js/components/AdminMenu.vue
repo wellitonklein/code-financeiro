@@ -27,7 +27,6 @@
             </div>
         </nav>
     </div>
-    <p>Qualquer texto</p>
     <router-view></router-view>
 </template>
 
