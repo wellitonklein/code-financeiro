@@ -26,7 +26,15 @@ Elixir.webpack.mergeConfig(webpackDevConfig)
 
 gulp.task('webpack-dev-server', () => {
     var config = Elixir.webpack.config
+    var inlineHot = [
+        'webpack/hot/dev-server',
+        'webpack-dev-server/client?http://0.0.0.0:8080'
+    ]
+
+    config.entry.admin = [config.entry.admin].concat(inlineHot)
+
     new WebpackDevServer(webpack(config),{
+        hot: true,
         proxy:{
             '*': 'http://0.0.0.0:8000'
         },
