@@ -14,7 +14,8 @@ require('./bootstrap');
  */
 
 Vue.component('example', require('./components/Example.vue'));
+Vue.component('admin-menu', require('./components/AdminMenu.vue'));
 
-const admin = new Vue({
-    el: '#admin'
-});
+const app = new Vue({
+    el: '#app'
+})
