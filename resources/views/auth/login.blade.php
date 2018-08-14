@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col s8 offset-2 z-depth-2">
+            <div class="col s9 offset-2 z-depth-2">
                 <h3 class="center">Financeiro Admin</h3>
                 <form method="POST" action="{{ url(env('URL_ADMIN_LOGIN')) }}">
                     {{ csrf_field() }}
