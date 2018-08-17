@@ -6,13 +6,20 @@ require('materialize-css')
  * and simple, leaving you to focus on building your next great project.
  */
 
-window.Vue = require('vue');
+window.Vue = require('vue')
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
  * allows your team to easily build robust real-time web applications.
  */
+
+Vue.component('app', require('./components/App.vue'))
+
+const app = new Vue({
+    el: 'body'
+})
+
 
 // import Echo from "laravel-echo"
 
