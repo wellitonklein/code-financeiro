@@ -32,7 +32,7 @@
 </template>
 
 <script type="text/javascript">
-    import {Jwt} from "../resources";
+    import {Jwt} from "../services/resources";
 
     export default {
         data(){

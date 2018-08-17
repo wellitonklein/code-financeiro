@@ -1,3 +1,5 @@
+import LocalStorage from './services/localStorage'
+
 require('materialize-css')
 window.Vue = require('vue')
 require('vue-resource')
