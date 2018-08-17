@@ -11,7 +11,7 @@ return [
      |
      */
     'supportsCredentials' => false,
-    'allowedOrigins' => ['http://localhost:3000','http://0.0.0.0:3000'],
+    'allowedOrigins' => ['http://localhost:3000','http://0.0.0.0:3000'],//'chrome-extension://+ID da extensao'
     'allowedHeaders' => ['*'],
     'allowedMethods' => ['*'],
     'exposedHeaders' => [],
