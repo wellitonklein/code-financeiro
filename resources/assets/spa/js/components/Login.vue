@@ -22,7 +22,7 @@
 
                     <div class="row">
                         <div class="input-field col s12">
-                            <button type="submit" class="btn">Login</button>
+                            <button type="submit" class="btn">Entrar</button>
                         </div>
                     </div>
                 </form>
@@ -32,7 +32,7 @@
 </template>
 
 <script type="text/javascript">
-    import {Jwt} from "../services/resources";
+    import Auth from "../services/auth"
 
     export default {
         data(){
@@ -45,9 +45,8 @@
         },
         methods: {
             login(){
-                Jwt.accessToken(this.user.email,this.user.password).then((response) => {
-                    console.log(response)
-                })
+                Auth.login(this.user.email,this.user.password)
+                    .then(() => {this.$router.go({name: 'dashboard'})})
             }
         }
     }

@@ -37,7 +37,7 @@
 
                     <div class="row">
                         <div class="input-field col s12">
-                            <button type="submit" class="btn">Login</button>
+                            <button type="submit" class="btn">Entrar</button>
                             <a class="btn btn-link" href="{{ url('/password/reset') }}">
                                 Esqueceu sua senha?
                             </a>
