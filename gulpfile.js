@@ -34,8 +34,8 @@ gulp.task('spa-config', () => {
         type: 'ini'
     })
 
-    let spaConfig = require('./spa.config')
-    let string = stringifyObject(spaConfig)
+    var spaConfig = require('./spa.config')
+    var string = stringifyObject(spaConfig)
     return file('config.js',`module.exports = ${string}`,{src: true})
         .pipe(gulp.dest('./resources/assets/spa/js'))
 })
@@ -72,7 +72,7 @@ elixir(mix => {
         .sass('./resources/assets/spa/sass/spa.scss')
         .copy('./node_modules/materialize-css/fonts/roboto','./public/fonts/roboto')
 
-    gulp.start('webpack-dev-server')
+    gulp.start('spa-config','webpack-dev-server')
 
     mix.browserSync({
         host: '0.0.0.0',
