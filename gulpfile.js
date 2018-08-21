@@ -6,11 +6,8 @@ const webpackConfig = require('./webpack.config')
 const webpackDevConfig = require('./webpack.dev.config')
 const mergeWebpack = require('webpack-merge')
 const env = require('gulp-env')
-
-env({
-    file: '.env',
-    type: 'ini'
-})
+const stringifyObject  = require('stringify-object')
+const file = require('gulp-file')
 
 // require('laravel-elixir-vue')
 // require('laravel-elixir-webpack-official')
@@ -30,6 +27,18 @@ env({
  | file for our application, as well as publishing vendor resources.
  |
  */
+
+gulp.task('spa-config', () => {
+    env({
+        file: '.env',
+        type: 'ini'
+    })
+
+    let spaConfig = require('./spa.config')
+    let string = stringifyObject(spaConfig)
+    return file('config.js',`module.exports = ${string}`,{src: true})
+        .pipe(gulp.dest('./resources/assets/spa/js'))
+})
 
 gulp.task('webpack-dev-server', () => {
     var config = mergeWebpack(webpackConfig,webpackDevConfig)
