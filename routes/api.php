@@ -13,17 +13,20 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::group(['middleware' => 'cors'],function (){
-    Route::post('access_token','Api\AuthController@accessToken');
-    Route::post('refresh_token','Api\AuthController@refreshToken');
-    Route::post('logout','Api\AuthController@logout')->middleware('auth:api');
+Route::group(['middleware' => 'cors','as' => 'api.'],function (){
+    Route::post('access_token','Api\AuthController@accessToken')->name('access_token');
+    Route::post('refresh_token','Api\AuthController@refreshToken')->name('refresh_token');
 
-    Route::get('/hello', function () {
-        return response()->json(['message'=>'Hello']);
-    })->middleware('auth:api');
+    Route::group(['middleware' => 'auth:api'], function (){
+        Route::post('logout','Api\AuthController@logout')
+            ->name('logout');
+        Route::get('/hello', function () {
+            return response()->json(['message'=>'Hello']);
+        });
 
-    Route::get('/user', function (Request $request){
+        Route::get('/user', function (Request $request){
 //        return Auth::guard('api')->user();
-        return $request->user('api');
-    })->middleware('auth:api');
+            return $request->user('api');
+        })->name('user');
+    });
 });
