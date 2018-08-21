@@ -19,14 +19,14 @@ Route::group(['middleware' => 'cors','as' => 'api.'],function (){
 
     Route::group(['middleware' => 'auth:api'], function (){
         Route::post('logout','Api\AuthController@logout')
-            ->name('logout');
+            ->middleware('auth:api')->name('logout');
         Route::get('/hello', function () {
             return response()->json(['message'=>'Hello']);
-        });
+        })->middleware('auth:api');
 
         Route::get('/user', function (Request $request){
 //        return Auth::guard('api')->user();
             return $request->user('api');
-        })->name('user');
+        })->middleware('auth:api')->name('user');
     });
 });
