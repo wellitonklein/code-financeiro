@@ -19,7 +19,7 @@
 
     export default {
         ready(){
-            console.log(Auth.user())
+            // console.log(Auth.user())
         }
     }
 </script>
