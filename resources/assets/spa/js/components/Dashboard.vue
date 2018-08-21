@@ -15,7 +15,11 @@
 </template>
 
 <script>
-    export default {
+    import {User} from '../services/resources'
 
+    export default {
+        ready(){
+            User.get()
+        }
     }
 </script>

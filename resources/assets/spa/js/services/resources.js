@@ -6,3 +6,7 @@ export class Jwt {
         })
     }
 }
+
+var User = Vue.resource('user')
+
+export {User}
