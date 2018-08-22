@@ -8,6 +8,7 @@ const mergeWebpack = require('webpack-merge')
 const env = require('gulp-env')
 const stringifyObject  = require('stringify-object')
 const file = require('gulp-file')
+const HOST = '0.0.0.0'
 
 // require('laravel-elixir-vue')
 // require('laravel-elixir-webpack-official')
@@ -44,7 +45,7 @@ gulp.task('webpack-dev-server', () => {
     var config = mergeWebpack(webpackConfig,webpackDevConfig)
     var inlineHot = [
         'webpack/hot/dev-server',
-        'webpack-dev-server/client?http://0.0.0.0:8080'
+        `webpack-dev-server/client?http://${HOST}:8080`
     ]
 
     config.entry.admin = [config.entry.admin].concat(inlineHot)
@@ -53,7 +54,7 @@ gulp.task('webpack-dev-server', () => {
     new WebpackDevServer(webpack(config),{
         hot: true,
         proxy:{
-            '*': 'http://0.0.0.0:8000'
+            '*': `http://${HOST}:8000`
         },
         watchOptions: {
             poll: true,
@@ -62,7 +63,7 @@ gulp.task('webpack-dev-server', () => {
         publicPath: config.output.publicPath,
         noInfo: true,
         stats: { colors: true }
-    }).listen(8080,"0.0.0.0", () => {
+    }).listen(8080,HOST, () => {
         console.log("Bundling project...")
     })
 })
@@ -75,8 +76,8 @@ elixir(mix => {
     gulp.start('spa-config','webpack-dev-server')
 
     mix.browserSync({
-        host: '0.0.0.0',
-        proxy: 'http://0.0.0.0:8080'
+        host: HOST,
+        proxy: `http://${HOST}:8080`
     })
        //.webpack('admin.js');
 })
