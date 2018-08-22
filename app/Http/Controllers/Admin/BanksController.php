@@ -41,7 +41,7 @@ class BanksController extends Controller
      */
     public function index()
     {
-        $banks = $this->repository->paginate();
+        $banks = $this->repository->paginate(7);
 
 //        if (request()->wantsJson()) {
 //
