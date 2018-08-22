@@ -1,16 +1,15 @@
 <?php
 
-namespace CodeFin\Http\Controllers;
+namespace CodeFin\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
+use CodeFin\Http\Controllers\Controller;
+use CodeFin\Http\Controllers\Response;
 
-use CodeFin\Http\Requests;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
 use CodeFin\Http\Requests\BankCreateRequest;
 use CodeFin\Http\Requests\BankUpdateRequest;
 use CodeFin\Repositories\BankRepository;
-use CodeFin\Validators\BankValidator;
 
 /**
  * Class BanksController.
@@ -25,20 +24,14 @@ class BanksController extends Controller
     protected $repository;
 
     /**
-     * @var BankValidator
-     */
-    protected $validator;
-
-    /**
      * BanksController constructor.
      *
      * @param BankRepository $repository
      * @param BankValidator $validator
      */
-    public function __construct(BankRepository $repository, BankValidator $validator)
+    public function __construct(BankRepository $repository)
     {
         $this->repository = $repository;
-        $this->validator  = $validator;
     }
 
     /**
@@ -59,6 +52,11 @@ class BanksController extends Controller
         }
 
         return view('banks.index', compact('banks'));
+    }
+
+    public function create()
+    {
+
     }
 
     /**
@@ -99,27 +97,6 @@ class BanksController extends Controller
 
             return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $bank = $this->repository->find($id);
-
-        if (request()->wantsJson()) {
-
-            return response()->json([
-                'data' => $bank,
-            ]);
-        }
-
-        return view('banks.show', compact('bank'));
     }
 
     /**
