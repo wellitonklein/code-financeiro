@@ -24,10 +24,15 @@
 <div id="app">
     <header>
         @if (Auth::check())
-            <?php $menuConfig = [
+            <?php
+            $menuConfig = [
                 'name' => Auth::user()->name,
                 'menus' => [
-                    ['name' => 'Banco','url' => route('admin.banks.index')]
+                    [
+                        'name' => 'Banco',
+                        'url' => route('admin.banks.index'),
+                        'active' => isRouteActive('admin.banks.index')
+                    ]
                 ],
                 'menusDropdown' => [],
                 'urlLogout' => env('URL_ADMIN_LOGOUT')                 ,
