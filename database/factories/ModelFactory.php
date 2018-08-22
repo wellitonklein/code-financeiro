@@ -27,3 +27,11 @@ $factory->state(\CodeFin\Models\User::class,'admin',function (Faker\Generator $f
         'role' => \CodeFin\Models\User::ROLE_ADMIN
     ];
 });
+
+$factory->define(\CodeFin\Models\Bank::class, function (Faker\Generator $faker) {
+
+    return [
+        'name' => $faker->name,
+        'logo' => md5(time()).'.jpeg'
+    ];
+});
