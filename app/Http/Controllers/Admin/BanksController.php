@@ -55,7 +55,7 @@ class BanksController extends Controller
 
     public function create()
     {
-
+        return view('admin.banks.create');
     }
 
     /**
