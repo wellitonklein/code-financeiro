@@ -43,18 +43,7 @@ class BanksController extends Controller
      */
     public function index()
     {
-        $banks = $this->repository->paginate(7);
-
-//        if (request()->wantsJson()) {
-//
-//            return response()->json([
-//                'data' => $banks,
-//            ]);
-//        }
-
-//        $bank = new Bank();
-//        $bank->name = "Itau";
-//        event(new BankCreatedEvent($bank));
+        $banks = $this->repository->paginate(10);
 
         return view('admin.banks.index', compact('banks'));
     }
@@ -76,7 +65,6 @@ class BanksController extends Controller
     public function store(BankCreateRequest $request)
     {
         $data = $request->all();
-        $data['logo'] = md5(time().'.jpeg');
         $this->repository->create($data);
 
         return redirect()->route('admin.banks.index');
