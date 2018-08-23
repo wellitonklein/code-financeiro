@@ -10388,4 +10388,9 @@ main {
   flex: 1 0 auto;
 }
 
+.bank-logo {
+  width: 30px;
+  height: 30px;
+}
+
 /*# sourceMappingURL=admin.css.map */
