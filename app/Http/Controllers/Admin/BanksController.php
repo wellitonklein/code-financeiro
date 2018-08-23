@@ -2,9 +2,11 @@
 
 namespace CodeFin\Http\Controllers\Admin;
 
+use CodeFin\Events\BankCreatedEvent;
 use CodeFin\Http\Controllers\Controller;
 use CodeFin\Http\Controllers\Response;
 
+use CodeFin\Models\Bank;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
 use CodeFin\Http\Requests\BankCreateRequest;
@@ -49,6 +51,10 @@ class BanksController extends Controller
 //                'data' => $banks,
 //            ]);
 //        }
+
+        $bank = new Bank();
+        $bank->name = "Itau";
+        event(new BankCreatedEvent($bank));
 
         return view('admin.banks.index', compact('banks'));
     }
