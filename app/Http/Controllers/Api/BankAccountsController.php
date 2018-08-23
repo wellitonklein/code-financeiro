@@ -4,11 +4,7 @@ namespace CodeFin\Http\Controllers\Api;
 
 use CodeFin\Http\Controllers\Controller;
 use CodeFin\Http\Controllers\Response;
-use Illuminate\Http\Request;
 
-use CodeFin\Http\Requests;
-use Prettus\Validator\Contracts\ValidatorInterface;
-use Prettus\Validator\Exceptions\ValidatorException;
 use CodeFin\Http\Requests\BankAccountCreateRequest;
 use CodeFin\Http\Requests\BankAccountUpdateRequest;
 use CodeFin\Repositories\BankAccountRepository;
