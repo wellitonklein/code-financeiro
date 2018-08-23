@@ -3,19 +3,20 @@
 namespace CodeFin\Listeners;
 
 use CodeFin\Events\BankStoredEvent;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use CodeFin\Models\Bank;
+use CodeFin\Repositories\BankRepository;
 
 class BankLogoUploadListener
 {
+    private $repository;
     /**
      * Create the event listener.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(BankRepository $repository)
     {
-        //
+        $this->repository = $repository;
     }
 
     /**
@@ -26,6 +27,14 @@ class BankLogoUploadListener
      */
     public function handle(BankStoredEvent $event)
     {
-        //upload do logo
+        $bank = $event->getBank();
+        $logo = $event->getLogo();
+
+        $name = md5(time()).'.'.$logo->guessExtension();
+        $destFile = Bank::logosDir();
+
+        \Storage::disk('public')->putFileAs($destFile,$logo,$name);
+
+        $this->repository->update(['logo' => $name], $bank->id);
     }
 }
