@@ -11,9 +11,9 @@
 
             @include('admin.banks._form')
 
-            <div class="row">
-                {!! Form::submit('Salvar banco',['class' => 'btn waves-effect right']) !!}
-            </div>
+            {{--<div class="row">--}}
+                {{--{!! Form::submit('Salvar banco',['class' => 'btn waves-effect right']) !!}--}}
+            {{--</div>--}}
 
             {!! Form::close() !!}
         </div>
