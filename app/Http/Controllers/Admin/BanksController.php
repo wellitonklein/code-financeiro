@@ -97,6 +97,8 @@ class BanksController extends Controller
      */
     public function update(BankUpdateRequest $request, $id)
     {
+//        $request->file('logo');
+
         $this->repository->update($request->all(), $id);
 
         return redirect()->route('admin.banks.index');
