@@ -1,10 +1,7 @@
-@if($errors->any())
-
-@endif
-
+<?php $errorClass = $errors->first('name') ? ['class' => 'validate invalid'] : []?>
 <div class="row">
     <div class="input-field col s6">
-        {!! Form::label('name','Nome') !!}
-        {!! Form::text('name',null) !!}
+        {!! Form::text('name',null,$errorClass) !!}
+        {!! Form::label('name','Nome',['data-error' => $errors->first('name')]) !!}
     </div>
 </div>

@@ -9,7 +9,7 @@
             @include('admin.banks._form')
 
             <div class="row">
-                {!! Form::submit('Criar banco',['class' => 'btn waves-effect']) !!}
+                {!! Form::submit('Criar banco',['class' => 'btn waves-effect right']) !!}
             </div>
             {!! Form::close() !!}
         </div>
