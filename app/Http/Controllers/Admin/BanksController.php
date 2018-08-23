@@ -52,9 +52,9 @@ class BanksController extends Controller
 //            ]);
 //        }
 
-        $bank = new Bank();
-        $bank->name = "Itau";
-        event(new BankCreatedEvent($bank));
+//        $bank = new Bank();
+//        $bank->name = "Itau";
+//        event(new BankCreatedEvent($bank));
 
         return view('admin.banks.index', compact('banks'));
     }
