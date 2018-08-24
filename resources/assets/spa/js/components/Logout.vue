@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="row">
-            <div class="col s9 offset-2 z-depth-2">
+            <div class="card-panel col s8 offset-s2 z-depth-2">
                 <h5 class="center">Saindo do sistema . . .</h5>
                 <div class="progress">
                     <div class="indeterminate"></div>
@@ -22,8 +22,8 @@
             logout(){
                 var goToLogin = () => this.$router.go({name: 'auth.login'})
                 Auth.logout()
-                    .then(goToLogin())
-                    .catch(goToLogin())
+                    .then(goToLogin)
+                    .catch(goToLogin)
             }
         }
     }

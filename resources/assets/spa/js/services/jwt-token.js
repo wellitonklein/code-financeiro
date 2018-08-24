@@ -23,13 +23,14 @@ export default {
         })
     },
     revokeToken(){
-        var afterRevokeToken = () => {
+        var afterRevokeToken = (response) => {
             this.token = null
+            return response
         }
 
         return Jwt.logout()
-            .then(afterRevokeToken())
-            .catch(afterRevokeToken())
+            .then(afterRevokeToken)
+            .catch(afterRevokeToken)
     },
     getAuthorizationHeader(){
         return `Bearer ${LocalStorage.get(TOKEN)}`

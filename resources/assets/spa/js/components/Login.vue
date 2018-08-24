@@ -1,40 +1,42 @@
 <template>
     <div class="container">
         <div class="row">
-            <div class="col s9 offset-2 z-depth-2">
-                <h3 class="center">Financeiro</h3>
+            <div class="col s9 offset-2">
+                <div class="card-panel z-depth-2">
+                    <h3 class="center">Financeiro</h3>
 
-                <div class="row" v-if="error.error">
-                    <div class="col s12">
-                        <div class="card-panel red">
-                            <span class="white-text">{{error.message}}</span>
+                    <div class="row" v-if="error.error">
+                        <div class="col s12">
+                            <div class="card-panel red">
+                                <span class="white-text">{{error.message}}</span>
+                            </div>
                         </div>
                     </div>
+
+                    <form method="POST" @submit.prevent="login()">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="email" type="email" class="validate" name="email"
+                                       v-model="user.email" required autofocus>
+                                <label for="email" class="active">E-mail</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="password" type="password" class="validate"
+                                       name="password" v-model="user.password" required>
+                                <label for="password" class="active">Senha</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <button type="submit" class="btn">Entrar</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-
-                <form method="POST" @submit.prevent="login()">
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input id="email" type="email" class="validate" name="email"
-                                   v-model="user.email" required autofocus>
-                            <label for="email" class="active">E-mail</label>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input id="password" type="password" class="validate"
-                                   name="password" v-model="user.password" required>
-                            <label for="password" class="active">Senha</label>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <button type="submit" class="btn">Entrar</button>
-                        </div>
-                    </div>
-                </form>
             </div>
         </div>
     </div>

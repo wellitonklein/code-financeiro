@@ -39,13 +39,14 @@ export default {
         })
     },
     logout(){
-        var afterLogout = () => {
+        var afterLogout = (response) => {
             this.clearAuth()
+            return response
         }
 
         return JwtToken.revokeToken()
-            .then(afterLogout())
-            .catch(afterLogout())
+            .then(afterLogout)
+            .catch(afterLogout)
     },
     clearAuth(){
         this.user.data = null
