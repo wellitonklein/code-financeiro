@@ -10378,4 +10378,13 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
   }
 }
 
+body {
+  background-color: #e1e2e1;
+}
+
+.panel-title {
+  color: #2e5656;
+  background-color: #2e5656;
+}
+
 /*# sourceMappingURL=spa.css.map */
