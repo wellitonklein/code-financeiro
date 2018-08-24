@@ -52,6 +52,11 @@
                     this.currentPage++
                 }
             },
+        },
+        watch: {
+            currentPage(newValue){
+                this.$dispatch('pagination::changed', newValue)
+            }
         }
     }
 </script>

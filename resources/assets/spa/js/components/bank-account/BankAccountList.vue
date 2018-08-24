@@ -81,9 +81,7 @@
             }
         },
         created(){
-            BankAccount.query().then((response) => {
-                this.bankAccounts = response.data.data
-            })
+            this.getBankAccounts()
         },
         methods: {
             destroy(){
@@ -96,6 +94,16 @@
             openModalDelete(bankAccount){
                 this.bankAccountToDelete = bankAccount
                 $('#modal-delete').modal('open')
+            },
+            getBankAccounts(){
+                BankAccount.query().then((response) => {
+                    this.bankAccounts = response.data.data
+                })
+            }
+        },
+        events: {
+            'pagination::changed'(page){
+                this.getBankAccounts()
             }
         }
     }
