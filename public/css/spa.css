@@ -5301,7 +5301,7 @@ nav ul a span.badge {
   height: 100%;
 }
 
-.progress {
+.progress, .spinner {
   position: relative;
   height: 4px;
   display: block;
@@ -5312,7 +5312,7 @@ nav ul a span.badge {
   overflow: hidden;
 }
 
-.progress .determinate {
+.progress .determinate, .spinner .determinate {
   position: absolute;
   top: 0;
   left: 0;
@@ -5321,11 +5321,11 @@ nav ul a span.badge {
   transition: width .3s linear;
 }
 
-.progress .indeterminate {
+.progress .indeterminate, .spinner .indeterminate {
   background-color: #002f2f;
 }
 
-.progress .indeterminate:before {
+.progress .indeterminate:before, .spinner .indeterminate:before {
   content: '';
   position: absolute;
   background-color: inherit;
@@ -5336,7 +5336,7 @@ nav ul a span.badge {
   animation: indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
 }
 
-.progress .indeterminate:after {
+.progress .indeterminate:after, .spinner .indeterminate:after {
   content: '';
   position: absolute;
   background-color: inherit;
@@ -10385,6 +10385,16 @@ body {
 .panel-title {
   color: #2e5656;
   background-color: #2e5656;
+}
+
+.spinner {
+  margin: 0px;
+}
+
+.spinner-fixed {
+  width: 100%;
+  position: fixed;
+  z-index: 998;
 }
 
 /*# sourceMappingURL=spa.css.map */

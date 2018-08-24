@@ -19,3 +19,14 @@ body{
   color: rgb(46,86,86);
   background-color: rgb(46,86,86);;
 }
+
+.spinner{
+  @extend .progress;
+  margin: 0px;
+}
+
+.spinner-fixed{
+  width: 100%;
+  position: fixed;
+  z-index: 998;
+}

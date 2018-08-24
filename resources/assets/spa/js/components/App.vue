@@ -1,5 +1,12 @@
 <template>
     <div id="app">
+
+        <div class="spinner-fixed">
+            <div class="spinner">
+                <div class="indeterminate"></div>
+            </div>
+        </div>
+
         <header v-if="showMenu">
             <menu></menu>
         </header>
