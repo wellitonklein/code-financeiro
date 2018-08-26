@@ -30,7 +30,11 @@
                     </tr>
                     </tbody>
                 </table>
-                <pagination :per-page="10" :total-records="75"></pagination>
+                <pagination
+                        :current-page.sync="pagination.current_page"
+                        :per-page="pagination.per_page"
+                        :total-records="pagination.total">
+                </pagination>
             </div>
 
             <div class="fixed-action-btn">
@@ -77,6 +81,11 @@
                 bankAccountToDelete: null,
                 modal: {
                     id: 'modal-delete'
+                },
+                pagination: {
+                    current_page: 0,
+                    per_page: 0,
+                    total: 0
                 }
             }
         },
@@ -96,8 +105,13 @@
                 $('#modal-delete').modal('open')
             },
             getBankAccounts(){
-                BankAccount.query().then((response) => {
+                BankAccount.query({
+                    page: this.pagination.current_page+1
+                }).then((response) => {
                     this.bankAccounts = response.data.data
+                    var pagination = response.data.meta.pagination
+                    pagination.current_page--
+                    this.pagination = pagination
                 })
             }
         },
