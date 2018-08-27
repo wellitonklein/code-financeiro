@@ -10,10 +10,14 @@
                 <table class="bordered striped highlight responsive-table">
                     <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Nome</th>
-                        <th>Agência</th>
-                        <th>C/C</th>
+                        <th v-for="(key,o) in table.headers" :width="o.width">
+                            <a href="#" @click.prevent="sortBy(key)">
+                                {{ o.label }}
+                                <i class="material-icons right" v-if="order.key == key">
+                                    {{order.sort == 'asc' ? 'arrow_drop_up' : 'arrow_drop_down'}}
+                                </i>
+                            </a>
+                        </th>
                         <th>Ações</th>
                     </tr>
                     </thead>
@@ -86,6 +90,30 @@
                     current_page: 0,
                     per_page: 0,
                     total: 0
+                },
+                order:{
+                    key: 'id',
+                    sort: 'asc'
+                },
+                table: {
+                    headers: {
+                        id: {
+                            label: '#',
+                            width: '10%'
+                        },
+                        name: {
+                            label: 'Nome',
+                            width: '45%'
+                        },
+                        agency: {
+                            label: 'Agência',
+                            width: '15%'
+                        },
+                        account: {
+                            label: 'C/C',
+                            width: '15%'
+                        }
+                    }
                 }
             }
         },
@@ -113,6 +141,10 @@
                     pagination.current_page--
                     this.pagination = pagination
                 })
+            },
+            sortBy(key){
+                this.order.key = key
+                this.order.sort = this.order.sort == 'desc' ? 'asc' : 'desc'
             }
         },
         events: {
