@@ -6,11 +6,11 @@ use CodeFin\Transformers\BankTransformer;
 use Prettus\Repository\Presenter\FractalPresenter;
 
 /**
- * Class BankAccountPresenter.
+ * Class BankPresenter.
  *
  * @package namespace CodeFin\Presenters;
  */
-class BankAccountPresenter extends FractalPresenter
+class BankPresenter extends FractalPresenter
 {
     /**
      * Transformer
