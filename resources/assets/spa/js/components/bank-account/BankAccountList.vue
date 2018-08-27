@@ -7,6 +7,16 @@
                 </span>
             </div>
             <div class="card-panel z-depth-5">
+                <form name="form" method="GET" @submit.prevent="filter()">
+                    <div class="filter-group">
+                        <button class="btn waves-effect" type="submit">
+                            <i class="material-icons">search</i>
+                        </button>
+                        <div class="filter-wrapper">
+                            <input type="text" v-model="search" placeholder="Digite aqui a sua busca"/>
+                        </div>
+                    </div>
+                </form>
                 <table class="bordered striped highlight responsive-table">
                     <thead>
                     <tr>
@@ -62,7 +72,7 @@
         </div>
         <div slot="footer">
             <button class="btn waves-effect modal-close modal-action"
-                @click="destroy()">OK
+                    @click="destroy()">OK
             </button>
             <button class="btn btn-flat waves-effect waves-red modal-close modal-action">Cancelar</button>
         </div>
@@ -91,6 +101,7 @@
                     per_page: 0,
                     total: 0
                 },
+                search: '',
                 order:{
                     key: 'id',
                     sort: 'asc'
@@ -136,7 +147,8 @@
                 BankAccount.query({
                     page: this.pagination.current_page+1,
                     orderBy: this.order.key,
-                    sortBy: this.order.sort
+                    sortBy: this.order.sort,
+                    search: this.search
                 }).then((response) => {
                     this.bankAccounts = response.data.data
                     var pagination = response.data.meta.pagination
@@ -147,6 +159,9 @@
             sortBy(key){
                 this.order.key = key
                 this.order.sort = this.order.sort == 'desc' ? 'asc' : 'desc'
+                this.getBankAccounts()
+            },
+            filter(){
                 this.getBankAccounts()
             }
         },
