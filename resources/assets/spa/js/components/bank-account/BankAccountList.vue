@@ -41,7 +41,7 @@
             </div>
 
             <div class="fixed-action-btn">
-                <a class="btn-floating btn-large" href="https://www.freexml.com.br/">
+                <a class="btn-floating btn-large" v-link="{name: 'bank-account.create'}">
                     <i class="large material-icons">add</i>
                 </a>
             </div>

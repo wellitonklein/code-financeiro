@@ -10378,7 +10378,7 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
   }
 }
 
-body {
+.background-default, body {
   background-color: #e1e2e1;
 }
 
