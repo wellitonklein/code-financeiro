@@ -1,57 +1,4 @@
-<template>
-    <div class="container">
-        <div class="row">
-            <div class="row">
-                <div class="col s12">
-                    <page-title>
-                        <h5>Nova conta bancária</h5>
-                    </page-title>
-                </div>
-            </div>
-            <div class="card-panel z-depth-5">
-                <form name="form" method="GET" @submit.prevent="submit()">
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <label class="active">Nome</label>
-                            <input type="text" v-model="bankAccount.name" placeholder="Digite o nome" required/>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <label class="active">Banco:</label>
-                            <select v-model="bankAccount.bank_id" id="bank_id" class="browser-default">
-                                <option value="" disabled selected>Escolha um banco</option>
-                                <option v-for="o in banks" :value="o.id">{{o.name}}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <label class="active">Agência</label>
-                            <input type="text" v-model="bankAccount.agency" placeholder="Digite a agência"/>
-                        </div>
-                        <div class="input-field col s6">
-                            <label class="active">Conta corrente</label>
-                            <input type="text" v-model="bankAccount.account" placeholder="Digite a conta corrente"/>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input type="checkbox" class="filled-in" v-model="bankAccount.default"
-                                    id="account_default"/>
-                            <label for="account_default">Padrão?</label>
-                        </div>
-                    </div>
-                    <div class="fixed-action-btn">
-                        <button class="btn-floating btn-large" type="submit">
-                            <i class="large material-icons">save</i>
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</template>
+<template src="./_form.html"></template>
 
 <script type="text/javascript">
     import {BankAccount,Bank} from "../../services/resources";
@@ -63,6 +10,7 @@
         },
         data(){
             return {
+                title: 'Nova conta bancária',
                 bankAccount: {
                     name: '',
                     agency: '',
