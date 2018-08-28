@@ -144,7 +144,8 @@
                     search: this.search
                 }).then((response) => {
                     this.bankAccounts = response.data.data
-                    var pagination = response.data.meta.pagination
+                    // var pagination = response.data.meta.pagination
+                    var pagination = response.data
                     pagination.current_page--
                     this.pagination = pagination
                 })
