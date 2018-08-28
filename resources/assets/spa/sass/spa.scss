@@ -11,12 +11,8 @@
 // Materialize CSS
 @import "node_modules/materialize-css/sass/materialize";
 
-.background-default{
-  background-color: rgb(225,226,225);
-}
-
 body{
-  @extend .background-default;
+  background-color: rgb(225,226,225);
 }
 
 .panel-title{

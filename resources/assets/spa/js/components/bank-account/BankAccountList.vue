@@ -21,7 +21,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="o in bankAccounts">
+                    <tr v-for="o in bankAccounts" :class="{'green-text': o.default}">
                         <td>&nbsp;{{o.id}}</td>
                         <td>{{o.name}}</td>
                         <td>{{o.agency}}</td>
