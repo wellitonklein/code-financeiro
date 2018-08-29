@@ -11,11 +11,26 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+        $repository = app(\CodeFin\Repositories\ClientRepository::class);
+        $clients = $repository->all();
+
         factory(\CodeFin\Models\User::class,1)
             ->states('admin')
             ->create([
                 'name' => 'Fokushima San',
                 'email' => 'admin@user.com'
             ]);
+
+        foreach (range(1,50) as $value){
+            factory(\CodeFin\Models\User::class,1)
+                ->create([
+                    'name' => "Fokushima San nº $value",
+                    'email' => "admin$value@user.com"
+                ])->each(function ($user) use($clients){
+                    $client = $clients->random();
+                    $user->client()->associate($client);
+                    $user->save();
+                });
+        }
     }
 }
