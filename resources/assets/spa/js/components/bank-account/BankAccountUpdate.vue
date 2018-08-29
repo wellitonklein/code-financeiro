@@ -18,6 +18,9 @@
                     bank_id: '',
                     'default': false
                 },
+                bank: {
+                    name:''
+                },
                 banks: []
             }
         },
@@ -36,12 +39,44 @@
             getBanks(){
                 Bank.query().then((response) => {
                     this.banks = response.data.data
+                    this.initAutoComplete()
                 })
             },
             getBankAccount(id){
                 BankAccount.get({id: id}).then((response) => {
                     this.bankAccount = response.data.data
                 })
+            },
+            initAutoComplete(){
+                var self = this
+                $(document).ready(() => {
+                    $('#bank-id').materialize_autocomplete({
+                        limit: 10,
+                        multiple: {
+                            enable: false
+                        },
+                        dropdown: {
+                            el: '#bank-id-dropdown'
+                        },
+                        getData(value,callback) {
+                            var banks = self.filterBankByName(value)
+                            banks = banks.map((o) => {
+                                return {id: o.id, text: o.name}
+                            })
+                            callback(value,banks)
+                        },
+                        onSelect(item){
+                            self.bankAccount.bank_id = item.id
+                        }
+                    })
+                })
+                $('#bank-id').parent().find('label').insertAfter('#bank-id')
+            },
+            filterBankByName(name){
+                var banks = _.filter(this.banks, (o) => {
+                    return _.includes(o.name.toLowerCase(), name.toLowerCase())
+                })
+                return banks
             }
         }
     }
