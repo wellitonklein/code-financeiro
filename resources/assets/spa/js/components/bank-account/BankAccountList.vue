@@ -27,6 +27,16 @@
                         <td>{{o.agency}}</td>
                         <td>{{o.account}}</td>
                         <td>
+                            <div class="row valign-wrapper">
+                                <div class="col s2">
+                                    <img :src="o.bank.data.logo" class="bank-logo"/>
+                                </div>
+                                <div class="col s10">
+                                    <span class="left">{{o.bank.data.name}}</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
                             <a v-link="{name: 'bank-account.update', params: {id: o.id}}">Editar</a> |
                             <a href="#" @click.prevent="openModalDelete(o)">Excluir</a>
                         </td>
@@ -107,7 +117,7 @@
                         },
                         name: {
                             label: 'Nome',
-                            width: '45%'
+                            width: '25%'
                         },
                         agency: {
                             label: 'Agência',
@@ -116,6 +126,10 @@
                         account: {
                             label: 'C/C',
                             width: '15%'
+                        },
+                        'banks:bank_id|banks.name': {
+                            label: 'Banco',
+                            width: '20%'
                         }
                     }
                 }
@@ -144,7 +158,8 @@
                     page: this.pagination.current_page+1,
                     orderBy: this.order.key,
                     sortBy: this.order.sort,
-                    search: this.search
+                    search: this.search,
+                    include: 'bank'
                 }).then((response) => {
                     this.bankAccounts = response.data.data
                     var pagination = response.data.meta.pagination
