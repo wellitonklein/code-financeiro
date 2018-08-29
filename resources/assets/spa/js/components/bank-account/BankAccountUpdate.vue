@@ -40,7 +40,7 @@
             },
             getBankAccount(id){
                 BankAccount.get({id: id}).then((response) => {
-                    this.bankAccount = response.data
+                    this.bankAccount = response.data.data
                 })
             }
         }

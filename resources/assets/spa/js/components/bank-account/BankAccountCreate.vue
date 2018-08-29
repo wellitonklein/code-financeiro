@@ -3,6 +3,7 @@
 <script type="text/javascript">
     import {BankAccount,Bank} from "../../services/resources";
     import PageTitleComponent from '../PageTitle.vue'
+    import 'materialize-autocomplete'
 
     export default {
         components: {
@@ -34,6 +35,24 @@
             getBanks(){
                 Bank.query().then((response) => {
                     this.banks = response.data.data
+                    this.initAutoComplete()
+                })
+            },
+            initAutoComplete(){
+                var self = this
+                $(document).ready(() => {
+                    $('#bank-id').materialize_autocomplete({
+                        limit: 10,
+                        multiple: {
+                            enable: false
+                        },
+                        dropdown: {
+                            el: '#bank-id-dropdown'
+                        },
+                        getData: (value,callback) => {
+                            callback(value,self.banks)
+                        }
+                    })
                 })
             }
         }
