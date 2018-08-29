@@ -2,6 +2,7 @@
 
 namespace CodeFin\Presenters;
 
+use CodeFin\Transformers\BankAccountTransformer;
 use CodeFin\Transformers\BankTransformer;
 use Prettus\Repository\Presenter\FractalPresenter;
 
@@ -19,6 +20,6 @@ class BankAccountPresenter extends FractalPresenter
      */
     public function getTransformer()
     {
-        return new BankTransformer();
+        return new BankAccountTransformer();
     }
 }

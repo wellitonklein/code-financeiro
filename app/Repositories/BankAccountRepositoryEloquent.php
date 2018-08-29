@@ -3,6 +3,7 @@
 namespace CodeFin\Repositories;
 
 use CodeFin\Criteria\FindByNameCriteria;
+use CodeFin\Presenters\BankAccountPresenter;
 use CodeFin\Presenters\BankPresenter;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
@@ -15,6 +16,7 @@ use CodeFin\Models\BankAccount;
  */
 class BankAccountRepositoryEloquent extends BaseRepository implements BankAccountRepository
 {
+
     protected $fieldSearchable = [
         'name' => 'like',
         'agency' => 'like',
@@ -40,5 +42,10 @@ class BankAccountRepositoryEloquent extends BaseRepository implements BankAccoun
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
+    }
+
+    public function presenter()
+    {
+        return BankAccountPresenter::class;
     }
 }

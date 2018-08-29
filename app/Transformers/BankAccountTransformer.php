@@ -12,6 +12,8 @@ use CodeFin\Models\BankAccount;
  */
 class BankAccountTransformer extends TransformerAbstract
 {
+//    protected $defaultIncludes = ['bank'];
+    protected $availableIncludes = ['bank'];
     /**
      * Transform the BankAccount entity.
      *
@@ -24,8 +26,6 @@ class BankAccountTransformer extends TransformerAbstract
         return [
             'id'         => (int) $model->id,
 
-            /* place your other model properties here */
-
             'name'       => $model->name,
             'agency'     => $model->agency,
             'account'    => $model->account,
@@ -35,5 +35,10 @@ class BankAccountTransformer extends TransformerAbstract
             'created_at' => $model->created_at,
             'updated_at' => $model->updated_at
         ];
+    }
+
+    public function includeBank(BankAccount $model){
+        $bank = $model->bank;
+        return $this->item($bank, new BankTransformer());
     }
 }
