@@ -25,7 +25,7 @@ class UsersTableSeeder extends Seeder
             factory(\CodeFin\Models\User::class,1)
                 ->create([
                     'name' => "Fokushima San nº $value",
-                    'email' => "admin$value@user.com"
+                    'email' => "client$value@user.com"
                 ])->each(function ($user) use($clients){
                     $client = $clients->random();
                     $user->client()->associate($client);
