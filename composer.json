@@ -4,20 +4,21 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "type": "project",
+    "minimum-stability": "dev",
     "require": {
         "php": ">=5.6.4",
         "laravel/framework": "5.3.18",
-        "tymon/jwt-auth": "dev-develops",
         "barryvdh/laravel-cors": "0.8.6",
         "prettus/l5-repository": "~2.6.6",
         "laravelcollective/html": "^5.3.0",
         "league/fractal": "^0.15.0",
-        "hipsterjazzbo/landlord": "2.0.4",
         "kalnoy/nestedset": "4.2.0",
         "pusher/pusher-php-server": "2.6",
         "iugu/iugu": "1.0.6",
         "fzaninotto/faker": "~1.4",
-        "ext-intl": "*"
+        "ext-intl": "*",
+        "hipsterjazzbo/landlord": "2.0.4",
+        "tymon/jwt-auth": "dev-develop"
     },
     "require-dev": {
         "mockery/mockery": "0.9.*",
