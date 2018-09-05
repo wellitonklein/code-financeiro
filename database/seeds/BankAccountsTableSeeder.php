@@ -6,6 +6,7 @@ use CodeFin\Repositories\ClientRepository;
 
 class BankAccountsTableSeeder extends Seeder
 {
+    use \CodeFin\Repositories\GetClientsTrait;
     /**
      * Run the database seeds.
      *
@@ -38,12 +39,6 @@ class BankAccountsTableSeeder extends Seeder
 
     private function getBanks(){
         $repository = app(BankRepository::class);
-        $repository->skipPresenter(true);
-        return $repository->all();
-    }
-
-    private function getClients(){
-        $repository = app(ClientRepository::class);
         $repository->skipPresenter(true);
         return $repository->all();
     }

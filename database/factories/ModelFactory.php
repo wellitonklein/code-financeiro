@@ -29,7 +29,6 @@ $factory->state(\CodeFin\Models\User::class,'admin',function (Faker\Generator $f
 });
 
 $factory->define(\CodeFin\Models\BankAccount::class, function (Faker\Generator $faker) {
-    static $password;
 
     return [
         'name' => $faker->city,
@@ -39,7 +38,13 @@ $factory->define(\CodeFin\Models\BankAccount::class, function (Faker\Generator $
 });
 
 $factory->define(\CodeFin\Models\Client::class, function (Faker\Generator $faker) {
-    static $password;
+
+    return [
+        'name' => $faker->name
+    ];
+});
+
+$factory->define(\CodeFin\Models\Category::class, function (Faker\Generator $faker) {
 
     return [
         'name' => $faker->name
