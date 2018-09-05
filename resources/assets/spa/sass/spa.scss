@@ -17,8 +17,12 @@ body{
   background-color: rgb(225,226,225);
 }
 
-.panel-title{
+.color-default{
   color: rgb(46,86,86);
+}
+
+.panel-title{
+  @extend .color-default;
   background-color: rgb(46,86,86);;
 }
 
@@ -42,5 +46,26 @@ body{
   .filter-wrapper{
     overflow: hidden;
     padding-right: 10px;
+  }
+}
+
+.category-tree{
+  @extend .collection;
+  border: none;
+  margin: 0;
+
+  .category-child{
+    @extend .collection-item;
+    padding-left: 50px;
+  }
+}
+
+.category-symbol{
+  line-height: 36px;
+  height: 36px;
+
+  i{
+    line-height: inherit;
+    height: inherit;
   }
 }

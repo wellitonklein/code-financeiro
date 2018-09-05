@@ -1,17 +1,19 @@
 <template>
-    <div class="row">
-        <page-title>
-            <h5>Administração de categorias</h5>
-        </page-title>
-        <div class="card-panel z-depth-5">
-            <category-tree :categories="categories"></category-tree>
-        </div>
-        <div class="fixed-action-btn">
-            <a class="btn-floating btn-large" v-link="{name: 'bank-account.create'}">
-                <i class="large material-icons">add</i>
-            </a>
-        </div>
+    <div class="container">
+        <div class="row">
+            <page-title>
+                <h5>Administração de categorias</h5>
+            </page-title>
+            <div class="card-panel z-depth-5">
+                <category-tree :categories="categories"></category-tree>
+            </div>
+            <div class="fixed-action-btn">
+                <a class="btn-floating btn-large" v-link="{name: 'bank-account.create'}">
+                    <i class="large material-icons">add</i>
+                </a>
+            </div>
 
+        </div>
     </div>
 </template>
 
