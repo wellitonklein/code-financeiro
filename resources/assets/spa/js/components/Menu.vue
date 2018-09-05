@@ -50,6 +50,7 @@
             return {
                 menus: [
                     {name: 'Conta bancária', routeName: 'bank-account.list'},
+                    {name: 'Categoria', routeName: 'category.list'},
                 ],
                 menusDropdown: [],
                 user: Auth.user
