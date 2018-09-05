@@ -17,17 +17,12 @@ class BankAccount extends Model implements Transformable
     use TransformableTrait;
     use BelongsToTenants;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'name',
         'agency',
         'account',
-        'default',
         'bank_id',
+        'default'
     ];
 
     public function bank(){

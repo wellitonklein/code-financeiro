@@ -9,7 +9,7 @@ class AddClientTenant
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $requestIntegração do multi-tenancy
      * @param  \Closure  $next
      * @return mixed
      */
