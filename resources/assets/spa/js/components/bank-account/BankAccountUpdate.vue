@@ -3,6 +3,8 @@
 <script type="text/javascript">
     import {BankAccount,Bank} from "../../services/resources";
     import PageTitleComponent from '../PageTitle.vue'
+    import 'materialize-autocomplete'
+    import _ from 'lodash'
 
     export default {
         components: {
@@ -19,7 +21,7 @@
                     'default': false
                 },
                 bank: {
-                    name:''
+                    name: ''
                 },
                 banks: []
             }
@@ -42,11 +44,6 @@
                     this.initAutoComplete()
                 })
             },
-            getBankAccount(id){
-                BankAccount.get({id: id}).then((response) => {
-                    this.bankAccount = response.data.data
-                })
-            },
             initAutoComplete(){
                 var self = this
                 $(document).ready(() => {
@@ -67,16 +64,25 @@
                         },
                         onSelect(item){
                             self.bankAccount.bank_id = item.id
+
                         }
                     })
                 })
-                $('#bank-id').parent().find('label').insertAfter('#bank-id')
             },
             filterBankByName(name){
                 var banks = _.filter(this.banks, (o) => {
                     return _.includes(o.name.toLowerCase(), name.toLowerCase())
                 })
                 return banks
+            },
+            getBankAccount(id){
+                BankAccount.get({
+                    id: id,
+                    include: 'bank'
+                }).then((response) => {
+                    this.bankAccount = response.data.data
+                    this.bank = response.data.data.bank.data
+                })
             }
         }
     }
