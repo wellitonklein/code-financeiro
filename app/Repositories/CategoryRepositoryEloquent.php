@@ -5,9 +5,7 @@ namespace CodeFin\Repositories;
 use CodeFin\Presenters\CategoryPresenter;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use CodeFin\Repositories\CategoryRepository;
 use CodeFin\Models\Category;
-use CodeFin\Validators\CategoryValidator;
 
 /**
  * Class CategoryRepositoryEloquent.
@@ -16,6 +14,36 @@ use CodeFin\Validators\CategoryValidator;
  */
 class CategoryRepositoryEloquent extends BaseRepository implements CategoryRepository
 {
+    public function create(array $attributes)
+    {
+        if (isset($attributes['parent_id'])){
+            $skipPresenter = $this->skipPresenter;
+            $this->skipPresenter(true);
+            $parent = $this->find($attributes['parent_id']);
+            $this->skipPresenter = $skipPresenter;
+            $child = $parent->children()->create($attributes);
+            return $this->parserResult($child);
+        }else{
+            return parent::create($attributes);
+        }
+    }
+
+    public function update(array $attributes, $id)
+    {
+        if (isset($attributes['parent_id'])){
+            $skipPresenter = $this->skipPresenter;
+            $this->skipPresenter(true);
+            $child = $this->find($id);
+            $child->parent_id = $attributes['parent_id'];
+            $child->save();
+            $this->skipPresenter = $skipPresenter;
+
+            return $this->parserResult($child);
+        }else{
+            return parent::update($attributes);
+        }
+    }
+
     /**
      * Specify Model class name
      *
@@ -25,8 +53,6 @@ class CategoryRepositoryEloquent extends BaseRepository implements CategoryRepos
     {
         return Category::class;
     }
-
-    
 
     /**
      * Boot up the repository, pushing criteria
