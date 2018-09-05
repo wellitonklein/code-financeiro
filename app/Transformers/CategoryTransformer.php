@@ -12,6 +12,8 @@ use CodeFin\Models\Category;
  */
 class CategoryTransformer extends TransformerAbstract
 {
+
+    protected $defaultIncludes = ['children'];
     /**
      * Transform the Category entity.
      *
@@ -29,5 +31,11 @@ class CategoryTransformer extends TransformerAbstract
             'created_at' => $model->created_at,
             'updated_at' => $model->updated_at
         ];
+    }
+
+    public function includeChildren(Category $model){
+        if ($model->children){
+            return $this->collection($model->children, new CategoryTransformer());
+        }
     }
 }

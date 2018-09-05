@@ -2,6 +2,7 @@
 
 namespace CodeFin\Repositories;
 
+use Prettus\Repository\Contracts\RepositoryCriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
@@ -9,7 +10,7 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  *
  * @package namespace CodeFin\Repositories;
  */
-interface CategoryRepository extends RepositoryInterface
+interface CategoryRepository extends RepositoryInterface, RepositoryCriteriaInterface
 {
     //
 }
