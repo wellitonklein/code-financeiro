@@ -1,11 +1,11 @@
 <template>
     <div>
-        <modal :modal="modalOptions">
-            <div slot="content">
-                <h4>
-                    <slot name="title"></slot>
-                </h4>
-                <form @submit="submit" name="form" method="POST">
+        <form @submit.prevent="submit" name="form" method="POST">
+            <modal :modal="modalOptions">
+                <div slot="content">
+                    <h4>
+                        <slot name="title"></slot>
+                    </h4>
                     <div class="row">
                         <div class="input-field col s12">
                             <label class="active">Nome</label>
@@ -18,12 +18,13 @@
                             <input type="text" placeholder="Digite o nome" required/>
                         </div>
                     </div>
-                </form>
-            </div>
-            <div slot="footer">
-                <slot name="footer"></slot>
-            </div>
-        </modal>
+
+                </div>
+                <div slot="footer">
+                    <slot name="footer"></slot>
+                </div>
+            </modal>
+        </form>
     </div>
 </template>
 

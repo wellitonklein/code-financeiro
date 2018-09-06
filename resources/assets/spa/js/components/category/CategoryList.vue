@@ -35,6 +35,11 @@
         data(){
             return {
                 categories: [],
+                categorySave: {
+                    id: 0,
+                    name: '',
+                    parent_id: 0
+                },
                 title: 'Adicionar categoria',
                 modalOptionsSave: {
                     id: 'modal-category-save'
@@ -52,7 +57,16 @@
             },
             saveCategory(){
                 console.log('teeste')
-            }
+            },
+            modalNew(category){
+                this.categorySave = category
+                $(`#${this.modalOptionsSave.id}`).modal('open')
+            },
+            modalEdit(category){},
+        },
+        events:{
+            'category-new'(category){this.modalNew(category)},
+            'category-edit'(category){},
         }
     }
 </script>
