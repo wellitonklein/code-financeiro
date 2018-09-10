@@ -3,6 +3,7 @@
 namespace CodeFin\Http\Controllers\Api;
 
 use CodeFin\Criteria\FindRootCategoriesCriteria;
+use CodeFin\Criteria\WithDepthCategoriesCriteria;
 use CodeFin\Http\Controllers\Controller;
 use CodeFin\Http\Controllers\Response;
 use CodeFin\Http\Requests\CategoryRequest;
@@ -38,7 +39,9 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $this->repository->pushCriteria(new FindRootCategoriesCriteria());
+        $this->repository
+            ->pushCriteria(new FindRootCategoriesCriteria())
+            ->pushCriteria(new WithDepthCategoriesCriteria());
         $categories = $this->repository->all();
 
         return $categories;

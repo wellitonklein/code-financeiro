@@ -50,15 +50,6 @@
                 modalOptionsSave: {
                     id: 'modal-category-save'
                 },
-                options:{
-                    data:[
-                        {id: 1, text: 'Valor 1'},
-                        {id: 2, text: 'Valor 2'},
-                        {id: 3, text: 'Valor 3'},
-                        {id: 4, text: 'Valor 4'},
-                        {id: 5, text: 'Valor 5'},
-                    ]
-                },
                 selected: 5
             }
         },
@@ -66,7 +57,15 @@
             //opcoes para o campo select2 de categoria pai
             cpOptions(){
                 return {
-                    data: this.categoriesFormatted
+                    data: this.categoriesFormatted,
+                    templateResult(category){
+                        let margin = '&nbsp'.repeat(category.level * 6)
+                        let text = category.hasChildren ? `<strong>${category.text}</strong>` : category.text
+                        return `${margin}${text}`
+                    },
+                    escapeMarkup(m){
+                        return m
+                    }
                 }
             }
         },
