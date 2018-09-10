@@ -1,5 +1,6 @@
 <template>
     <div>
+        {{consoles}}
         <form @submit.prevent="submit" name="form" method="POST">
             <modal :modal="modalOptions">
                 <div slot="content">
@@ -14,11 +15,10 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
+                            <select-material :options="cpOptions" :selected.sync="category.parent_id"></select-material>
                             <label class="active">Categoria pai</label>
-                            <input type="text" placeholder="Digite o nome" required/>
                         </div>
                     </div>
-
                 </div>
                 <div slot="footer">
                     <slot name="footer"></slot>
@@ -30,10 +30,12 @@
 
 <script type="text/javascript">
     import ModalComponent from '../../../../_default/components/Modal.vue'
+    import SelectMaterialComponent from "../../../../_default/components/SelectMaterial.vue"
 
     export default {
         components:{
             'modal' : ModalComponent,
+            'select-material': SelectMaterialComponent
         },
         props:{
             category: {
@@ -43,6 +45,15 @@
             modalOptions: {
                 type: Object,
                 required: true
+            },
+            cpOptions: {
+                type: Object,
+                required: true
+            }
+        },
+        computed: {
+            consoles(){
+                return console.log(this.category)
             }
         },
         methods:{

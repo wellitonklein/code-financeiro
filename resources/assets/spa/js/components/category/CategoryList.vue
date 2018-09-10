@@ -5,10 +5,13 @@
                 <h5>Administração de categorias</h5>
             </page-title>
             <div class="card-panel z-depth-5">
-                <select-material :options="options" :selected="selected"></select-material>
                 <category-tree :categories="categories"></category-tree>
             </div>
-            <category-save :modal-options="modalOptionsSave" :category.sync="categorySave" @save-category="saveCategory">
+            <category-save
+                    :modal-options="modalOptionsSave"
+                    :category.sync="categorySave"
+                    :cp-options="cpOptions"
+                    @save-category="saveCategory">
                 <span slot="title">{{title}}</span>
                 <div slot="footer">
                     <button type="submit" class="btn waves-effect modal-close modal-action">
@@ -26,18 +29,17 @@
     import CategoryTreeComponent from './CategoryTree.vue'
     import CategorySaveComponent from './CategorySave.vue'
     import {Category} from "../../services/resources"
-    import SelectMaterialComponent from "../../../../_default/components/SelectMaterial.vue"
 
     export default {
         components: {
             'page-title': PageTitleComponent,
             'category-tree': CategoryTreeComponent,
             'category-save': CategorySaveComponent,
-            'select-material': SelectMaterialComponent
         },
         data(){
             return {
                 categories: [],
+                categoriesFormatted: [],
                 categorySave: {
                     id: 0,
                     name: '',
@@ -59,6 +61,14 @@
                 selected: 5
             }
         },
+        computed: {
+            //opcoes para o campo select2 de categoria pai
+            cpOptions(){
+                return {
+                    data: this.categoriesFormatted
+                }
+            }
+        },
         created(){
             this.getCategories()
         },
@@ -66,16 +76,27 @@
             getCategories(){
                 Category.query().then(response => {
                     this.categories = response.data.data
+                    // console.log(this.categories)
+                    this.formatCategories()
                 })
             },
             saveCategory(){
-                console.log('teeste')
+                // console.log('teeste')
             },
             modalNew(category){
                 this.categorySave = category
                 $(`#${this.modalOptionsSave.id}`).modal('open')
             },
             modalEdit(category){},
+            formatCategories(){
+                for (let category of this.categories){
+                    this.categoriesFormatted.push({
+                        id: category.id,
+                        text: category.name
+                    })
+                }
+                // this.categoriesFormatted = this.categories
+            }
         },
         events:{
             'category-new'(category){this.modalNew(category)},
