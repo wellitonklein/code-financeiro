@@ -51,11 +51,6 @@
                 required: true
             }
         },
-        computed: {
-            consoles(){
-                return console.log(this.category)
-            }
-        },
         methods:{
             submit(){
                 this.$emit('save-category')
