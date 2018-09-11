@@ -30,12 +30,12 @@ export class CategoryFormat {
 
 export class CategoryService {
 
-    static new(category,parent, categories){
+    static new(category, parent, categories){
         let categoryCopy = $.extend(true, {}, category)
         if (categoryCopy.parent_id === null){
             delete categoryCopy.parent_id
         }
-        Category.save(categoryCopy).then(response => {
+        return Category.save(categoryCopy).then(response => {
             let categoryAdded = response.data.data
             if (categoryAdded.parent_id === null){
                 categories.push(categoryAdded)

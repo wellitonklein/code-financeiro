@@ -30,6 +30,7 @@ class CategoriesController extends Controller
     public function __construct(CategoryRepository $repository)
     {
         $this->repository = $repository;
+        $this->repository->pushCriteria(new WithDepthCategoriesCriteria());
     }
 
     /**
@@ -39,9 +40,7 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $this->repository
-            ->pushCriteria(new FindRootCategoriesCriteria())
-            ->pushCriteria(new WithDepthCategoriesCriteria());
+        $this->repository->pushCriteria(new FindRootCategoriesCriteria());
         $categories = $this->repository->all();
 
         return $categories;
@@ -58,7 +57,9 @@ class CategoriesController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        $category = $this->repository->create($request->all());
+        $category = $this->repository->skipPresenter()->create($request->all());
+        $this->repository->skipPresenter(false);
+        $category = $this->repository->find($category->id);
 
         return response()->json($category,201);
     }
