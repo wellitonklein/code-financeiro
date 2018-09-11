@@ -5,6 +5,7 @@
     import PageTitleComponent from '../PageTitle.vue'
     import 'materialize-autocomplete'
     import _ from 'lodash'
+    import store from '../../store/store'
 
     export default {
         components: {
@@ -24,6 +25,11 @@
                     name: ''
                 },
                 banks: []
+            }
+        },
+        computed: {
+            bankAccount(){
+                return store.state.bankAccount.bankAccountSave
             }
         },
         created(){
