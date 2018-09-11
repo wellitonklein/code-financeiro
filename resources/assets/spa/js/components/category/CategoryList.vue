@@ -100,7 +100,16 @@
                 this.parent = category
                 $(`#${this.modalOptionsSave.id}`).modal('open')
             },
-            modalEdit(category){},
+            modalEdit(category){
+                this.title = 'Editando categoria'
+                this.categorySave = {
+                    id: category.id,
+                    name: category.name,
+                    parent_id: category.parent_id
+                }
+                this.parent = parent
+                $(`#${this.modalOptionsSave.id}`).modal('open')
+            },
             formatCategories(){
                 this.categoriesFormatted = CategoryFormat.getCategoriesFormatted(this.categories)
             },
@@ -116,7 +125,9 @@
         },
         events:{
             'category-new'(category){this.modalNew(category)},
-            'category-edit'(category){},
+            'category-edit'(category,parent){
+                this.modalEdit(category,parent)
+            },
         }
     }
 </script>
