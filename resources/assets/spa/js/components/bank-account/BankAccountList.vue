@@ -84,6 +84,7 @@
     import PaginationComponent from '../Pagination.vue'
     import PageTitleComponent from '../PageTitle.vue'
     import SearchComponent from '../Search.vue'
+    import store from '../../store/store'
 
     export default {
         components: {
@@ -94,7 +95,6 @@
         },
         data(){
             return {
-                bankAccounts: [],
                 bankAccountToDelete: null,
                 modal: {
                     id: 'modal-delete'
@@ -135,6 +135,11 @@
                 }
             }
         },
+        computed: {
+            bankAccounts(){
+                return store.state.bankAccount.bankAccounts
+            }
+        },
         created(){
             this.getBankAccounts()
         },
@@ -154,18 +159,16 @@
                 $('#modal-delete').modal('open')
             },
             getBankAccounts(){
-                BankAccount.query({
-                    page: this.pagination.current_page+1,
-                    orderBy: this.order.key,
-                    sortBy: this.order.sort,
-                    search: this.search,
-                    include: 'bank'
+                store.dispatch('query',{
+                    pagination: this.pagination,
+                    order: this.order,
+                    search: this.search
                 }).then((response) => {
-                    this.bankAccounts = response.data.data
+                    /*this.bankAccounts = response.data.data
                     var pagination = response.data.meta.pagination
                     // var pagination = response.data
                     pagination.current_page--
-                    this.pagination = pagination
+                    this.pagination = pagination*/
                 })
             },
             sortBy(key){
