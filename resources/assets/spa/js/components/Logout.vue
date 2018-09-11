@@ -12,7 +12,7 @@
 </template>
 
 <script type="text/javascript">
-    import Auth from "../services/auth"
+    import store from '../store'
 
     export default {
         ready(){
@@ -20,8 +20,8 @@
         },
         methods: {
             logout(){
-                var goToLogin = () => this.$router.go({name: 'auth.login'})
-                Auth.logout()
+                let goToLogin = () => this.$router.go({name: 'auth.login'})
+                store.dispatch('logout')
                     .then(goToLogin)
                     .catch(goToLogin)
             }
