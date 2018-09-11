@@ -25,7 +25,8 @@
 
 <script type="text/javascript">
     import MenuComponent from './Menu.vue'
-    import Auth from '../services/auth'
+    import store from "../store";
+
     export default {
         components: {
             'menu': MenuComponent
@@ -39,13 +40,15 @@
         data(){
             return {
                 year: new Date().getFullYear(),
-                user: Auth.user,
                 loading: false
             }
         },
         computed: {
+            isAuth(){
+                return store.state.check
+            },
             showMenu(){
-                return this.user.check && this.$route.name != 'auth.login'
+                return this.isAuth && this.$route.name != 'auth.login'
             }
         }
     }

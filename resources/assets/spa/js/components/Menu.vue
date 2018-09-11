@@ -1,3 +1,4 @@
+
 <template>
     <div class="navbar-fixed">
         <ul :id="o.id" class="dropdown-content" v-for="o in menusDropdown">
@@ -44,7 +45,6 @@
 </template>
 
 <script type="text/javascript">
-    import Auth from '../services/auth'
     import store from '../store'
 
     export default {
@@ -55,12 +55,10 @@
                     {name: 'Categoria', routeName: 'category.list'},
                 ],
                 menusDropdown: [],
-                user: Auth.user
             }
         },
         computed:{
             name(){
-                // return this.user.data ? this.user.data.name : ''
                 return store.state.user.name
             }
         },

@@ -73,18 +73,6 @@
                         }
                         this.error.error = true
                     })
-                // Auth.login(this.user.email,this.user.password)
-                //     .then(() => {this.$router.go({name: 'dashboard'})})
-                //     .catch((responseError) => {
-                //         switch (responseError.status) {
-                //             case 401:
-                //                 this.error.message = responseError.data.message
-                //                 break
-                //             default:
-                //                 this.error.message = 'Login failed'
-                //         }
-                //         this.error.error = true
-                //     })
             }
         }
     }
