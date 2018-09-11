@@ -20,6 +20,23 @@
                     <button type="button" class="btn btn-flat waves-effect waves-red modal-close modal-action">Cancelar</button>
                 </div>
             </category-save>
+
+            <modal :modal="modalOptionsDelete">
+                <div slot="content" v-if="categoryDelete">
+                    <h4>Mensagem de confirmação</h4>
+                    <p><strong>Deseja excluir esta categoria?</strong></p>
+                    <div class="divider"></div>
+                    <p>Nome: <strong>{{categoryDelete.name}}</strong></p>
+                    <div class="divider"></div>
+                </div>
+                <div slot="footer">
+                    <button @click="destroy()" class="btn waves-effect modal-close modal-action">
+                        OK
+                    </button>
+                    <button type="button" class="btn btn-flat waves-effect waves-red modal-close modal-action">Cancelar</button>
+                </div>
+            </modal>
+
             <div class="fixed-action-btn">
                 <button class="btn-floating btn-large" @click="modalNew(null)">
                     <i class="large material-icons">add</i>
@@ -35,12 +52,14 @@
     import CategorySaveComponent from './CategorySave.vue'
     import {Category} from "../../services/resources"
     import {CategoryFormat, CategoryService} from "../../services/category-nsm"
+    import ModalComponent from '../../../../_default/components/Modal.vue'
 
     export default {
         components: {
             'page-title': PageTitleComponent,
             'category-tree': CategoryTreeComponent,
             'category-save': CategorySaveComponent,
+            'modal': ModalComponent,
         },
         data(){
             return {
@@ -51,11 +70,15 @@
                     name: '',
                     parent_id: 0
                 },
+                categoryDelete: null,
                 category: null,
                 parent: null,
                 title: '',
                 modalOptionsSave: {
                     id: 'modal-category-save'
+                },
+                modalOptionsDelete: {
+                    id: 'modal-category-delete'
                 },
             }
         },
@@ -95,6 +118,13 @@
                     this.resetScope()
                 })
             },
+            destroy(){
+                CategoryService.destroy(this.categoryDelete, this.parent, this.categories)
+                    .then(response => {
+                        Materialize.toast('Categoria excluída com sucesso!',4000)
+                        this.resetScope()
+                    })
+            },
             modalNew(category){
                 this.title = 'Nova categoria'
                 this.categorySave = {
@@ -116,6 +146,12 @@
                 this.parent = parent
                 $(`#${this.modalOptionsSave.id}`).modal('open')
             },
+            modalDelete(category, parent){
+                this.categoryDelete = category
+                this.parent = parent
+
+                $(`#${this.modalOptionsDelete.id}`).modal('open')
+            },
             formatCategories(){
                 this.categoriesFormatted = CategoryFormat.getCategoriesFormatted(this.categories)
             },
@@ -125,15 +161,21 @@
                     name: '',
                     parent_id: 0
                 }
+                this.categoryDelete = null
                 this.category = null
                 this.parent = null
                 this.formatCategories()
             }
         },
         events:{
-            'category-new'(category){this.modalNew(category)},
+            'category-new'(category){
+                this.modalNew(category)
+            },
             'category-edit'(category,parent){
                 this.modalEdit(category,parent)
+            },
+            'category-delete'(category,parent){
+                this.modalDelete(category,parent)
             },
         }
     }

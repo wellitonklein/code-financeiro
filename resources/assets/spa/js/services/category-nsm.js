@@ -115,6 +115,17 @@ export class CategoryService {
         })
     }
 
+    static destroy(category, parent, categories){
+        return Category.delete({id: category.id}).then(response => {
+            if (parent){
+                parent.children.data.$remove(category)
+            }else{
+                categories.$remove(category)
+            }
+            return response
+        })
+    }
+
     static _addChild(child, categories){
         let parent = this._findParent(child.parent_id, categories)
         parent.children.data.push(child)
