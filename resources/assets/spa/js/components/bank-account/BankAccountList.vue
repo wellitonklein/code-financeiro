@@ -12,7 +12,7 @@
                         <th v-for="(key,o) in table.headers" :width="o.width">
                             <a href="#" @click.prevent="sortBy(key)">
                                 {{ o.label }}
-                                <i class="material-icons right" v-if="order.key == key">
+                                <i class="material-icons right" v-if="searchOptions.order.key == key">
                                     {{order.sort == 'asc' ? 'arrow_drop_up' : 'arrow_drop_down'}}
                                 </i>
                             </a>
@@ -44,9 +44,9 @@
                     </tbody>
                 </table>
                 <pagination
-                        :current-page.sync="pagination.current_page"
-                        :per-page="pagination.per_page"
-                        :total-records="pagination.total">
+                        :current-page.sync="searchOptions.pagination.current_page"
+                        :per-page="searchOptions.pagination.per_page"
+                        :total-records="searchOptions.pagination.total">
                 </pagination>
             </div>
 
@@ -85,7 +85,6 @@
     import PageTitleComponent from '../PageTitle.vue'
     import SearchComponent from '../Search.vue'
     import store from '../../store/store'
-    import SearchOptions from '../../services/search-options'
 
     export default {
         components: {
@@ -99,17 +98,6 @@
                 bankAccountToDelete: null,
                 modal: {
                     id: 'modal-delete'
-                },
-                searchOptions: new SearchOptions(),
-                pagination: {
-                    current_page: 0,
-                    per_page: 0,
-                    total: 0
-                },
-                search: '',
-                order:{
-                    key: 'id',
-                    sort: 'asc'
                 },
                 table: {
                     headers: {
@@ -140,13 +128,21 @@
         computed: {
             bankAccounts(){
                 return store.state.bankAccount.bankAccounts
+            },
+            searchOptions(){
+                return store.state.bankAccount.searchOptions
+            },
+            search: {
+                get(){
+                    return store.state.bankAccount.searchOptions.search
+                },
+                set(value){
+                    store.commit('setFilter',value)
+                }
             }
         },
         created(){
-            this.getBankAccounts()
-        },
-        ready(){
-            console.log(this)
+            store.dispatch('query')
         },
         methods: {
             destroy(){
@@ -163,32 +159,16 @@
                 this.bankAccountToDelete = bankAccount
                 $('#modal-delete').modal('open')
             },
-            getBankAccounts(){
-                store.dispatch('query',{
-                    pagination: this.pagination,
-                    order: this.order,
-                    search: this.search
-                }).then((response) => {
-                    /*this.bankAccounts = response.data.data
-                    var pagination = response.data.meta.pagination
-                    // var pagination = response.data
-                    pagination.current_page--
-                    this.pagination = pagination*/
-                })
-            },
             sortBy(key){
-                this.order.key = key
-                this.order.sort = this.order.sort == 'desc' ? 'asc' : 'desc'
-                this.getBankAccounts()
+                store.dispatch('queryWithSortBy',key)
             },
             filter(){
-                this.pagination.current_page = 0
-                this.getBankAccounts()
+                store.dispatch('queryWithFilter')
             }
         },
         events: {
             'pagination::changed'(page){
-                this.getBankAccounts()
+                store.dispatch('queryWithPagination',page)
             }
         }
     }
