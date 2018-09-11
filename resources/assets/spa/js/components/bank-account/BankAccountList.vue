@@ -60,13 +60,13 @@
     </div>
 
     <modal :modal="modal">
-        <div slot="content" v-if="bankAccountToDelete">
+        <div slot="content" v-if="bankAccountDelete">
             <h4>Mensagem de Confirmação!</h4>
             <p><strong>Deseja excluir esta conta bancária?</strong></p>
             <div class="divider"></div>
-            <p>Nome: <strong>{{ bankAccountToDelete.name }}</strong></p>
-            <p>Agência: <strong>{{ bankAccountToDelete.agency }}</strong></p>
-            <p>C/C: <strong>{{ bankAccountToDelete.account }}</strong></p>
+            <p>Nome: <strong>{{ bankAccountDelete.name }}</strong></p>
+            <p>Agência: <strong>{{ bankAccountDelete.agency }}</strong></p>
+            <p>C/C: <strong>{{ bankAccountDelete.account }}</strong></p>
             <div class="divider"></div>
         </div>
         <div slot="footer">
@@ -95,7 +95,6 @@
         },
         data(){
             return {
-                bankAccountToDelete: null,
                 modal: {
                     id: 'modal-delete'
                 },
@@ -139,6 +138,9 @@
                 set(value){
                     store.commit('setFilter',value)
                 }
+            },
+            bankAccountDelete(){
+                return store.state.bankAccount.bankAccountDelete
             }
         },
         created(){
@@ -146,17 +148,12 @@
         },
         methods: {
             destroy(){
-                BankAccount.delete({id: this.bankAccountToDelete.id}).then((response) => {
-                    this.bankAccounts.$remove(this.bankAccountToDelete)
-                    this.bankAccountToDelete = null
-                    if (this.bankAccounts.length === 0 && this.pagination.current_page > 0){
-                        this.pagination.current_page--
-                    }
+                store.dispatch('delete').then((response) => {
                     Materialize.toast('Conta bancária excluída com sucesso!',400)
                 })
             },
             openModalDelete(bankAccount){
-                this.bankAccountToDelete = bankAccount
+                store.commit('setDelete', bankAccount)
                 $('#modal-delete').modal('open')
             },
             sortBy(key){

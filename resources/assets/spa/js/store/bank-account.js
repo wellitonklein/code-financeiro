@@ -15,7 +15,7 @@ const mutations = {
         state.bankAccountDelete = bankAccount
     },
     'delete'(state){
-        state.bankAccount.$remove(state.bankAccountDelete)
+        state.bankAccounts.$remove(state.bankAccountDelete)
     },
     setOrder(state,key){
         state.searchOptions.order.key = key
@@ -52,6 +52,20 @@ const actions = {
     },
     queryWithFilter(context){
         context.dispatch('query')
+    },
+    'delete'(context){
+        let id = context.state.bankAccountDelete.id
+        return BankAccount.delete({id: id}).then((response) => {
+            context.commit('delete')
+            context.commit('delete',null)
+
+            let bankAccounts = context.state.bankAccounts
+            let pagination = context.state.searchOptions.pagination
+            if (bankAccounts.length === 0 && pagination.current_page > 0){
+                context.commit('setCurrentPage',pagination.current_page--)
+            }
+            return response
+        })
     }
 }
 
