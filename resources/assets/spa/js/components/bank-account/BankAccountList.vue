@@ -13,7 +13,7 @@
                             <a href="#" @click.prevent="sortBy(key)">
                                 {{ o.label }}
                                 <i class="material-icons right" v-if="searchOptions.order.key == key">
-                                    {{order.sort == 'asc' ? 'arrow_drop_up' : 'arrow_drop_down'}}
+                                    {{searchOptions.order.sort == 'asc' ? 'arrow_drop_up' : 'arrow_drop_down'}}
                                 </i>
                             </a>
                         </th>

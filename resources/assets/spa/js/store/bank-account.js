@@ -4,7 +4,7 @@ import SearchOptions from '../services/search-options'
 const state = {
     bankAccounts: [],
     bankAccountDelete: null,
-    searchOptions: new SearchOptions(),
+    searchOptions: new SearchOptions('bank'),
 }
 
 const mutations = {
@@ -19,6 +19,8 @@ const mutations = {
     },
     setOrder(state,key){
         state.searchOptions.order.key = key
+        let sort = state.searchOptions.order.sort
+        state.searchOptions.order.sort = sort == 'desc' ? 'asc' : 'desc'
     },
     setPagination(state, pagination){
         state.searchOptions.pagination = pagination
@@ -32,14 +34,10 @@ const mutations = {
 }
 
 const actions = {
-    query(context, {pagination, order, search}){
-        return BankAccount.query({
-            page: pagination.current_page+1,
-            orderBy: order.key,
-            sortBy: order.sort,
-            search: search,
-            include: 'bank'
-        }).then((response) => {
+    query(context){
+        let searchOptions = context.state.searchOptions
+
+        return BankAccount.query(searchOptions.createOptions()).then((response) => {
             context.commit('set',response.data.data)
             context.commit('setPagination',response.data.meta.pagination)
         })
