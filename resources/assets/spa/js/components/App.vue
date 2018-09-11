@@ -25,7 +25,7 @@
 
 <script type="text/javascript">
     import MenuComponent from './Menu.vue'
-    import store from "../store";
+    import store from "../store/store";
 
     export default {
         components: {
@@ -45,7 +45,7 @@
         },
         computed: {
             isAuth(){
-                return store.state.check
+                return store.state.auth.check
             },
             showMenu(){
                 return this.isAuth && this.$route.name != 'auth.login'
