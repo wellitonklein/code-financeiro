@@ -17,7 +17,7 @@
                     <button type="submit" class="btn waves-effect modal-close modal-action">
                         OK
                     </button>
-                    <button class="btn btn-flat waves-effect waves-red modal-close modal-action">Cancelar</button>
+                    <button type="button" class="btn btn-flat waves-effect waves-red modal-close modal-action">Cancelar</button>
                 </div>
             </category-save>
             <div class="fixed-action-btn">
@@ -87,7 +87,7 @@
             },
             saveCategory(){
                 CategoryService.save(this.categorySave, this.parent, this.categories, this.category).then(response => {
-                    if (this.categorySave === 0){
+                    if (this.categorySave.id === 0){
                         Materialize.toast('Categoria adicionada com sucesso!',4000)
                     }else{
                         Materialize.toast('Categoria alterada com sucesso!',4000)
@@ -105,7 +105,7 @@
                 this.parent = category
                 $(`#${this.modalOptionsSave.id}`).modal('open')
             },
-            modalEdit(category){
+            modalEdit(category, parent){
                 this.title = 'Editando categoria'
                 this.categorySave = {
                     id: category.id,

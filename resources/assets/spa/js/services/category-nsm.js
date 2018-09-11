@@ -121,11 +121,17 @@ export class CategoryService {
     }
 
     static _findParent(id, categories){
+        let result = null
         for (let category of categories){
             if (id == category.id){
-                return category
+                result = category
+                break
             }
-            return this._findParent(id, category.children.data)
-        } 
+            result = this._findParent(id, category.children.data)
+            if (result !== null){
+                break
+            }
+        }
+        return result
     }
 }
