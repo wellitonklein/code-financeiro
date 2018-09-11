@@ -81,7 +81,6 @@
             getCategories(){
                 Category.query().then(response => {
                     this.categories = response.data.data
-                    // console.log(this.categories)
                     this.formatCategories()
                 })
             },
