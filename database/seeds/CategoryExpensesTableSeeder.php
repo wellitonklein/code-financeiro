@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class CategoriesTableSeeder extends Seeder
+class CategoryExpensesTableSeeder extends Seeder
 {
     use \CodeFin\Repositories\GetClientsTrait;
     /**
@@ -14,7 +14,7 @@ class CategoriesTableSeeder extends Seeder
     {
         $clients = $this->getClients();
 
-        factory(\CodeFin\Models\Category::class,30)
+        factory(\CodeFin\Models\CategoryExpense::class,30)
             ->make()
             ->each(function ($category) use($clients){
                 $client = $clients->random();
@@ -25,7 +25,7 @@ class CategoriesTableSeeder extends Seeder
         $categoriesRoot = $this->getCategoriesRoot();
 
         foreach ($categoriesRoot as $root){
-            factory(\CodeFin\Models\Category::class,3)
+            factory(\CodeFin\Models\CategoryExpense::class,3)
                 ->make()
                 ->each(function ($child) use($root){
                     $child->client_id = $root->client_id;
@@ -37,7 +37,7 @@ class CategoriesTableSeeder extends Seeder
     }
 
     private function getCategoriesRoot(){
-        $repository = app(\CodeFin\Repositories\CategoryRepository::class);
+        $repository = app(\CodeFin\Repositories\CategoryExpenseRepository::class);
         $repository->skipPresenter(true);
         return $repository->all();
     }

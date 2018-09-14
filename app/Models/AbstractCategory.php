@@ -8,12 +8,7 @@ use Kalnoy\Nestedset\NodeTrait;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
-/**
- * Class Category.
- *
- * @package namespace CodeFin\Models;
- */
-class Category extends Model implements Transformable
+abstract class AbstractCategory extends Model implements Transformable
 {
     use TransformableTrait;
     use BelongsToTenants;
@@ -25,7 +20,6 @@ class Category extends Model implements Transformable
      * @var array
      */
     protected $fillable = ['name'];
-
     public static $enableTenant = true;
 
     public function newQuery()
