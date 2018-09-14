@@ -70,6 +70,7 @@ const actions = {
 }
 
 const module = {
+    namespaced: true,
     state,
     mutations,
     actions
