@@ -8,7 +8,14 @@ export default class  {
 
         this.search = ''
         this.order = {
-            key: 'id',
+            get key(){
+                return this._key
+            },
+            set key(value){
+                this._key = value
+                this.sort = this.sort == 'desc' ? 'asc' : 'desc'
+            },
+            _key: 'id',
             sort: 'asc'
         }
         this.include = include

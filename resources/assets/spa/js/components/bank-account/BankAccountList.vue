@@ -27,7 +27,7 @@
                         <td>{{o.agency}}</td>
                         <td>{{o.account}}</td>
                         <td>
-                            <div class="row valign-wrapper">
+                            <div class="row valign-wrapper" v-if="typeof o.bank !== 'undefined'">
                                 <div class="col s2">
                                     <img :src="o.bank.data.logo" class="bank-logo"/>
                                 </div>
@@ -86,6 +86,7 @@
     import store from '../../store/store'
 
     export default {
+        name: 'BankAccount',
         components: {
             'modal' : ModalComponent,
             'pagination': PaginationComponent,
@@ -125,7 +126,8 @@
         },
         computed: {
             bankAccounts(){
-                return store.state.bankAccount.bankAccounts
+                let resp = store.state.bankAccount.bankAccounts
+                return resp
             },
             searchOptions(){
                 return store.state.bankAccount.searchOptions
@@ -148,7 +150,7 @@
         methods: {
             destroy(){
                 store.dispatch('delete').then((response) => {
-                    Materialize.toast('Conta bancária excluída com sucesso!',400)
+                    Materialize.toast('Conta bancária excluída com sucesso!',4000)
                 })
             },
             openModalDelete(bankAccount){
@@ -169,7 +171,3 @@
         }
     }
 </script>
-
-<style scoped>
-
-</style>

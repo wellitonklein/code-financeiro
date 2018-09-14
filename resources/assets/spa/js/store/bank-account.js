@@ -4,20 +4,10 @@ import SearchOptions from '../services/search-options'
 const state = {
     bankAccounts: [],
     bankAccountDelete: null,
-    bankAccountSave: {
-        name: '',
-        agency: '',
-        account: '',
-        bank_id: '',
-        'default': false
-    },
     searchOptions: new SearchOptions('bank'),
 }
 
 const mutations = {
-    updateName(state, name){
-        state.bankAccountSave.name = name
-    },
     set(state,bankAccounts){
         state.bankAccounts = bankAccounts
     },
@@ -48,8 +38,8 @@ const actions = {
         let searchOptions = context.state.searchOptions
 
         return BankAccount.query(searchOptions.createOptions()).then((response) => {
-            context.commit('set',response.data.data)
-            context.commit('setPagination',response.data.meta.pagination)
+            context.commit('set', response.data.data)
+            context.commit('setPagination', response.data.meta.pagination)
         })
     },
     queryWithSortBy(context,key){

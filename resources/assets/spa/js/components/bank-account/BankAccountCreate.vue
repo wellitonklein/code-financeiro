@@ -1,11 +1,11 @@
 <template src="./_form.html"></template>
 
 <script type="text/javascript">
-    import {BankAccount,Bank} from "../../services/resources";
+    import {BankAccount} from "../../services/resources";
     import PageTitleComponent from '../PageTitle.vue'
     import 'materialize-autocomplete'
     import _ from 'lodash'
-    import store from '../../store/store'
+    import store from "../../store/store";
 
     export default {
         components: {
@@ -27,9 +27,9 @@
                 banks: []
             }
         },
-        computed: {
-            bankAccount(){
-                return store.state.bankAccount.bankAccountSave
+        computed:{
+            banks(){
+                return store.state.bank.banks
             }
         },
         created(){
@@ -43,13 +43,12 @@
                 })
             },
             getBanks(){
-                Bank.query().then((response) => {
-                    this.banks = response.data.data
+                store.dispatch('bank/query').then((response) => {
                     this.initAutoComplete()
                 })
             },
             initAutoComplete(){
-                var self = this
+                let self = this
                 $(document).ready(() => {
                     $('#bank-id').materialize_autocomplete({
                         limit: 10,
@@ -60,7 +59,7 @@
                             el: '#bank-id-dropdown'
                         },
                         getData(value,callback) {
-                            var banks = self.filterBankByName(value)
+                            let banks = self.filterBankByName(value)
                             banks = banks.map((o) => {
                                 return {id: o.id, text: o.name}
                             })
@@ -74,7 +73,7 @@
                 })
             },
             filterBankByName(name){
-                var banks = _.filter(this.banks, (o) => {
+                let banks = _.filter(this.banks, (o) => {
                     return _.includes(o.name.toLowerCase(), name.toLowerCase())
                 })
                 return banks
