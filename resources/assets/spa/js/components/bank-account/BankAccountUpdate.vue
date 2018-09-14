@@ -5,6 +5,7 @@
     import PageTitleComponent from '../PageTitle.vue'
     import 'materialize-autocomplete'
     import _ from 'lodash'
+    import store from "../../store/store";
 
     export default {
         components: {
@@ -26,26 +27,30 @@
                 banks: []
             }
         },
+        computed: {
+            banks(){
+                return store.state.bank.banks
+            }
+        },
         created(){
             this.getBanks()
             this.getBankAccount(this.$route.params.id)
         },
         methods: {
             submit(){
-                var id = this.$route.params.id
+                let id = this.$route.params.id
                 BankAccount.update({id: id}, this.bankAccount).then(() => {
                     Materialize.toast('Conta bancária atualizada com sucesso',4000)
                     this.$router.go({name: 'bank-account.list'})
                 })
             },
             getBanks(){
-                Bank.query().then((response) => {
-                    this.banks = response.data.data
+                store.dispatch('bank/query').then((response) => {
                     this.initAutoComplete()
                 })
             },
             initAutoComplete(){
-                var self = this
+                let self = this
                 $(document).ready(() => {
                     $('#bank-id').materialize_autocomplete({
                         limit: 10,
@@ -56,24 +61,15 @@
                             el: '#bank-id-dropdown'
                         },
                         getData(value,callback) {
-                            var banks = self.filterBankByName(value)
-                            banks = banks.map((o) => {
-                                return {id: o.id, text: o.name}
-                            })
+                            let mapBanks = store.getters['bank/mapBanks']
+                            let banks = mapBanks(value)
                             callback(value,banks)
                         },
                         onSelect(item){
                             self.bankAccount.bank_id = item.id
-
                         }
                     })
                 })
-            },
-            filterBankByName(name){
-                var banks = _.filter(this.banks, (o) => {
-                    return _.includes(o.name.toLowerCase(), name.toLowerCase())
-                })
-                return banks
             },
             getBankAccount(id){
                 BankAccount.get({
