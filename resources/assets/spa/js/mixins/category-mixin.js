@@ -38,7 +38,7 @@ export default {
             return store.state[this.namespace()].categories
         },
         categoriesFormatted(){
-            return store.getters[`${this.namespace()}/categoriesFormatted`].categories
+            return store.getters[`${this.namespace()}/categoriesFormatted`]
         },
         categoryDelete(){
             return store.state[this.namespace()].category
@@ -81,7 +81,7 @@ export default {
             $(`#${this.modalOptionsSave.id}`).modal('open')
         },
         modalEdit(category, parent){
-            this.title = 'Editando categoria'
+            this.title = 'Editar categoria'
             this.categorySave = {
                 id: category.id,
                 name: category.name,
@@ -92,7 +92,7 @@ export default {
             $(`#${this.modalOptionsSave.id}`).modal('open')
         },
         modalDelete(category, parent){
-            store.commit(`${this.namespace()}/setDelete`, category)
+            store.commit(`${this.namespace()}/setCategory`, category)
             store.commit(`${this.namespace()}/setParent`, parent)
 
             $(`#${this.modalOptionsDelete.id}`).modal('open')
