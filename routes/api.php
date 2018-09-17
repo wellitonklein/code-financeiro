@@ -24,6 +24,8 @@ Route::group(['middleware' => 'cors','as' => 'api.'],function (){
         Route::resource('category_revenues','Api\CategoryRevenuesController',['except' => ['create','edit']]);
         Route::resource('category_expenses','Api\CategoryExpensesController',['except' => ['create','edit']]);
 
+        Route::resource('bill_pays','Api\BillPaysController',['except' => ['create','edit']]);
+
         Route::post('logout','Api\AuthController@logout')
             ->middleware('auth:api')->name('logout');
         Route::get('/hello', function () {
