@@ -31,10 +31,10 @@ export class CategoryFormat {
 export class CategoryService {
 
     constructor(type){
-        this.resource = type == 'revenue' ? CategoryRevenue ? CategoryExpense
+        this.resource = type == 'revenue' ? CategoryRevenue : CategoryExpense
     }
     
-    static save(category, parent, categories, categoryOriginal){
+    save(category, parent, categories, categoryOriginal){
         if (category.id === 0){
             return this.new(category,parent,categories)
         }else{

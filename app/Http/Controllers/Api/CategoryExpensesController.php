@@ -13,6 +13,8 @@ use CodeFin\Repositories\CategoryExpenseRepository;
  */
 class CategoryExpensesController extends Controller
 {
+
+    use CategoriesControllerTrait;
     /**
      * @var BankAccountRepository
      */

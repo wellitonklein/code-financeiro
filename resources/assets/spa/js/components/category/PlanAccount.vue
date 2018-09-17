@@ -5,9 +5,9 @@
         </page-title>
         <div class="card-panel z-depth-5">
             <h5>Categorias de Receitas</h5>
-            <category-revenue v-ref="revenue"></category-revenue>
+            <category-revenue v-ref:revenue></category-revenue>
             <h5>Categorias de Despesas</h5>
-            <category-expense v-ref="expense"></category-expense>
+            <category-expense v-ref:expense></category-expense>
         </div>
         
         <div class="fixed-action-btn horizontal">

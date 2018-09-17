@@ -50,7 +50,6 @@
     import PageTitleComponent from '../PageTitle.vue'
     import CategoryTreeComponent from './CategoryTree.vue'
     import CategorySaveComponent from './CategorySave.vue'
-    import {Category} from "../../services/resources"
     import {CategoryFormat, CategoryService} from "../../services/category-nsm"
     import ModalComponent from '../../../../_default/components/Modal.vue'
 
