@@ -32,9 +32,6 @@ const getters = {
             return {id: o.id, text: o.name}
         })
     },
-    banksLength(state){
-        return state.banks.length
-    }
 }
 
 const module = {
