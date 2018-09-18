@@ -23,14 +23,10 @@
             }
         },
         ready(){
-            var id = this.modal.id
+            let id = this.modal.id
             $(document).ready(() => {
                 $(`#${id}`).modal(this.modal.options)
             })
         }
     }
 </script>
-
-<style scoped>
-
-</style>

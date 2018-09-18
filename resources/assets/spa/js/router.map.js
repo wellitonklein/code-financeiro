@@ -5,6 +5,9 @@ import BankAccountListComponent from './components/bank-account/BankAccountList.
 import BankAccountCreateComponent from './components/bank-account/BankAccountCreate.vue'
 import BankAccountUpdateComponent from './components/bank-account/BankAccountUpdate.vue'
 import PlanAccountComponent from './components/category/PlanAccount.vue'
+import BillPayListComponent from './components/bill/bill-pay/BillPayList.vue'
+import BillPayCreateComponent from './components/bill/bill-pay/BillPayCreate.vue'
+import BillPayUpdateComponent from './components/bill/bill-pay/BillPayUpdate.vue'
 
 export default {
     '/login': {
@@ -46,6 +49,11 @@ export default {
         name: 'plan-account.list',
         component: PlanAccountComponent,
         auth: true
-    }
+    },
+    '/bill-pay':{
+        name: 'bill-pay.list',
+        component: BillPayListComponent,
+        auth: true
+    },
 
 }

@@ -12,8 +12,13 @@ use Prettus\Repository\Criteria\RequestCriteria;
  *
  * @package namespace CodeFin\Repositories;
  */
-class BillPayRepositoryEloquent extends BaseRepository implements BankRepository
+class BillPayRepositoryEloquent extends BaseRepository implements BillPayRepository
 {
+//    use BillRepositoryTrait;
+
+    protected $fieldSearchable = [
+        'name' => 'like'
+    ];
     /**
      * Specify Model class name
      *
