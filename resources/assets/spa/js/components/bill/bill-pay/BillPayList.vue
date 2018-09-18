@@ -131,6 +131,7 @@
         created(){
             store.dispatch('billPay/query')
             store.dispatch('bankAccount/lists')
+            store.dispatch('categoryExpense/query')
         },
         methods: {
             destroy(){
