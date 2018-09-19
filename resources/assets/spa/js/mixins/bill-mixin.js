@@ -29,6 +29,9 @@ export default {
                 bank_account_id: '',
                 category_id: 0,
             },
+            repeat: false,
+            repeat_type: 1,
+            repeat_number: 0,
             bankAccount: {
                 text: ''
             }
@@ -79,7 +82,7 @@ export default {
             return `form-bill-${this._uid}`
         },
         repeatId(){
-            return `repeat-bill-${this._uid}`
+            return `repeat-${this._uid}`
         },
         blurBankAccount($event){
             let el = $($event.target)
@@ -87,6 +90,15 @@ export default {
 
             if (el.val() !== text){
                 el.val(text)
+            }
+            this.validateBankAccount()
+        },
+        blurRepeatNumber($event){
+            let el = $($event.target)
+            let text = this.bankAccount.text
+
+            if (parseInt(el.val(),10) < 0){
+                el.val(0)
             }
             this.validateBankAccount()
         },
@@ -167,6 +179,9 @@ export default {
                 bank_account_id: '',
                 category_id: 0,
             }
+            this.repeat = false
+            this.repeat_type = 1
+            this.repeat_number = 0
         }
     },
 }
