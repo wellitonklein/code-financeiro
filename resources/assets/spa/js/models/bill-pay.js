@@ -18,8 +18,9 @@ export default class BillPay {
     }
 
     toJSON(){
+        let date_due = this.date_due instanceof Date ? this.date_due.toISOString().substring(0,10) : this.date_due
         let o = {
-            date_due: this.date_due.toISOString().substring(0,10),
+            date_due: date_due,
             name: this.name,
             value: this.value,
             done: this.done,

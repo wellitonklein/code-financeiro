@@ -78,6 +78,7 @@
                                 autocomplete="off"
                                 :data-activates="bankAccountDropdownId()"
                                 data-beloworigin="true"
+                                :value="bankAccount.text"
                                 :class="{'invalid': errors.has('bank_account_id')}"
                                 @blur="blurBankAccount"
                         />
@@ -95,7 +96,7 @@
                 </div>
 
                 <div class="row" style="margin-bottom: 0px">
-                    <div class="input-field col s3">
+                    <div class="input-field col s3" v-if="bankAccount.text === ''">
                         <input type="checkbox" class="filled-in" v-model="bill.repeat" :id="repeatId()"/>
                         <label :for="repeatId()">Repetir?</label>
                     </div>
