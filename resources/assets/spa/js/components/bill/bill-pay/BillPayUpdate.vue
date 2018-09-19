@@ -4,10 +4,11 @@
     import billPayMixin from '../../../mixins/bill-mixin'
     import store from '../../../store/store'
     import BillPay from '../../../models/bill-pay'
+    import ValidatorOffRemoveMin from '../../../mixins/validator-off-remove-mixin'
 
     export default {
         name: "BillPayUpdate",
-        mixins: [billPayMixin],
+        mixins: [billPayMixin, ValidatorOffRemoveMin],
         created(){
             let self = this
             this.modalOptions.options = {}

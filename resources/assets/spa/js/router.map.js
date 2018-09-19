@@ -6,8 +6,6 @@ import BankAccountCreateComponent from './components/bank-account/BankAccountCre
 import BankAccountUpdateComponent from './components/bank-account/BankAccountUpdate.vue'
 import PlanAccountComponent from './components/category/PlanAccount.vue'
 import BillPayListComponent from './components/bill/bill-pay/BillPayList.vue'
-import BillPayCreateComponent from './components/bill/bill-pay/BillPayCreate.vue'
-import BillPayUpdateComponent from './components/bill/bill-pay/BillPayUpdate.vue'
 
 export default {
     '/login': {
