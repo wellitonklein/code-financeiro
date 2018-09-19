@@ -78,6 +78,9 @@ export default {
         formId(){
             return `form-bill-${this._uid}`
         },
+        repeatId(){
+            return `repeat-bill-${this._uid}`
+        },
         blurBankAccount($event){
             let el = $($event.target)
             let text = this.bankAccount.text
