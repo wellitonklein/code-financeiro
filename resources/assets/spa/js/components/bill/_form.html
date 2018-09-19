@@ -1,5 +1,5 @@
 <div>
-    <form name="form" method="POST" @submit.prevent="submit">
+    <form :id="formId()" name="form" method="POST" @submit.prevent="submit">
         <modal :modal="modalOptions">
             <div slot="content">
                 <page-title>
@@ -7,7 +7,6 @@
                 </page-title>
                 <div class="row">
                     <div class="input-field col s12">
-                        <label class="active">Conta bancária:</label>
                         <input
                                 type="text"
                                 :id="bankAccountTextId()"
@@ -21,8 +20,16 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <select-material :options="cpOptions" :selected.sync="bill.category_id"></select-material>
-                        <label class="active">Categoria de Despesa</label>
+                        <select-material
+                                name="category_id"
+                                :options="cpOptions"
+                                :selected.sync="bill.category_id"
+                                v-validate
+                                data-vv-rules="required|min_value:1"
+                                data-vv-name="category_id"
+                        >
+                        </select-material>
+                        <label class="active" :date-error="errors.first('category_id')">Categoria de Despesa</label>
                     </div>
                 </div>
                 <div class="row">
@@ -32,9 +39,9 @@
                                placeholder="Informe a data"
                                name="date_due"
                                class="validate"
+                               :class="{'invalid': errors.has('date_due')}"
                                v-validate
                                data-vv-rules="required|date_format"
-                               :class="{'invalid': errors.has('date_due')}"
                         />
                         <label class="active" :date-error="errors.first('date_due')">Vencimento</label>
                     </div>
