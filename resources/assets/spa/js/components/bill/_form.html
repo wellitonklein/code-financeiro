@@ -39,8 +39,16 @@
 
                 <div class="row">
                     <div class="input-field col s6">
-                        <label class="active" for="name">Nome</label>
-                        <input type="text" v-model="bill.name" placeholder=""/>
+                        <input type="text"
+                               v-model="bill.name"
+                               id="name"
+                               name="name"
+                               class="validate"
+                               v-validate
+                               data-vv-rules="required"
+                               :class="{'invalid': errors.has('name')}"
+                        />
+                        <label class="active" for="name" :date-error="errors.first('name')">Nome</label>
                     </div>
 
                     <div class="input-field col s6">
