@@ -2,11 +2,73 @@
     <form :id="formId()" name="form" method="POST" @submit.prevent="submit">
         <modal :modal="modalOptions">
             <div slot="content">
-                <page-title>
-                    <h5>{{title()}}</h5>
-                </page-title>
+                <h5>{{title()}}</h5>
+
                 <div class="row">
                     <div class="input-field col s12">
+                        <select-material
+                                name="category_id"
+                                :options="cpOptions"
+                                :selected.sync="bill.category_id"
+                                v-validate
+                                data-vv-rules="required"
+                                data-vv-name="category_id"
+                        >
+                        </select-material>
+                        <label class="active" :date-error="errors.first('category_id')">Categoria de Despesa</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s4">
+                        <input type="text"
+                               v-model="bill.date_due | dateFormat"
+                               placeholder="Informe a data"
+                               name="date_due"
+                               class="validate"
+                               :class="{'invalid': errors.has('date_due')}"
+                               v-validate
+                               data-vv-rules="required|date_format"
+                        />
+                        <label class="active" :date-error="errors.first('date_due')">Vencimento</label>
+                    </div>
+
+                    <div class="input-field col s4">
+                        <input type="text"
+                               v-model="bill.value | numberFormat"
+                               placeholder=""
+                               name="value"
+                               class="validate"
+                               v-validate
+                               data-vv-rules="required|number_format:0.01"
+                               :class="{'invalid': errors.has('value')}"
+                        />
+                        <label class="active" :date-error="errors.first('value')">Valor</label>
+                    </div>
+
+                    <div class="input-field col s4">
+                        <input type="checkbox" class="filled-in" v-model="bill.done" :id="doneId()"/>
+                        <label :for="doneId()">Pago?</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input type="text"
+                               v-model="bill.name"
+                               id="name"
+                               name="name"
+                               placeholder=""
+                               class="validate"
+                               v-validate
+                               data-vv-rules="required"
+                               :class="{'invalid': errors.has('name')}"
+                               data-vv-as="nome"
+                        />
+                        <label class="active" for="name" :date-error="errors.first('name')">Nome</label>
+                    </div>
+
+                    <div class="input-field col s6">
                         <input
                                 type="text"
                                 :id="bankAccountTextId()"
@@ -28,69 +90,6 @@
                                 data-vv-rules="required"
                         />
                         <ul :id="bankAccountDropdownId()" class="dropdown-content ac-dropdown"></ul>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12">
-                        <select-material
-                                name="category_id"
-                                :options="cpOptions"
-                                :selected.sync="bill.category_id"
-                                v-validate
-                                data-vv-rules="required"
-                                data-vv-name="category_id"
-                        >
-                        </select-material>
-                        <label class="active" :date-error="errors.first('category_id')">Categoria de Despesa</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s6">
-                        <input type="text"
-                               v-model="bill.date_due | dateFormat"
-                               placeholder="Informe a data"
-                               name="date_due"
-                               class="validate"
-                               :class="{'invalid': errors.has('date_due')}"
-                               v-validate
-                               data-vv-rules="required|date_format"
-                        />
-                        <label class="active" :date-error="errors.first('date_due')">Vencimento</label>
-                    </div>
-
-                    <div class="input-field col s6">
-                        <input type="text"
-                               v-model="bill.value | numberFormat"
-                               placeholder=""
-                               name="value"
-                               class="validate"
-                               v-validate
-                               data-vv-rules="required|number_format:0.01"
-                               :class="{'invalid': errors.has('value')}"
-                        />
-                        <label class="active" :date-error="errors.first('value')">Valor</label>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="input-field col s6">
-                        <input type="text"
-                               v-model="bill.name"
-                               id="name"
-                               name="name"
-                               placeholder=""
-                               class="validate"
-                               v-validate
-                               data-vv-rules="required"
-                               :class="{'invalid': errors.has('name')}"
-                               data-vv-as="nome"
-                        />
-                        <label class="active" for="name" :date-error="errors.first('name')">Nome</label>
-                    </div>
-
-                    <div class="input-field col s6">
-                        <input type="checkbox" class="filled-in" v-model="bill.done" :id="doneId()"/>
-                        <label :for="doneId()">Pago?</label>
                     </div>
                 </div>
             </div>
