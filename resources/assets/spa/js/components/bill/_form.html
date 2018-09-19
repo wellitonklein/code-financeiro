@@ -13,6 +13,7 @@
                                 v-validate
                                 data-vv-rules="required"
                                 data-vv-name="category_id"
+                                data-vv-value-path="val"
                         >
                         </select-material>
                         <label class="active" :date-error="errors.first('category_id')">Categoria de Despesa</label>
@@ -111,7 +112,9 @@
             </div>
 
             <div slot="footer">
-                <button type="submit" class="btn waves-effect modal-close modal-action">
+                <button type="submit" class="btn waves-effect"
+                        :disabled="fields.dirty() && errors.any()"
+                >
                     OK
                 </button>
                 <button type="button" class="btn btn-flat waves-effect waves-red modal-close modal-action">Cancelar</button>
