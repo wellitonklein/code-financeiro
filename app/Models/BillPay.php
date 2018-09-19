@@ -12,10 +12,11 @@ use Prettus\Repository\Traits\TransformableTrait;
  *
  * @package namespace CodeFin\Models;
  */
-class BillPay extends Model implements Transformable
+class BillPay extends Model implements Transformable, BillRepeatTypeInterface
 {
     use TransformableTrait;
     use BelongsToTenants;
+    use BillTrait;
 
     /**
      * The attributes that are mass assignable.
