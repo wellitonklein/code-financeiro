@@ -6,6 +6,9 @@
     export default {
         name: "BillPayCreate",
         mixins: [billPayMix],
+        ready(){
+            this.initSelect2()
+        },
         methods:{
             namespace(){
                 return 'billPay'

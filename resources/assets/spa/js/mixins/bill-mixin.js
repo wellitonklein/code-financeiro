@@ -76,9 +76,9 @@ export default {
         },
         validateCategory(){
             let valid = this.$validator.validate('category_id', this.bill.category_id)
-            let parent = $(`#{this.formId()}`).find('[name="category_id"]').parent()
+            let parent = $(`#${this.formId()}`).find('[name="category_id"]').parent()
             let label = parent.find('label')
-            let spanSelect2 = parent.find('.select2-selection select2-selection--single')
+            let spanSelect2 = parent.find('.select2-selection.select2-selection--single')
 
             if (valid){
                 label.removeClass('label-error')
@@ -87,6 +87,14 @@ export default {
                 label.removeClass('label-error').addClass('label-error')
                 spanSelect2.removeClass('select2-invalid').addClass('select2-invalid')
             }
+        },
+        initSelect2(){
+            let self = this
+            let select = $(`#${this.formId()}`).find('[name="category_id"]')
+
+            select.on('select2:close', () => {
+                self.validateCategory()
+            })
         },
         initAutoComplete(){
             let self = this
