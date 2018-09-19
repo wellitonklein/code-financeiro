@@ -6,7 +6,7 @@ export default class BillPay {
 
     init(){
         this.id = 0
-        this.date_due = ''
+        this.date_due = new Date()
         this.name = ''
         this.value = 0
         this.done = false

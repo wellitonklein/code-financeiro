@@ -16,7 +16,7 @@
                                 data-vv-value-path="val"
                         >
                         </select-material>
-                        <label class="active" :date-error="errors.first('category_id')">Categoria de Despesa</label>
+                        <label class="active" :data-error="errors.first('category_id')">Categoria de Despesa</label>
                     </div>
                 </div>
 
@@ -26,12 +26,12 @@
                                v-model="bill.date_due | dateFormat"
                                placeholder="Informe a data"
                                name="date_due"
-                               class="validate"
+                               class="datepicker validate"
                                :class="{'invalid': errors.has('date_due')}"
                                v-validate
                                data-vv-rules="required|date_format"
                         />
-                        <label class="active" :date-error="errors.first('date_due')">Vencimento</label>
+                        <label class="active" :data-error="errors.first('date_due')">Vencimento</label>
                     </div>
 
                     <div class="input-field col s4">
@@ -44,7 +44,7 @@
                                data-vv-rules="required|number_format:0.01"
                                :class="{'invalid': errors.has('value')}"
                         />
-                        <label class="active" :date-error="errors.first('value')">Valor</label>
+                        <label class="active" :data-error="errors.first('value')">Valor</label>
                     </div>
 
                     <div class="input-field col s4">
@@ -66,7 +66,7 @@
                                :class="{'invalid': errors.has('name')}"
                                data-vv-as="nome"
                         />
-                        <label class="active" for="name" :date-error="errors.first('name')">Nome</label>
+                        <label class="active" for="name" :data-error="errors.first('name')">Nome</label>
                     </div>
 
                     <div class="input-field col s6">
@@ -82,7 +82,7 @@
                                 :class="{'invalid': errors.has('bank_account_id')}"
                                 @blur="blurBankAccount"
                         />
-                        <label class="active" :date-error="errors.first('bank_account_id')">Conta bancária</label>
+                        <label class="active" :data-error="errors.first('bank_account_id')">Conta bancária</label>
                         <input
                                 type="hidden"
                                 name="bank_account_id"
