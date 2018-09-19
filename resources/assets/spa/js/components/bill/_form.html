@@ -14,7 +14,17 @@
                                 autocomplete="off"
                                 :data-activates="bankAccountDropdownId()"
                                 data-beloworigin="true"
+                                @blur="blurBankAccount"
                         />
+                        <input
+                                type="hidden"
+                                name="bank_account_id"
+                                :value="bill.bank_account_id"
+                                :id="bankAccountHiddenId()"
+                                v-validate
+                                data-vv-rules="required"
+                        />
+                        <label class="active" :date-error="errors.first('bank_account_id')">Conta bancária</label>
                         <ul :id="bankAccountDropdownId()" class="dropdown-content ac-dropdown"></ul>
                     </div>
                 </div>
