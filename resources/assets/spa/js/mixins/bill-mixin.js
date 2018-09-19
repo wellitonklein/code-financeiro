@@ -28,7 +28,7 @@ export default {
                 name: '',
                 value: 0,
                 done: false,
-                bank_account_id: 0,
+                bank_account_id: '',
                 category_id: 0,
             },
             bankAccount: {
@@ -87,6 +87,7 @@ export default {
             if (el.val() !== text){
                 el.val(text)
             }
+            this.validateBankAccount()
         },
         validateCategory(){
             let valid = this.$validator.validate('category_id', this.bill.category_id)
@@ -101,6 +102,9 @@ export default {
                 label.removeClass('label-error').addClass('label-error')
                 spanSelect2.removeClass('select2-invalid').addClass('select2-invalid')
             }
+        },
+        validateBankAccount(){
+            this.$validator.validate('bank_account_id', this.bill.bank_account_id)
         },
         initSelect2(){
             let self = this
@@ -131,8 +135,10 @@ export default {
                 onSelect(item){
                     self.bill.bank_account_id = item.id
                     self.bankAccount.text = item.text
+                    self.validateBankAccount()
                 }
             })
+            $(`#${this.bankAccountTextId()}`).parent().find('label').insertAfter(`#${this.bankAccountTextId()}`)
         },
         submit(){
             if (this.bill.id !== 0){
@@ -157,7 +163,7 @@ export default {
                 name: '',
                 value: 0,
                 done: false,
-                bank_account_id: 0,
+                bank_account_id: '',
                 category_id: 0,
             }
         }
