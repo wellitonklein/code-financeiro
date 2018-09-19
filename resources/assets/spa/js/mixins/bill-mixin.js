@@ -149,15 +149,17 @@ export default {
             this.$validator.validateAll().then(success => {
                 if (success){
                     if (self.bill.id !== 0){
-                        self.dispatch(`${self.namespace()}/edit`, {
+                        store.dispatch(`${self.namespace()}/edit`, {
                             bill: self.bill,
                             index: self.index
                         }).then(() => {
+                            $(`#${this.modalOptions.id}`).modal('close')
                             Materialize.toast('Conta atualizada com sucesso!', 4000)
                             self.resetScope()
                         })
                     }else{
                         store.dispatch(`${self.namespace()}/save`, self.bill).then(() => {
+                            $(`#${this.modalOptions.id}`).modal('close')
                             Materialize.toast('Conta criada com sucesso!', 4000)
                             self.resetScope()
                         })

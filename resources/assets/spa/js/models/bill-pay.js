@@ -29,7 +29,7 @@ export default class BillPay {
         
         if (this.repeat){
             o.repeat = this.repeat
-            o.repeat_type = this.repeat_type
+            o.repeat_type = parseInt(this.repeat_type)
             o.repeat_number = this.repeat_number
         }
 
