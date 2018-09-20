@@ -2,6 +2,7 @@
 
 namespace CodeFin\Models;
 
+use HipsterJazzbo\Landlord\BelongsToTenants;
 use Illuminate\Database\Eloquent\Model;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
@@ -14,6 +15,7 @@ use Prettus\Repository\Traits\TransformableTrait;
 class Statement extends Model implements Transformable
 {
     use TransformableTrait;
+    use BelongsToTenants;
 
     /**
      * The attributes that are mass assignable.
@@ -31,7 +33,7 @@ class Statement extends Model implements Transformable
         return $this->belongsTo(BankAccount::class);
     }
 
-    public function statemtable()
+    public function statementable()
     {
         return $this->morphTo();
     }
