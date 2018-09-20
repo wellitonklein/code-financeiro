@@ -31,4 +31,9 @@ class Statement extends Model implements Transformable
         return $this->belongsTo(BankAccount::class);
     }
 
+    public function statemtable()
+    {
+        return $this->morphTo();
+    }
+
 }
