@@ -25,6 +25,10 @@ class BankAccount extends Model implements Transformable
         'default'
     ];
 
+    protected $casts = [
+        'balance' => 'float'
+    ];
+
     public function bank(){
         return $this->belongsTo(Bank::class);
     }
