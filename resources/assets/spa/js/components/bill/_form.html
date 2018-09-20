@@ -96,7 +96,7 @@
                 </div>
 
                 <div class="row" style="margin-bottom: 0px">
-                    <div class="input-field col s3" v-if="bankAccount.text === ''">
+                    <div class="input-field col s3" v-if="bill.id === 0">
                         <input type="checkbox" class="filled-in" v-model="bill.repeat" :id="repeatId()"/>
                         <label :for="repeatId()">Repetir?</label>
                     </div>

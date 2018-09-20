@@ -2,51 +2,10 @@
 
 namespace CodeFin\Models;
 
-use HipsterJazzbo\Landlord\BelongsToTenants;
-use Illuminate\Database\Eloquent\Model;
-use Prettus\Repository\Contracts\Transformable;
-use Prettus\Repository\Traits\TransformableTrait;
-
-/**
- * Class Client.
- *
- * @package namespace CodeFin\Models;
- */
-class BillReceive extends Model implements Transformable, BillRepeatTypeInterface
+class BillReceive extends AbstractBill
 {
-    use TransformableTrait;
-    use BelongsToTenants;
-    use BillTrait;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'date_due',
-        'name',
-        'value',
-        'done',
-        'bank_account_id',
-        'category_id'
-    ];
-
-    protected $casts = [
-        'value' => 'float',
-        'done' => 'boolean',
-    ];
-
-    public function bankAccount(){
-        return $this->belongsTo(BankAccount::class);
-    }
-
-    public function category(){
-        return $this->belongsTo(CategoryRevenue::class);
-    }
-
-    public function statements()
+    public function category()
     {
-        return $this->morphMany(Statement::class, 'statementable');
+        return $this->belongsTo(CategoryRevenue::class);
     }
 }

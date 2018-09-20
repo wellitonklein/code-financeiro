@@ -61,8 +61,9 @@
                         id: 'bills-dropdown',
                         items: [
                             {name: "A pagar", routeName: 'bill-pay.list'},
+                            {name: "A receber", routeName: 'bill-receive.list'},
                         ]
-                    },
+                    }
                 ]
             }
         },

@@ -6,14 +6,15 @@ import categoryModule from './category'
 import billModule from './bill'
 
 import {CategoryExpense, CategoryRevenue} from "../services/resources";
-import {BillPay} from "../services/resources";
+import {BillPay, BillReceive} from "../services/resources";
 
 let categoryRevenue = categoryModule(), categoryExpense = categoryModule()
 categoryRevenue.state.resource = CategoryRevenue
 categoryExpense.state.resource = CategoryExpense
 
-let billPay = billModule()
+let billPay = billModule(), billReceive = billModule()
 billPay.state.resource = BillPay
+billReceive.state.resource = BillReceive
 
 export default new Vuex.Store({
     modules: {
@@ -22,6 +23,7 @@ export default new Vuex.Store({
         bank,
         categoryRevenue,
         categoryExpense,
-        billPay
+        billPay,
+        billReceive
     }
 })

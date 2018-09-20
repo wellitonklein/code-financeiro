@@ -2,15 +2,14 @@
 
 namespace CodeFin\Presenters;
 
-use CodeFin\Transformers\BillPayTransformer;
+use CodeFin\Transformers\BillTransformer;
 use Prettus\Repository\Presenter\FractalPresenter;
-
 /**
- * Class CategoryPresenter.
+ * Class BillPresenter
  *
  * @package namespace CodeFin\Presenters;
  */
-class BillPayPresenter extends FractalPresenter
+class BillPresenter extends FractalPresenter
 {
     /**
      * Transformer
@@ -19,6 +18,6 @@ class BillPayPresenter extends FractalPresenter
      */
     public function getTransformer()
     {
-        return new BillPayTransformer();
+        return new BillTransformer();
     }
 }
