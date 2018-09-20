@@ -23,16 +23,40 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
     protected function getQueryCategoriesValuesByPeriod($model, $billTable, $dateStart, $dateEnd)
     {
         $table = $model->getTable();
+        list($lft, $rgt) = [$model->getLftName(), $model->getRgtName()];
 
         return $model
             ->addSelect("$table.id")
             ->addSelect("$table.name")
             ->selectRaw("SUM(value) as total")
             ->selectRaw("DATE_FORMAT(date_due, '%Y-%m') as month_year")
+            ->selectSub($this->getQueryWithDepth($model), 'depth')
+            ->join("$table as childOrSelf", function ($join) use ($table,$lft,$rgt){
+                $join->on($table.$lft, '<=', "childOrSelf.$lft")
+                    ->where($table.$rgt, '>=', "childOrSelf.$rgt");
+            })
+            ->join($billTable, "$billTable.category_id", '=', 'childOrSelf.id')
             ->whereBetween('date_due', [$dateStart, $dateEnd])
             ->groupBy("$table.id","$table.name", 'month_year')
+            ->having("depth = 0")
             ->orderBy("month_year")
             ->orderBy("$table.name");
+    }
+
+    protected function getQueryWithDepth($model)
+    {
+        $table = $model->getTable();
+
+        list($lft, $rgt) = [$model->getLftName(), $model->getRgtName()];
+
+        $alias = '_d';
+
+        return $this->model
+            ->newScopedQuery($alias)
+            ->toBase()
+            ->selectRaw('count(1) - 1')
+            ->from("{$table} as {$alias}")
+            ->whereRaw("{$table}.{$lft} between {$alias}.{$lft} and {$alias}.{$rgt}");
     }
 
     public function getBalanceByMonth(Carbon $date)
