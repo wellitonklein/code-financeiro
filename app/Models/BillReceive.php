@@ -12,7 +12,7 @@ use Prettus\Repository\Traits\TransformableTrait;
  *
  * @package namespace CodeFin\Models;
  */
-class BillPay extends Model implements Transformable, BillRepeatTypeInterface
+class BillReceive extends Model implements Transformable, BillRepeatTypeInterface
 {
     use TransformableTrait;
     use BelongsToTenants;
@@ -42,7 +42,7 @@ class BillPay extends Model implements Transformable, BillRepeatTypeInterface
     }
 
     public function category(){
-        return $this->belongsTo(CategoryExpense::class);
+        return $this->belongsTo(CategoryRevenue::class);
     }
 
     public function statements()
