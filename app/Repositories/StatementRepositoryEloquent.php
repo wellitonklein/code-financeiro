@@ -20,6 +20,11 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
         return $statementable->statements()->create(array_except($attributes, 'statementable'));
     }
 
+    protected function getQueryCategoriesValuesByPeriod($model, $billTable, $dateStart, $dateFormat)
+    {
+
+    }
+
     public function getBalanceByMonth(Carbon $date)
     {
         $dateString = $date->copy()->day($date->daysInMonth)->format('Y-m-d');
