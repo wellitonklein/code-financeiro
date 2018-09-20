@@ -20,12 +20,6 @@ class BillPayRepositoryEloquent extends BaseRepository implements BillPayReposit
         'name' => 'like'
     ];
 
-    public function create(array $attributes)
-    {
-        $model = parent::create($attributes);
-        $this->repeatBill($attributes);
-        return $model;
-    }
     /**
      * Specify Model class name
      *
