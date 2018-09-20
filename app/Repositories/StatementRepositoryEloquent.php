@@ -3,6 +3,10 @@
 namespace CodeFin\Repositories;
 
 use Carbon\Carbon;
+use CodeFin\Models\BillPay;
+use CodeFin\Models\BillReceive;
+use CodeFin\Models\CategoryExpense;
+use CodeFin\Models\CategoryRevenue;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use CodeFin\Models\Statement;
@@ -18,6 +22,73 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
     {
         $statementable = $attributes['statementable'];
         return $statementable->statements()->create(array_except($attributes, 'statementable'));
+    }
+
+    public function getCashFlow(Carbon $dateStart, Carbon $dateEnd)
+    {
+        $datePrevious = $dateStart->copy()->day(1)->subMonths(2);
+        $datePrevious->day($datePrevious->daysInMonth);
+
+        $balancePreviousMonth = $this->getBalanceByMonth($datePrevious);
+
+        $revenuesCollection = $this->getCategoriesValuesCollection(
+            new CategoryRevenue(),
+            (new BillReceive())->getTable(),
+            $dateStart,
+            $dateEnd
+        );
+
+        $expensesCollection = $this->getCategoriesValuesCollection(
+            new CategoryExpense(),
+            (new BillPay())->getTable(),
+            $dateStart,
+            $dateEnd
+        );
+
+        return $this->formatCashFlow($expensesCollection, $revenuesCollection, $balancePreviousMonth);
+    }
+
+    protected function formatCashFlow($expensesCollection, $revenuesCollection, $balancePreviousMonth)
+    {
+
+    }
+
+    protected function getCategoriesValuesCollection($model, $billTable, Carbon $dateStart, Carbon $dateEnd)
+    {
+        $dateStartStr = $dateStart->copy()->day(1)->format('Y-m-d');
+        $dateEndStr = $dateEnd->copy()->day($dateEnd->daysInMonth)->format('Y-m-d');
+
+        $firstDateStart = $dateStart->copy()->subMonths(1);
+        $firstDateStartStr = $firstDateStart->format('Y-m-d');
+
+        $firstDateEnd = $firstDateStart->copy()->day($firstDateStart->daysInMonth);
+        $firstDateEndStr = $firstDateEnd->format('Y-m-d');
+
+        $firstCollection = $this->getQueryCategoriesValuesByPeriodAndDone(
+            $model,
+            $billTable,
+            $firstDateStartStr,
+            $firstDateEndStr
+        )->get();
+
+        $mainCollection = $this->getQueryCategoriesValuesByPeriod(
+            $model,
+            $billTable,
+            $dateStartStr,
+            $dateEndStr
+        )->get();
+
+        $firstCollection->reverse()->each(function ($value) use ($mainCollection){
+            $mainCollection->prepend($value);
+        });
+
+        return $mainCollection;
+    }
+
+    protected function getQueryCategoriesValuesByPeriodAndDone($model, $billTable, $dateStart, $dateEnd)
+    {
+        return $this->getQueryCategoriesValuesByPeriod($model,$billTable,$dateStart,$dateEnd)
+            ->where('done', 1);
     }
 
     protected function getQueryCategoriesValuesByPeriod($model, $billTable, $dateStart, $dateEnd)
