@@ -26,6 +26,15 @@
                             {{balance(key)}}
                         </td>
                     </tr>
+                    <tr>
+                        <td><strong>Saldo mês anterior</strong></td>
+                        <td>{{balanceBeforeFirstMonth}}</td>
+                        <td>{{firstBalance}}</td>
+                        <td>{{secoundBalance}}</td>
+                        <td v-for="(key, o) in monthsListBalancePrevious">
+                            {{balance(key)}}
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
             </div>

@@ -60,7 +60,12 @@ const getters = {
     monthsListBalanceFinal(state, getters){
         let monthsListLength = state.cashFlows.months_list
 
-        return monthsListLength.slice(getters.indexSecoundMonth+1,monthsListLength.length)
+        return monthsListLength.slice(getters.indexSecoundMonth + 1,monthsListLength.length)
+    },
+    monthsListBalancePrevious(state, getters){
+        let monthsListLength = state.cashFlows.months_list
+
+        return monthsListLength.slice(getters.indexSecoundMonth + 2,monthsListLength.length)
     },
     hasCashFlows(sate){
         return state.cashFlows !== null && state.cashFlows.months_list.length > 1

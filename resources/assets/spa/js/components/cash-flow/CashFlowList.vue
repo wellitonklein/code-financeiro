@@ -31,8 +31,14 @@
             monthsListBalanceFinal(){
                 return store.getters['cashFlow/monthsListBalanceFinal']
             },
+            monthsListBalancePrevious(){
+                return store.getters['cashFlow/monthsListBalancePrevious']
+            },
             hasCashFlows(){
                 return store.getters['cashFlow/hasCashFlows']
+            },
+            balanceBeforeFirstMonth(){
+                return this.cashFlows.balance_before_first_month
             }
         },
         created(){
