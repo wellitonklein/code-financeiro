@@ -1,0 +1,48 @@
+<div class="container">
+    <div class="row">
+        <page-title>
+            <h5>Fluxo de Caixa</h5>
+        </page-title>
+        <div class="card-panel z-depth-5">
+            <div>
+                <table class="bordered striped highlight responsive-table">
+                    <thead>
+                    <tr>
+                        <th v-for="(key,o) in table.headers" :width="o.width">
+                            <a href="#" @click.prevent="sortBy(key)">
+                                {{ o.label }}
+                                <i class="material-icons right" v-if="searchOptions.order.key == key">
+                                    {{searchOptions.order.sort == 'asc' ? 'arrow_drop_up' : 'arrow_drop_down'}}
+                                </i>
+                            </a>
+                        </th>
+                        <th>Ações</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="o in bankAccounts" :class="{'green-text': o.default}">
+                        <td>&nbsp;{{o.id}}</td>
+                        <td>{{o.name}}</td>
+                        <td>{{o.agency}}</td>
+                        <td>{{o.account}}</td>
+                        <td>
+                            <div class="row valign-wrapper" v-if="typeof o.bank !== 'undefined'">
+                                <div class="col s2">
+                                    <img :src="o.bank.data.logo" class="bank-logo"/>
+                                </div>
+                                <div class="col s10">
+                                    <span class="left">{{o.bank.data.name}}</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <a v-link="{name: 'bank-account.update', params: {id: o.id}}">Editar</a> |
+                            <a href="#" @click.prevent="openModalDelete(o)">Excluir</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

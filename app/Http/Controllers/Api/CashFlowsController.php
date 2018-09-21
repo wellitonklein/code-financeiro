@@ -2,6 +2,7 @@
 
 namespace CodeFin\Http\Controllers\Api;
 
+use Carbon\Carbon;
 use CodeFin\Http\Controllers\Controller;
 use CodeFin\Repositories\StatementRepository;
 
@@ -10,7 +11,7 @@ use CodeFin\Repositories\StatementRepository;
  *
  * @package namespace CodeFin\Http\Controllers;
  */
-class StatementsController extends Controller
+class CashFlowsController extends Controller
 {
     /**
      * @var StatementRepository
@@ -35,8 +36,9 @@ class StatementsController extends Controller
      */
     public function index()
     {
-        $statements = $this->repository->paginate(3);
+        $dateStart = new Carbon('2018-09-01');
+        $dateEnd = $dateStart->copy()->addMonths(10);
 
-        return $statements;
+        return $this->repository->getCashFlow($dateStart,$dateEnd);
     }
 }

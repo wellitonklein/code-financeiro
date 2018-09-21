@@ -55,6 +55,7 @@
                     {name: 'Contas', dropdownId: 'bills-dropdown'},
                     {name: 'Conta Bancária', routeName: 'bank-account.list'},
                     {name: 'Plano de contas', routeName: 'plan-account.list'},
+                    {name: 'Fluxo de caixa', routeName: 'cash-flow.list'},
                 ],
                 menusDropdown: [
                     {
