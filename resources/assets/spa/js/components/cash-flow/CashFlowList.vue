@@ -42,7 +42,7 @@
             }
         },
         created(){
-            store.commit('cashFlow/setFirstMonthYear', new Date())
+            store.commit('cashFlow/setFirstMonthYear', '2018-12-01')
             store.dispatch('cashFlow/query')
         },
         methods: {

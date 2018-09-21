@@ -36,7 +36,7 @@ class CashFlowsController extends Controller
      */
     public function index()
     {
-        $dateStart = new Carbon('2018-09-01');
+        $dateStart = new Carbon('2018-10-01');
         $dateEnd = $dateStart->copy()->addMonths(10);
 
         return $this->repository->getCashFlow($dateStart,$dateEnd);

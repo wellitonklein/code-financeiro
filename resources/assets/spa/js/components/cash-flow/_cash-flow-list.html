@@ -35,6 +35,15 @@
                             {{balance(key)}}
                         </td>
                     </tr>
+                    <tr>
+                        <td><strong>Geração de caixa</strong></td>
+                        <td v-if="!hasFirstMonthYear">
+                            0
+                        </td>
+                        <td v-for="o in monthsList">
+                            {{o.revenues.total - o.expenses.total}}
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
