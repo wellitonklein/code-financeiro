@@ -4,6 +4,8 @@ namespace CodeFin\Repositories;
 
 use CodeFin\Models\BillPay;
 use CodeFin\Models\BillReceive;
+use CodeFin\Presenters\StatementSerializerPresenter;
+use CodeFin\Serializer\StatementSerializer;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use CodeFin\Models\Statement;
@@ -72,9 +74,13 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
     /**
      * Boot up the repository, pushing criteria
      */
-    public function boot()
-    {
-        $this->pushCriteria(app(RequestCriteria::class));
-    }
+//    public function boot()
+//    {
+//        $this->pushCriteria(app(RequestCriteria::class));
+//    }
 
+    public function presenter()
+    {
+        return StatementSerializerPresenter::class;
+    }
 }

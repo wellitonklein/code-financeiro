@@ -2,8 +2,10 @@
 
 namespace CodeFin\Http\Controllers\Api;
 
+use CodeFin\Criteria\FindBetweenDateBRCriteria;
 use CodeFin\Http\Controllers\Controller;
 use CodeFin\Repositories\StatementRepository;
+use Illuminate\Http\Request;
 
 /**
  * Class BankAccountsController.
@@ -33,8 +35,12 @@ class StatementsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $searchParam = config('repository.criteria.params.search');
+        $search = $request->get($searchParam);
+        $this->repository
+            ->pushCriteria(new FindBetweenDateBRCriteria($search, 'created_at'));
         $statements = $this->repository->paginate(3);
 
         return $statements;
