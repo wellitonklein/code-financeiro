@@ -17,14 +17,14 @@ use Illuminate\Http\Request;
 class BillPaysController extends Controller
 {
     /**
-     * @var BankAccountRepository
+     * @var BillPayRepository
      */
     protected $repository;
 
     /**
      * BankAccountsController constructor.
      *
-     * @param BankAccountRepository $repository
+     * @param BillPayRepository $repository
 
      */
     public function __construct(BillPayRepository $repository)
@@ -37,7 +37,7 @@ class BillPaysController extends Controller
         $searchParam = config('repository.criteria.params.search');
         $search = $request->get($searchParam);
         $this->repository
-            ->pushCriteria(new FindBetweenDateBRCriteria($search))
+            ->pushCriteria(new FindBetweenDateBRCriteria($search,'date_due'))
             ->pushCriteria(new FindByValueBRCriteria($search));
         $billPays = $this->repository->paginate(5);
 

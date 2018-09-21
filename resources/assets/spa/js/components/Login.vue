@@ -43,7 +43,6 @@
 </template>
 
 <script type="text/javascript">
-    // import Auth from "../services/auth"
     import store from '../store/store'
 
     export default {

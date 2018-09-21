@@ -13,10 +13,12 @@ use Prettus\Repository\Contracts\RepositoryInterface;
 class FindBetweenDateBRCriteria implements CriteriaInterface
 {
     private $dateInString;
+    private $dateField;
 
-    public function __construct($dateInString)
+    public function __construct($dateInString, $dateField)
     {
         $this->dateInString = $dateInString;
+        $this->dateField = $dateField;
     }
 
     /**
@@ -40,7 +42,7 @@ class FindBetweenDateBRCriteria implements CriteriaInterface
 
             if ($dateStart && $dateEnd){
                 $model = $model->orWhere(function ($query) use ($dateStart, $dateEnd, $format){
-                    $query->whereBetween('date_due', [
+                    $query->whereBetween($this->dateField, [
                         $dateStart->format($format),
                         $dateEnd->format($format)
                     ]);
