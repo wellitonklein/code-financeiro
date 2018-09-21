@@ -5,81 +5,86 @@
         </page-title>
         <div class="card-panel z-depth-5">
             <div v-if="hasCashFlows">
-                <table class="bordered striped highlight responsive-table">
+                <table class="bordered striped highlight responsive-table grey-text text-darken-3">
                     <thead>
-                    <tr>
-                        <th></th>
-                        <th v-if="!hasFirstMonthYear">
+                    <tr class="green lighten-4">
+                        <th class="text-csv"></th>
+                        <th v-if="!hasFirstMonthYear" class="text-csv">
                             {{FirstMonthYear | monthYear}}
                         </th>
-                        <th v-for="o in monthsList">
+                        <th v-for="o in monthsList" class="text-csv" :class="{'green lighten-2': isCurrentMonthYear(o.month_year)}">
                             {{o.month_year | monthYear}}
                         </th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td><strong>Saldo final</strong></td>
-                        <td>{{firstBalance}}</td>
-                        <td>{{secoundBalance}}</td>
-                        <td v-for="(key, o) in monthsListBalanceFinal">
+                    <tr class="green lighten-2">
+                        <td><strong class="text-csv">Saldo final</strong></td>
+                        <td class="text-csv">{{firstBalance}}</td>
+                        <td class="text-csv">{{secoundBalance}}</td>
+                        <td class="text-csv" v-for="(key, o) in monthsListBalanceFinal">
+                            {{balance(key)}}
+                        </td>
+                    </tr>
+                    <tr >
+                        <td><strong class="text-csv">Saldo mês anterior</strong></td>
+                        <td class="text-csv">{{balanceBeforeFirstMonth}}</td>
+                        <td class="text-csv">{{firstBalance}}</td>
+                        <td class="text-csv">{{secoundBalance}}</td>
+                        <td class="text-csv" v-for="(key, o) in monthsListBalancePrevious">
                             {{balance(key)}}
                         </td>
                     </tr>
                     <tr>
-                        <td><strong>Saldo mês anterior</strong></td>
-                        <td>{{balanceBeforeFirstMonth}}</td>
-                        <td>{{firstBalance}}</td>
-                        <td>{{secoundBalance}}</td>
-                        <td v-for="(key, o) in monthsListBalancePrevious">
-                            {{balance(key)}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><strong>Geração de caixa</strong></td>
-                        <td v-if="!hasFirstMonthYear">
+                        <td><strong class="text-csv">Geração de caixa</strong></td>
+                        <td class="text-csv" v-if="!hasFirstMonthYear">
                             0
                         </td>
-                        <td v-for="o in monthsList">
+                        <td class="text-csv" v-for="o in monthsList">
                             {{o.revenues.total - o.expenses.total}}
                         </td>
                     </tr>
-                    <tr>
-                        <td><strong>Recebimentos</strong></td>
-                        <td v-if="!hasFirstMonthYear">
+                    <tr class="green lighten-4">
+                        <td><strong class="text-csv">Recebimentos</strong></td>
+                        <td class="text-csv" v-if="!hasFirstMonthYear">
                             0
                         </td>
-                        <td v-for="o in monthsList">
+                        <td class="text-csv" v-for="o in monthsList">
                             {{o.revenues.total}}
                         </td>
                     </tr>
-                    <tr v-for="o in categoriesMonths.revenues.data">
-                        <td>{{ o.name }}</td>
-                        <td v-if="!hasFirstMonthYear"></td>
-                        <td v-for="v in monthsList">
+                    <tr class="text-csv" v-for="o in categoriesMonths.revenues.data">
+                        <td class="text-csv">{{ o.name }}</td>
+                        <td class="text-csv" v-if="!hasFirstMonthYear"></td>
+                        <td class="text-csv" v-for="v in monthsList">
                             {{ categoryTotal(o,v.month_year).total }}
                         </td>
                     </tr>
 
-                    <tr>
-                        <td><strong>Pagamentos</strong></td>
-                        <td v-if="!hasFirstMonthYear">
+                    <tr class="green lighten-4">
+                        <td><strong class="text-csv">Pagamentos</strong></td>
+                        <td class="text-csv" v-if="!hasFirstMonthYear">
                             0
                         </td>
                         <td v-for="o in monthsList">
                             {{o.expenses.total}}
                         </td>
                     </tr>
-                    <tr v-for="o in categoriesMonths.expenses.data">
-                        <td>{{ o.name }}</td>
-                        <td v-if="!hasFirstMonthYear"></td>
-                        <td v-for="v in monthsList">
+                    <tr class="text-csv" v-for="o in categoriesMonths.expenses.data">
+                        <td class="text-csv">{{ o.name }}</td>
+                        <td class="text-csv" v-if="!hasFirstMonthYear"></td>
+                        <td class="text-csv" v-for="v in monthsList">
                             {{ categoryTotal(o,v.month_year).total }}
                         </td>
                     </tr>
 
                     </tbody>
                 </table>
+                <div class="fixed-action-btn">
+                    <a class="btn-floating btn-large" @click="downloadCsv" title="Download do Flux de Caixa">
+                        <i class="large material-icons">file_download</i>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
