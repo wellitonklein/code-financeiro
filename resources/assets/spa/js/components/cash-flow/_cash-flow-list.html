@@ -8,15 +8,12 @@
                 <table class="bordered striped highlight responsive-table">
                     <thead>
                     <tr>
-                        <th v-for="(key,o) in table.headers" :width="o.width">
-                            <a href="#" @click.prevent="sortBy(key)">
-                                {{ o.label }}
-                                <i class="material-icons right" v-if="searchOptions.order.key == key">
-                                    {{searchOptions.order.sort == 'asc' ? 'arrow_drop_up' : 'arrow_drop_down'}}
-                                </i>
-                            </a>
+                        <th v-if="!hasFirstMonthYear">
+                            {{FirstMonthYear | monthYear}}
                         </th>
-                        <th>Ações</th>
+                        <th v-for="o in monthsList">
+                            {{o.month_year | monthYear}}
+                        </th>
                     </tr>
                     </thead>
                     <tbody>

@@ -1,14 +1,18 @@
 import {CashFlow} from '../services/resources'
-import _ from "lodash";
+import moment from 'moment'
 
 const state = {
     cashFlows: [],
+    firstMonthYear: null,
 }
 
 const mutations = {
     set(state,cashFlows){
         state.cashFlows = cashFlows
     },
+    setFirstMonthYear(state, date){
+        state.firstMonthYear = moment(date).startOf('day').subtract(1,'months').format('YYYY-MM')
+    }
 }
 
 const actions = {
@@ -20,12 +24,18 @@ const actions = {
 }
 
 const getters = {
-    // filterBankAccountByName: (state) => (name) => {
-    //     let bankAccounts = _.filter(state.lists, (o) => {
-    //         return _.includes(o.name.toLowerCase(), name.toLowerCase())
-    //     })
-    //     return bankAccounts
-    // },
+    filterMonthYear: (state) => (monthYear) => {
+        if (state.cashFlows.hasOwnProperty('months_list')){
+            return state.cashFlows.months_list.filter((item) => {
+                return item.month_year == monthYear
+            })
+        }
+
+        return []
+    },
+    hasFirstMonthYear(state, getters){
+        return getters.filterMonthYear(state.firstMonthYear).length > 0
+    }
     // mapBankAccounts: (state, getters) => (name) => {
     //     let bankAccounts = getters.filterBankAccountByName(name)
     //     return bankAccounts.map((o) => {
