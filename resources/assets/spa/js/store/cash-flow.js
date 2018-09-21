@@ -96,15 +96,12 @@ const getters = {
 
         return previousBalance + monthObj.revenues.total - monthObj.expenses.total
     },
-    // mapBankAccounts: (state, getters) => (name) => {
-    //     let bankAccounts = getters.filterBankAccountByName(name)
-    //     return bankAccounts.map((o) => {
-    //         return {id: o.id, text: getters.textAutoComplete(o)}
-    //     })
-    // },
-    // textAutoComplete: (state) => (bankAccount) => {
-    //     return `${bankAccount.name} - ${bankAccount.account}`
-    // }
+    categoryTotal: (state, getters) => (category, monthYear) => {
+        let monthYearResult = category.months.filter(item => {
+            return item.month_year === monthYear
+        })
+        return monthYearResult.length === 0 ? `{total: ""}` : monthYearResult[0]
+    }
 }
 
 const module = {

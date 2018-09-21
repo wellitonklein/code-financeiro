@@ -16,6 +16,9 @@
             monthsList(){
                 return this.cashFlows.months_list
             },
+            categoriesMonths(){
+                return this.cashFlows.categories_months
+            },
             hasFirstMonthYear(){
                 return store.getters['cashFlow/hasFirstMonthYear']
             },
@@ -48,6 +51,9 @@
         methods: {
             balance(index){
                 return store.getters['cashFlow/balance'](index)
+            },
+            categoryTotal(category, monthYear){
+                return store.getters['cashFlow/categoryTotal'](category, monthYear)
             }
         },
     }

@@ -44,6 +44,40 @@
                             {{o.revenues.total - o.expenses.total}}
                         </td>
                     </tr>
+                    <tr>
+                        <td><strong>Recebimentos</strong></td>
+                        <td v-if="!hasFirstMonthYear">
+                            0
+                        </td>
+                        <td v-for="o in monthsList">
+                            {{o.revenues.total}}
+                        </td>
+                    </tr>
+                    <tr v-for="o in categoriesMonths.revenues.data">
+                        <td>{{ o.name }}</td>
+                        <td v-if="!hasFirstMonthYear"></td>
+                        <td v-for="v in monthsList">
+                            {{ categoryTotal(o,v.month_year).total }}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Pagamentos</strong></td>
+                        <td v-if="!hasFirstMonthYear">
+                            0
+                        </td>
+                        <td v-for="o in monthsList">
+                            {{o.expenses.total}}
+                        </td>
+                    </tr>
+                    <tr v-for="o in categoriesMonths.expenses.data">
+                        <td>{{ o.name }}</td>
+                        <td v-if="!hasFirstMonthYear"></td>
+                        <td v-for="v in monthsList">
+                            {{ categoryTotal(o,v.month_year).total }}
+                        </td>
+                    </tr>
+
                     </tbody>
                 </table>
             </div>
