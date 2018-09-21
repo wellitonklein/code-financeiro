@@ -21,6 +21,18 @@
             },
             firstMonthYear(){
                 return store.state.cashFlow.firstMonthYear
+            },
+            firstBalance(){
+                return store.getters['cashFlow/firstBalance']
+            },
+            secoundBalance(){
+                return store.getters['cashFlow/secoundBalance']
+            },
+            monthsListBalanceFinal(){
+                return store.getters['cashFlow/monthsListBalanceFinal']
+            },
+            hasCashFlows(){
+                return store.getters['cashFlow/hasCashFlows']
             }
         },
         created(){

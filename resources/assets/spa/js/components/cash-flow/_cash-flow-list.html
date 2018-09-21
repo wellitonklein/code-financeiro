@@ -1,13 +1,14 @@
-<div class="container">
+<div class="">
     <div class="row">
         <page-title>
             <h5>Fluxo de Caixa</h5>
         </page-title>
         <div class="card-panel z-depth-5">
-            <div>
+            <div v-if="hasCashFlows">
                 <table class="bordered striped highlight responsive-table">
                     <thead>
                     <tr>
+                        <th></th>
                         <th v-if="!hasFirstMonthYear">
                             {{FirstMonthYear | monthYear}}
                         </th>
@@ -17,24 +18,12 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="o in bankAccounts" :class="{'green-text': o.default}">
-                        <td>&nbsp;{{o.id}}</td>
-                        <td>{{o.name}}</td>
-                        <td>{{o.agency}}</td>
-                        <td>{{o.account}}</td>
-                        <td>
-                            <div class="row valign-wrapper" v-if="typeof o.bank !== 'undefined'">
-                                <div class="col s2">
-                                    <img :src="o.bank.data.logo" class="bank-logo"/>
-                                </div>
-                                <div class="col s10">
-                                    <span class="left">{{o.bank.data.name}}</span>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <a v-link="{name: 'bank-account.update', params: {id: o.id}}">Editar</a> |
-                            <a href="#" @click.prevent="openModalDelete(o)">Excluir</a>
+                    <tr>
+                        <td><strong>Saldo final</strong></td>
+                        <td>{{firstBalance}}</td>
+                        <td>{{secoundBalance}}</td>
+                        <td v-for="o in monthsListBalanceFinal">
+                            Texto
                         </td>
                     </tr>
                     </tbody>
