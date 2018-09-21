@@ -40,26 +40,9 @@
             store.dispatch('cashFlow/query')
         },
         methods: {
-            destroy(){
-                store.dispatch('bankAccount/delete').then((response) => {
-                    Materialize.toast('Conta bancária excluída com sucesso!',4000)
-                })
-            },
-            openModalDelete(bankAccount){
-                store.commit('bankAccount/setDelete', bankAccount)
-                $('#modal-delete').modal('open')
-            },
-            sortBy(key){
-                store.dispatch('bankAccount/queryWithSortBy',key)
-            },
-            filter(){
-                store.dispatch('bankAccount/queryWithFilter')
+            balance(index){
+                return store.getters['cashFlow/balance'](index)
             }
         },
-        events: {
-            'pagination::changed'(page){
-                store.dispatch('bankAccount/queryWithPagination',page)
-            }
-        }
     }
 </script>

@@ -22,8 +22,8 @@
                         <td><strong>Saldo final</strong></td>
                         <td>{{firstBalance}}</td>
                         <td>{{secoundBalance}}</td>
-                        <td v-for="o in monthsListBalanceFinal">
-                            Texto
+                        <td v-for="(key, o) in monthsListBalanceFinal">
+                            {{balance(key)}}
                         </td>
                     </tr>
                     </tbody>

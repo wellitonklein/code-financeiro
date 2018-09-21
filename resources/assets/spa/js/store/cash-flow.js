@@ -64,7 +64,33 @@ const getters = {
     },
     hasCashFlows(sate){
         return state.cashFlows !== null && state.cashFlows.months_list.length > 1
-    }
+    },
+    balance: (state, getters) => (index) => {
+        return getters._calculateBalance(index+getters.indexSecoundMonth + 1)
+    },
+    _calculateBalance: (state, getters) => (index) => {
+        let indexSecoundMonth = getters.indexSecoundMonth
+        let previousIndex = index-1
+        let previousBalance = 0
+
+        switch (previousIndex) {
+            case 0:
+                //primeiro mes: Jan
+                //segundo mes: Fev
+                previousBalance = indexSecoundMonth === 0 ? getters.secoundBalance : getters.firstBalance;
+                break
+            case 1:
+                previousBalance = indexSecoundMonth === 1 ? getters.secoundBalance : getters._calculateBalance(previousIndex);
+                break
+            default:
+                previousBalance = getters._calculateBalance(previousIndex)
+        }
+
+        let monthYear = state.cashFlows.months_list[index].month_year
+        let monthObj = getters.filterMonthYear(monthYear)[0]
+
+        return previousBalance + monthObj.revenues.total - monthObj.expenses.total
+    },
     // mapBankAccounts: (state, getters) => (name) => {
     //     let bankAccounts = getters.filterBankAccountByName(name)
     //     return bankAccounts.map((o) => {
