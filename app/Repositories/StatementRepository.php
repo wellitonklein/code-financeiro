@@ -2,6 +2,7 @@
 
 namespace CodeFin\Repositories;
 
+use Carbon\Carbon;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
@@ -11,5 +12,6 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  */
 interface StatementRepository extends RepositoryInterface
 {
-    //
+    public function getCashFlow(Carbon $dateStart, Carbon $dateEnd);
+    public function getBalanceByMonth(Carbon $date);
 }

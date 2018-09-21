@@ -38,8 +38,6 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
             $dateEnd
         );
 
-//        dd($revenuesCollection);
-
         $expensesCollection = $this->getCategoriesValuesCollection(
             new CategoryExpense(),
             (new BillPay())->getTable(),
@@ -116,6 +114,21 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
         $monthsYearList = $this->formatMonthsYear($expensesCollection,$revenuesCollection);
         $expensesFormatted = $this->formatCategories($expensesCollection);
         $revenuesFormatted = $this->formatCategories($revenuesCollection);
+
+        $collectionFormatted  = [
+            'months_list' => $monthsYearList,
+            'balance_before_first_month' => $balancePreviousMonth,
+            'categories_months' => [
+                'expenses' => [
+                    'data' => $expensesFormatted
+                ],
+                'revenues' => [
+                    'data' => $revenuesFormatted
+                ],
+            ]
+        ];
+
+        return $collectionFormatted;
     }
 
     protected function getCategoriesValuesCollection($model, $billTable, Carbon $dateStart, Carbon $dateEnd)
