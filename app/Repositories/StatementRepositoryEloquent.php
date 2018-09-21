@@ -38,6 +38,8 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
             $dateEnd
         );
 
+        dd($revenuesCollection);
+
         $expensesCollection = $this->getCategoriesValuesCollection(
             new CategoryExpense(),
             (new BillPay())->getTable(),
@@ -103,13 +105,13 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
             ->selectRaw("DATE_FORMAT(date_due, '%Y-%m') as month_year")
             ->selectSub($this->getQueryWithDepth($model), 'depth')
             ->join("$table as childOrSelf", function ($join) use ($table,$lft,$rgt){
-                $join->on($table.$lft, '<=', "childOrSelf.$lft")
-                    ->where($table.$rgt, '>=', "childOrSelf.$rgt");
+                $join->on("$table.$lft", '<=', "childOrSelf.$lft")
+                    ->whereRaw("$table.$rgt >= childOrSelf.$rgt");
             })
             ->join($billTable, "$billTable.category_id", '=', 'childOrSelf.id')
             ->whereBetween('date_due', [$dateStart, $dateEnd])
             ->groupBy("$table.id","$table.name", 'month_year')
-            ->having("depth = 0")
+            ->havingRaw("depth = 0")
             ->orderBy("month_year")
             ->orderBy("$table.name");
     }
@@ -122,7 +124,7 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
 
         $alias = '_d';
 
-        return $this->model
+        return $model
             ->newScopedQuery($alias)
             ->toBase()
             ->selectRaw('count(1) - 1')
