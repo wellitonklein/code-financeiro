@@ -38,7 +38,7 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
             $dateEnd
         );
 
-        dd($revenuesCollection);
+//        dd($revenuesCollection);
 
         $expensesCollection = $this->getCategoriesValuesCollection(
             new CategoryExpense(),
@@ -50,9 +50,40 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
         return $this->formatCashFlow($expensesCollection, $revenuesCollection, $balancePreviousMonth);
     }
 
+    protected function formatCategories($collection){
+        /**
+         * id: 0
+         * name: Category x
+         * months: [
+         *  {total: 10, month_year: '2018-10'},{total: 40, month_year: '2018-12'}
+         * ]
+         */
+        $categories = $collection->unique('name')->pluck('name','id')->all();
+        $arrayResult = [];
+
+        foreach ($categories as $id => $name){
+            $filtered = $collection->where('id',$id)->where('name',$name);
+            $months_year = [];
+            $filtered->each(function ($category) use (&$months_year){
+                $months_year[] = [
+                    'total' => $category->total,
+                    'month_year' => $category->month_year,
+                ];
+            });
+            $arrayResult[] = [
+                'id'     => $id,
+                'name'   => $name,
+                'months' => $months_year
+            ];
+        }
+
+        return $arrayResult;
+    }
+
     protected function formatCashFlow($expensesCollection, $revenuesCollection, $balancePreviousMonth)
     {
-
+        $expensesFormatted = $this->formatCategories($expensesCollection);
+        $revenuesFormatted = $this->formatCategories($revenuesCollection);
     }
 
     protected function getCategoriesValuesCollection($model, $billTable, Carbon $dateStart, Carbon $dateEnd)
