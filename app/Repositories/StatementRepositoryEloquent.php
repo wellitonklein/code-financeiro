@@ -80,8 +80,40 @@ class StatementRepositoryEloquent extends BaseRepository implements StatementRep
         return $arrayResult;
     }
 
+    protected function formatMonthsYear($expensesCollection,$revenuesCollecion)
+    {
+        /**
+         * months_lists: {
+        {month_year: '2018-09', receives: {total: 10}, expenses: {total: 5}}
+         * }
+         */
+        $monthsYearExpenseCollection = $expensesCollection->pluck('month_year');
+        $monthsYearRevenueCollection = $revenuesCollecion->pluck('month_year');
+
+        $monthsYearsCollection = $monthsYearExpenseCollection->merge($monthsYearRevenueCollection)->unique()->sort();
+        $monthsYearList = [];
+        $monthsYearsCollection->each(function ($monthYear) use (&$monthsYearList){
+            $monthsYearList[$monthYear] = [
+                'month_year' => $monthYear,
+                'revenues' => ['total' => 0],
+                'expenses' => ['total' => 0],
+            ];
+        });
+
+        foreach ($monthsYearRevenueCollection as $monthYear){
+            $monthsYearList[$monthYear]['revenues']['total'] = $revenuesCollecion->where('month_year', $monthYear)->sum('total');
+        }
+
+        foreach ($monthsYearExpenseCollection as $monthYear){
+            $monthsYearList[$monthYear]['expenses']['total'] = $expensesCollection->where('month_year', $monthYear)->sum('total');
+        }
+
+        return array_values($monthsYearList);
+    }
+
     protected function formatCashFlow($expensesCollection, $revenuesCollection, $balancePreviousMonth)
     {
+        $monthsYearList = $this->formatMonthsYear($expensesCollection,$revenuesCollection);
         $expensesFormatted = $this->formatCategories($expensesCollection);
         $revenuesFormatted = $this->formatCategories($revenuesCollection);
     }
