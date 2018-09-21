@@ -2,6 +2,8 @@
 
 namespace CodeFin\Repositories;
 
+use CodeFin\Models\BillPay;
+use CodeFin\Models\BillReceive;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use CodeFin\Models\Statement;
@@ -14,6 +16,42 @@ use CodeFin\Models\Statement;
 class StatementRepositoryEloquent extends BaseRepository implements StatementRepository
 {
     use CashFlowRepositoryTrait;
+
+    public function paginate($limit = null, $columns = ['*'], $method = "paginate")
+    {
+        $skipPresenter = $this->skipPresenter;
+        $this->skipPresenter();
+        $collection = parent::paginate($limit, $columns, $method);
+        $this->skipPresenter($skipPresenter);
+
+        return $this->parserResult(new StatementSerializer($collection, $this->formatStatementsData($collection)));
+    }
+
+    protected function getCountAndTotalBill($billType)
+    {
+        $this->resetModel();
+        $this->applyCriteria();
+        $collection = $this->model->selectRaw('COUNT(id) as count, SUM(value) as total')
+            ->where('statementable_type', '=', $billType)->get();
+        $result = $collection->first();
+
+        return [
+            'count' => (float)$result->count,
+            'total' => (float)$result->total
+        ];
+    }
+
+    protected function formatStatementsData()
+    {
+        $resultRevenue = $this->getCountAndTotalBill(BillReceive::class);
+        $resultExpense = $this->getCountAndTotalBill(BillPay::class);
+
+        return [
+            'count' => $resultRevenue['count'] + $resultExpense['count'],
+            'revenues' => ['total' => $resultRevenue['total']],
+            'expenses' => ['total' => $resultExpense['total']],
+        ];
+    }
 
     public function create(array $attributes)
     {
