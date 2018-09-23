@@ -4,6 +4,8 @@ namespace CodeFin\Repositories;
 
 use CodeFin\Criteria\FindByNameCriteria;
 use CodeFin\Criteria\LockTableCriteria;
+use CodeFin\Events\BankAccountBalanceUpdatedEvent;
+use CodeFin\Models\Bank;
 use CodeFin\Presenters\BankAccountPresenter;
 use CodeFin\Presenters\BankPresenter;
 use Prettus\Repository\Eloquent\BaseRepository;
@@ -36,6 +38,7 @@ class BankAccountRepositoryEloquent extends BaseRepository implements BankAccoun
         $model->balance = $model->balance + $value;
         $model->save();
         \DB::commit();
+        broadcast(new BankAccountBalanceUpdatedEvent($model));
         $this->popCriteria(LockTableCriteria::class);
         $this->skipPresenter = $skipPresenter;
 
