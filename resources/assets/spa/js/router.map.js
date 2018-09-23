@@ -8,6 +8,7 @@ import PlanAccountComponent from './components/category/PlanAccount.vue'
 import BillPayListComponent from './components/bill/bill-pay/BillPayList.vue'
 import BillReceiveListComponent from './components/bill/bill-receive/BillReceiveList.vue'
 import CashFlowListComponent from './components/cash-flow/CashFlowList.vue'
+import StatementListComponent from './components/statement/StatementList.vue'
 
 export default {
     '/login': {
@@ -63,6 +64,11 @@ export default {
     '/cash-flow': {
         name: 'cash-flow.list',
         component: CashFlowListComponent,
+        auth: true
+    },
+    '/statement': {
+        name: 'statement.list',
+        component: StatementListComponent,
         auth: true
     }
 

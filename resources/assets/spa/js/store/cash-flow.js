@@ -94,7 +94,7 @@ const getters = {
         let monthYear = state.cashFlows.months_list[index].month_year
         let monthObj = getters.filterMonthYear(monthYear)[0]
 
-        return previousBalance + monthObj.revenues.total - monthObj.expenses.total
+        return previousBalance + monthObj.revenues.total + monthObj.expenses.total
     },
     categoryTotal: (state, getters) => (category, monthYear) => {
         let monthYearResult = category.months.filter(item => {
