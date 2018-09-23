@@ -2,14 +2,12 @@
 
 namespace CodeFin\Http\Controllers\Api;
 
-use CodeFin\Criteria\FindByLikeAgencyCriteria;
-use CodeFin\Criteria\FindByNameCriteria;
 use CodeFin\Http\Controllers\Controller;
 use CodeFin\Http\Controllers\Response;
-
 use CodeFin\Http\Requests\BankAccountCreateRequest;
 use CodeFin\Http\Requests\BankAccountUpdateRequest;
 use CodeFin\Repositories\BankAccountRepository;
+use Illuminate\Http\Request;
 
 /**
  * Class BankAccountsController.
@@ -43,9 +41,11 @@ class BankAccountsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $bankAccounts = $this->repository->paginate();
+        $limit = (int) $request->get('limit',null);
+        $limit = $limit > 0 ? $limit : null;
+        $bankAccounts = $this->repository->paginate($limit);
 
         return $bankAccounts;
     }
