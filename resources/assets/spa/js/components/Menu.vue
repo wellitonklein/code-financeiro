@@ -16,7 +16,7 @@
                 <div class="row">
                     <div class="col s12">
                         <a href="#" class="left brand-logo">Financeiro</a>
-                        <a href="#" data-activates="nav-mobile" class="button-collapse">
+                        <a href="#" data-activates="nav-mobile" class="button-collapse right">
                             <i class="material-icons">menu</i>
                         </a>
                         <ul class="right hide-on-med-and-down">

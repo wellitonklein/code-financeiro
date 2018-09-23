@@ -18,9 +18,11 @@
 
 <script>
     import store from '../store/store'
+    import ValidatorOffRemoveMin from '../mixins/validator-off-remove-mixin'
 
     export default {
         name: 'Dashboard',
+        mixins: [ValidatorOffRemoveMin],
         computed:{
             bankAccounts(){
                 return store.state.bankAccount.bankAccounts

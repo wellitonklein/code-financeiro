@@ -46,6 +46,7 @@
     import store from '../store/store'
 
     export default {
+        name: 'Login',
         data(){
             return {
                 user: {
@@ -76,7 +77,3 @@
         }
     }
 </script>
-
-<style scoped>
-
-</style>
