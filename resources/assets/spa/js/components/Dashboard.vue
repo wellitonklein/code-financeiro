@@ -27,12 +27,27 @@
             bankAccounts(){
                 return store.state.bankAccount.bankAccounts
             },
+            clientId(){
+                return store.state.auth.user.client_id
+            }
         },
         created(){
-            store.commit('bankAccount/setOrder', 'balance')
-            store.commit('bankAccount/setSort', 'desc')
-            store.commit('bankAccount/setLimit', 5)
-            store.dispatch('bankAccount/query')
+            this.store()
+            this.echo()
+        },
+        methods: {
+            store(){
+                store.commit('bankAccount/setOrder', 'balance')
+                store.commit('bankAccount/setSort', 'desc')
+                store.commit('bankAccount/setLimit', 5)
+                store.dispatch('bankAccount/query')
+            },
+            echo(){
+                Echo.private(`client.${this.clientId}`)
+                    .listen('.CodeFin.Events.BankAccountBalanceUpdatedEvent',(event) => {
+                        console.log(event)
+                    })
+            }
         }
     }
 </script>
