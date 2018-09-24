@@ -13,6 +13,9 @@ const mutations = {
     set(state,bankAccounts){
         state.bankAccounts = bankAccounts
     },
+    updateBalance(state, {index, balance}){
+        state.bankAccounts[index].balance = balance
+    },
     setLists(state, lists){
         state.lists = lists
     },
