@@ -17,7 +17,8 @@ const mutations = {
     setFirstMonthYear(state, date){
         state.firstMonthYear = moment(date)
             .startOf('day')
-            .subtract(1, 'months').format('YYYY-MM')
+            .subtract(1, 'months')
+            .format('YYYY-MM')
     }
 }
 
