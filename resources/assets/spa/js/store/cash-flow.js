@@ -4,36 +4,46 @@ import moment from 'moment'
 const state = {
     cashFlows: null,
     firstMonthYear: null,
+    cashFlowsMonthly: null
 }
 
 const mutations = {
-    set(state,cashFlows){
+    set(state, cashFlows){
         state.cashFlows = cashFlows
     },
+    setMonthly(state, cashFlowsMonthly){
+        state.cashFlowsMonthly = cashFlowsMonthly
+    },
     setFirstMonthYear(state, date){
-        state.firstMonthYear = moment(date).startOf('day').subtract(1,'months').format('YYYY-MM')
+        state.firstMonthYear = moment(date)
+            .startOf('day')
+            .subtract(1, 'months').format('YYYY-MM')
     }
 }
 
 const actions = {
     query(context){
-        return CashFlow.query().then((response) => {
+        return CashFlow.query().then(response => {
             context.commit('set', response.data)
         })
     },
+    monthly(context){
+        return CashFlow.monthly().then(response => {
+            context.commit('setMonthly', response.data)
+        })
+    }
 }
 
 const getters = {
-    indexSecoundMonth(state, getters){
+    indexSecondMonth(state, getters){
         return getters.hasFirstMonthYear ? 1 : 0
     },
     filterMonthYear: (state) => (monthYear) => {
-        if (state.cashFlows.hasOwnProperty('months_list')){
-            return state.cashFlows.months_list.filter((item) => {
-                return item.month_year === monthYear
+        if (state.cashFlows.hasOwnProperty('period_list')) {
+            return state.cashFlows.period_list.filter((item) => {
+                return item.period === monthYear
             })
         }
-
         return []
     },
     hasFirstMonthYear(state, getters){
@@ -43,64 +53,57 @@ const getters = {
         let balanceBeforeFirstMonth = state.cashFlows.balance_before_first_month
         let balanceFirstMonth = 0
 
-        if (getters.hasFirstMonthYear){
+        if (getters.hasFirstMonthYear) {
             let firstMonthYear = getters.filterMonthYear(state.firstMonthYear)
             balanceFirstMonth = firstMonthYear[0].revenues.total - firstMonthYear[0].expenses.total
         }
         return balanceBeforeFirstMonth + balanceFirstMonth
     },
-    secoundBalance(state, getters){
+    secondBalance(state, getters){
         let firstBalance = getters.firstBalance
-        let indexSecoundMonth = getters.indexSecoundMonth
-        let secoundMonthYear = state.cashFlows.months_list[indexSecoundMonth].month_year
-        let secoundMonthObj = getters.filterMonthYear(secoundMonthYear)[0]
+        let indexSecondMonth = getters.indexSecondMonth
+        let secondMonthYear = state.cashFlows.period_list[indexSecondMonth].period
+        let secondMonthObj = getters.filterMonthYear(secondMonthYear)[0]
 
-        return firstBalance + secoundMonthObj.revenues.total - secoundMonthObj.expenses.total
+        return getters.firstBalance + secondMonthObj.revenues.total - secondMonthObj.expenses.total
     },
     monthsListBalanceFinal(state, getters){
-        let monthsListLength = state.cashFlows.months_list
-
-        return monthsListLength.slice(getters.indexSecoundMonth + 1,monthsListLength.length)
+        let length = state.cashFlows.period_list.length
+        return state.cashFlows.period_list.slice(getters.indexSecondMonth + 1, length)
     },
-    monthsListBalancePrevious(state, getters){
-        let monthsListLength = state.cashFlows.months_list
-
-        return monthsListLength.slice(getters.indexSecoundMonth + 2,monthsListLength.length)
+    hasCashFlows(state){
+        return state.cashFlows != null && state.cashFlows.period_list.length > 1
     },
-    hasCashFlows(sate){
-        return state.cashFlows !== null && state.cashFlows.months_list.length > 1
+    hasCashFlowsMonthly(state){
+        return state.cashFlowsMonthly != null && state.cashFlowsMonthly.period_list.length > 0
     },
     balance: (state, getters) => (index) => {
-        return getters._calculateBalance(index+getters.indexSecoundMonth + 1)
+        return getters._calculateBalance(index + getters.indexSecondMonth + 1)
     },
     _calculateBalance: (state, getters) => (index) => {
-        let indexSecoundMonth = getters.indexSecoundMonth
-        let previousIndex = index-1
+        let indexSecondMonth = getters.indexSecondMonth
+        let previousIndex = index - 1
         let previousBalance = 0
-
         switch (previousIndex) {
             case 0:
-                //primeiro mes: Jan
-                //segundo mes: Fev
-                previousBalance = indexSecoundMonth === 0 ? getters.secoundBalance : getters.firstBalance;
+                previousBalance = indexSecondMonth === 0 ? getters.secondBalance : getters.firstBalance
                 break
             case 1:
-                previousBalance = indexSecoundMonth === 1 ? getters.secoundBalance : getters._calculateBalance(previousIndex);
+                previousBalance = indexSecondMonth === 1 ? getters.secondBalance : getters._calculateBalance(previousIndex)
                 break
             default:
                 previousBalance = getters._calculateBalance(previousIndex)
         }
 
-        let monthYear = state.cashFlows.months_list[index].month_year
+        let monthYear = state.cashFlows.period_list[index].period
         let monthObj = getters.filterMonthYear(monthYear)[0]
-
-        return previousBalance + monthObj.revenues.total + monthObj.expenses.total
+        return previousBalance + monthObj.revenues.total - monthObj.expenses.total
     },
-    categoryTotal: (state, getters) => (category, monthYear) => {
-        let monthYearResult = category.months.filter(item => {
-            return item.month_year === monthYear
+    categoryTotal: (state,getters) => (category,monthYear) => {
+        let monthYearResult = category.periods.filter(item => {
+            return item.period === monthYear
         })
-        return monthYearResult.length === 0 ? `{total: ""}` : monthYearResult[0]
+        return monthYearResult.length === 0 ? {total: ""} : monthYearResult[0]
     }
 }
 

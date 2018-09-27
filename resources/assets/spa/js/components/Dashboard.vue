@@ -46,27 +46,26 @@
                 Echo.private(`client.${this.clientId}`)
                     .listen('.CodeFin.Events.BankAccountBalanceUpdatedEvent',(event) => {
                         this.updateBalance(event.bankAccount)
+                        // console.log(event)
                     })
             },
             findIndexBankAccount(id){
-                let index = this.bankAccounts.findIndex(item => {
-                    return item.id === id
+                // console.log(`id : ${id}`)
+                // console.log(`bankAccounts : ${this.bankAccounts}`)
+                return this.bankAccounts.findIndex(item => {
+                    return item.id === id ? id : -1
                 })
 
-                return index
+                // return index
             },
             updateBalance(bankAccount){
                 let bankAccountIndex = this.findIndexBankAccount(bankAccount.id)
-                
-                if (bankAccountIndex !== -1){
-                    store.commit('bankAccount/updateBalance', {
-                        bankAccountIndex,
-                        balance: bankAccountIndex.balance
-                    })
+
+                if (bankAccountIndex !== -1 && bankAccountIndex !== 'undefined'){
+                    store.commit('bankAccount/updateBalance', {index: bankAccountIndex, balance: bankAccount.balance})
                 }
-                let balance = this.$options.filters.numberFormat.read(bankAccount.balance, true)
-                let message = `Novo saldo de - ${bankAccount.name} - ${balance}.`
-                Materialize.toast(message, 4000)
+                let balance = this.$options.filters.numberFormat.read(bankAccount.balance, true);
+                Materialize.toast(`Novo saldo para ${bankAccount.name} - ${balance}`,5000);
             }
         }
     }

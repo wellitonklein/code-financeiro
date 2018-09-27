@@ -28,7 +28,7 @@ const mutations = {
     setOrder(state,key){
         state.searchOptions.order.key = key
         let sort = state.searchOptions.order.sort
-        state.searchOptions.order.sort = sort == 'desc' ? 'asc' : 'desc'
+        state.searchOptions.order.sort = sort === 'desc' ? 'asc' : 'desc'
     },
     setSort(state, sort){
         state.searchOptions.order.sort = sort
