@@ -62,8 +62,8 @@
                     {
                         id: 'bills-dropdown',
                         items: [
-                            {name: "A pagar", routeName: 'bill-pay.list'},
-                            {name: "A receber", routeName: 'bill-receive.list'},
+                            {name: "Contas a pagar", routeName: 'bill-pay.list'},
+                            {name: "Contas a receber", routeName: 'bill-receive.list'},
                         ]
                     }
                 ]
@@ -80,3 +80,13 @@
         }
     };
 </script>
+
+<style type="text/css" scoped>
+    nav ul a{
+        font-size: 0.9rem;
+    }
+
+    .brand-logo{
+        font-size: 1.5rem;
+    }
+</style>

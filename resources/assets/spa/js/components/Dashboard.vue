@@ -1,7 +1,62 @@
 <template>
     <div class="row">
         <div class="col s8">
-            <div class="row"></div>
+            <div class="row">
+                <div class="col s6">
+                    <div class="row card-panel z-depth-2">
+                        <div class="center" v-show="loadingRevenue">
+                            <div class="preloader-wrapper big active">
+                                <div class="spinner-layer spinner-green-only">
+                                    <div class="circle-clipper left">
+                                        <div class="circle"></div>
+                                    </div>
+                                    <div class="gap-patch">
+                                        <div class="circle"></div>
+                                    </div>
+                                    <div class="circle-clipper right">
+                                        <div class="circle"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div v-show="!loadingRevenue">
+                            <div>A receber hoje</div>
+                            <h3 id="revenue-number" class="grey-text center">R$0,00</h3>
+                            <div class="left">Restante do mês</div>
+                            <div class="right">R$0,00</div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col s6">
+                    <div class="row card-panel z-depth-2">
+                        <div class="center" v-show="loadingExpense">
+                            <div class="preloader-wrapper big active">
+                                <div class="spinner-layer spinner-green-only">
+                                    <div class="circle-clipper left">
+                                        <div class="circle"></div>
+                                    </div>
+                                    <div class="gap-patch">
+                                        <div class="circle"></div>
+                                    </div>
+                                    <div class="circle-clipper right">
+                                        <div class="circle"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div v-show="!loadingExpense">
+                            <div>A pagar hoje</div>
+                            <h3 id="expense-number" class="grey-text center">R$0,00</h3>
+                            <div class="left">Restante do mês</div>
+                            <div class="right">R$0,00</div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
             <div class="row card-panel z-depth-2" v-if="hasCashFlowsMonthly">
                 <div class="center" v-show="loadingChart">
                     <div class="preloader-wrapper big active">
@@ -62,6 +117,7 @@
 <script>
     import store from '../store/store'
     import VueCharts from 'vue-charts'
+    import 'jquery.animate-number'
     import ValidatorOffRemoveMin from '../mixins/validator-off-remove-mixin'
 
     Vue.use(VueCharts)
@@ -73,6 +129,8 @@
             return {
                 loadingBankAccountList: true,
                 loadingChart: true,
+                loadingRevenue: true,
+                loadingExpense: true,
             }
         },
         computed:{
@@ -149,6 +207,29 @@
                 })
 
                 store.dispatch('cashFlow/monthly')
+
+                let self = this
+
+                setTimeout(() => {
+                    this.loadingRevenue = false
+                    this.loadingExpense = false
+
+                    $("#revenue-number").animateNumber({
+                        number: 1500.30,
+                        numberStep(now,tween){
+                            let number = self.$options.filters.numberFormat.read(now, true)
+                            $(tween.elem).text(number)
+                        }
+                    })
+
+                    $("#expense-number").animateNumber({
+                        number: 3200.15,
+                        numberStep(now,tween){
+                            let number = self.$options.filters.numberFormat.read(now, true)
+                            $(tween.elem).text(number)
+                        }
+                    })
+                },3000)
             },
             echo(){
                 Echo.private(`client.${this.clientId}`)
