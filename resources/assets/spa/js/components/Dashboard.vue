@@ -11,12 +11,29 @@
                 ></vue-chart>
             </div>
         </div>
-        <div class="col s4">
-            <ul class="collection">
+        <div class="col s4 card-panel z-depth-2">
+
+            <div class="center" v-show="loadingBankAccountList">
+                <div class="preloader-wrapper big active">
+                    <div class="spinner-layer spinner-green-only">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <ul class="collection" id="bank-account-list" v-show="!loadingBankAccountList">
                 <li class="collection-item avatar" v-for="o in bankAccounts">
                     <img :src="o.bank.data.logo" class="circle"/>
                     <span class="title"><strong>{{o.name}}</strong></span>
-                    <p>{{o.balance | numberFormat true}}5</p>
+                    <p>{{o.balance | numberFormat true}}</p>
                 </li>
             </ul>
         </div>
@@ -33,6 +50,11 @@
     export default {
         name: 'Dashboard',
         mixins: [ValidatorOffRemoveMin],
+        data(){
+            return {
+                loadingBankAccountList: true
+            }
+        },
         computed:{
             bankAccounts(){
                 return store.state.bankAccount.bankAccounts
@@ -65,7 +87,7 @@
                         colors: ['green','red']
                     }
                 }
-                
+
                 for (let period of this.cashFlows.period_list){
                     obj.rows.push([
                         this.$options.filters.dayMonth(period.period),
@@ -90,7 +112,10 @@
                 store.commit('bankAccount/setOrder', 'balance')
                 store.commit('bankAccount/setSort', 'desc')
                 store.commit('bankAccount/setLimit', 5)
-                store.dispatch('bankAccount/query')
+                store.dispatch('bankAccount/query').then(() => {
+                    this.loadingBankAccountList = false
+                    Materialize.showStaggeredList('#bank-account-list')
+                })
 
                 store.dispatch('cashFlow/monthly')
             },
@@ -122,3 +147,13 @@
         }
     }
 </script>
+
+<style type="text/css" scoped>
+    .collection{
+        border: none;
+    }
+
+    .collection-item{
+        border: none;
+    }
+</style>
