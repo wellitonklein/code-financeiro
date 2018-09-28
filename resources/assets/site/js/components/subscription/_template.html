@@ -1,0 +1,26 @@
+<div class="card-panel center">
+    <span class="blue-grey-text text-darken-2">
+        <h2>Concluir assinatura</h2>
+    </span>
+    <h4>{{ plan.name }}</h4>
+    <p>{{ plan.description }}</p>
+</div>
+
+<div class="card-panel">
+    <form method="POST" action="">
+        <div class="row center">
+            <h5>Forma de pagamento</h5>
+            <div class="input-field col s6">
+                <input type="radio" v-model="payment_type" id="payment_type_bank_slip" value="bank_slip" name="payment_type"/>
+                <label for="payment_type_bank_slip">Boleto</label>
+            </div>
+            <div class="input-field col s6">
+                <input type="radio" v-model="payment_type" id="payment_type_credit_card" value="credit_card" name="payment_type"/>
+                <label for="payment_type_credit_card">Cartão de Crédito</label>
+            </div>
+        </div>
+        <div v-if="payment_type === 'credit_card'">
+            Mostrar os Dados de cartão
+        </div>
+    </form>
+</div>
