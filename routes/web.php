@@ -27,6 +27,10 @@ Route::group(['prefix' => '/', 'as' => 'site.'], function (){
         Route::get('create', 'Site\SubscriptionsController@create')->name('create')->middleware('auth');
         Route::post('store', 'Site\SubscriptionsController@store')->name('store')->middleware('auth');
     });
+
+    Route::get('login', 'Site\Auth\LoginController@showLoginForm')->name('login');
+    Route::post('login', 'Site\Auth\LoginController@login');
+    Route::post('logout', 'Site\Auth\LoginController@logout');
 });
 
 Route::get('/home', function (){
