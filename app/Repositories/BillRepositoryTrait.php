@@ -5,15 +5,33 @@ namespace CodeFin\Repositories;
 use Carbon\Carbon;
 use CodeFin\Events\BillStoredEvent;
 use CodeFin\Serializer\BillSerializer;
+use Prettus\Repository\Criteria\RequestCriteria;
 
 trait BillRepositoryTrait
 {
+    protected function repeatBill(array $attributes)
+    {
+        $repeat = isset($attributes['repeat']) ? filter_var($attributes['repeat'], FILTER_VALIDATE_BOOLEAN) : false;
+        if($repeat){
+            $repeatNumber = (int)$attributes['repeat_number'];
+            $repeatType = (int)$attributes['repeat_type'];
+            $dateDue = $attributes['date_due'];
+
+            foreach(range(1,$repeatNumber) as $value){
+                $dateNew = $this->model->addDate($dateDue,$value,$repeatType);
+                $attributesNew = array_merge($attributes,['date_due' => $dateNew->format('Y-m-d')]);
+                $model = parent::create($attributesNew);
+                event(new BillStoredEvent($model));
+            }
+        }
+    }
+
     public function create(array $attributes)
     {
         $skipPresenter = $this->skipPresenter;
         $this->skipPresenter(true);
 
-        $model = parent::create($attributes);
+        $model =  parent::create($attributes);
         event(new BillStoredEvent($model));
         $this->repeatBill($attributes);
 
@@ -28,67 +46,55 @@ trait BillRepositoryTrait
 
         $modelOld = $this->find($id);
         $model = parent::update($attributes, $id);
-
-        event(new BillStoredEvent($model, $modelOld));
+        event(new BillStoredEvent($model,$modelOld));
 
         $this->skipPresenter = $skipPresenter;
         return $this->parserResult($model);
-    }
-
-    protected function repeatBill(array $attributes)
-    {
-        if (isset($attributes['repeat'])){
-            $repeat = filter_var($attributes['repeat'], FILTER_VALIDATE_BOOLEAN);
-            $repeatNumber = filter_var($attributes['repeat_number'], FILTER_VALIDATE_INT);
-            $repeatType = filter_var($attributes['repeat_type'], FILTER_VALIDATE_INT);
-            $dateDue = $attributes['date_due'];
-
-            if ($repeat){
-                foreach (range(1,$repeatNumber) as $value){
-                    $dateNew = $this->model->addDate($dateDue,$value,$repeatType);
-                    $attributesNew = array_merge($attributes, ['date_due' => $dateNew->format('Y-m-d')]);
-                    $model = parent::create($attributesNew);
-
-                    event(new BillStoredEvent($model));
-                }
-            }
-        }
     }
 
     public function paginate($limit = null, $columns = ['*'], $method = "paginate")
     {
         $skipPresenter = $this->skipPresenter;
         $this->skipPresenter();
-        $collection = parent::paginate($limit, $columns, $method);
+        $collection = parent::paginate($limit,$columns,$method);
         $this->skipPresenter($skipPresenter);
+        return $this->parserResult(new BillSerializer($collection,$this->formatBillsData()));
+    }
 
-        return $this->parserResult(new BillSerializer($collection, $this->formatBillsData()));
+    public function getTotalFromPeriod(Carbon $dateStart, Carbon $dateEnd)
+    {
+        $result = $this->getQueryTotal()
+            ->whereBetween('date_due',[$dateStart->format('Y-m-d'),$dateEnd->format('Y-m-d')])
+            ->get();
+        return [
+            'total' => (float)$result->first()->total
+        ];
     }
 
     protected function getTotalByDone($done)
     {
         $result = $this->getQueryTotalByDone($done)->get();
-
         return (float)$result->first()->total;
+    }
+
+    protected function getQueryTotal()
+    {
+        $this->resetModel();
+        $this->popCriteria(RequestCriteria::class);
+        $this->applyCriteria();
+        return $this->model->selectRaw('SUM(value) as total');
     }
 
     protected function getQueryTotalByDone($done)
     {
-        $this->resetModel();
-        $this->applyCriteria();
-        $query = $this->model
-            ->selectRaw('SUM(value) as total')
-            ->where('done', '=', $done);
-
-        return $query;
+        return $this->getQueryTotal()->where('done','=',$done);
     }
 
     protected function getTotalExpired()
     {
         $result = $this->getQueryTotalByDone(0)
-            ->where('date_due', '<', (new Carbon())->format('Y-m-d'))
+            ->where('date_due','<',(new Carbon())->format('Y-m-d'))
             ->get();
-
         return (float)$result->first()->total;
     }
 
@@ -101,7 +107,8 @@ trait BillRepositoryTrait
         return [
             'total_paid' => $totalPaid,
             'total_to_pay' => $totalToPay,
-            'total_expired' => $totalExpired
+            'total_expired' => $totalExpired,
         ];
     }
+
 }

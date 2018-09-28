@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
  */
 class BillReceivesController extends Controller
 {
+    use BillControllerTrait;
     /**
      * @var BillReceiveRepository
      */

@@ -22,8 +22,14 @@ let BankAccount = Vue.resource('bank_accounts{/id}',{},{
 })
 let CategoryExpense = Vue.resource('category_expenses{/id}')
 let CategoryRevenue = Vue.resource('category_revenues{/id}')
-let BillPay = Vue.resource('bill_pays{/id}')
-let BillReceive = Vue.resource('bill_receives{/id}')
+let BillPay = Vue.resource('bill_pays{/id}',{},{
+    totalToday: {method: 'GET', url: 'bill_pays/total_today'},
+    totalRestOfMonth: {method: 'GET', url: 'bill_pays/total_rest_of_month'},
+})
+let BillReceive = Vue.resource('bill_receives{/id}',{},{
+    totalToday: {method: 'GET', url: 'bill_receives/total_today'},
+    totalRestOfMonth: {method: 'GET', url: 'bill_receives/total_rest_of_month'},
+})
 let CashFlow = Vue.resource('cash_flows',{},{
     monthly: {method: 'GET', url: 'cash_flows/monthly'}
 })

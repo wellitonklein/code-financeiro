@@ -12,7 +12,9 @@ export default () => {
         },
         billDelete: null,
         resource: null,
-        searchOptions: new SearchOptions(include)
+        searchOptions: new SearchOptions(include),
+        total_today: 0,
+        total_rest_of_month: 0,
     }
 
     const mutations = {
@@ -21,6 +23,12 @@ export default () => {
         },
         setBillData(state,billData){
             state.billData = billData
+        },
+        setTotalToday(state,totalToday){
+            state.total_today = totalToday
+        },
+        setTotalRestOfMonth(state,totalRestOfMonth){
+            state.total_rest_of_month = totalRestOfMonth
         },
         update(state, {index, bill}){
             state.bills.$set(index, bill)
@@ -48,6 +56,16 @@ export default () => {
     }
 
     const actions = {
+        totalToday(context){
+            return context.state.resource.totalToday().then((response) => {
+                context.commit('setTotalToday', response.data.total)
+            })
+        },
+        totalRestOfMonth(context){
+            return context.state.resource.totalRestOfMonth().then((response) => {
+                context.commit('setTotalRestOfMonth', response.data.total)
+            })
+        },
         query(context){
             let searchOptions = context.state.searchOptions
             return context.state.resource.query(searchOptions.createOptions()).then((response) => {
