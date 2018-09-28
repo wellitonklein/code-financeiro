@@ -5,6 +5,11 @@ export default () => {
     const include = 'category,bankAccount'
     const state = {
         bills: [],
+        billData: {
+            total_paid: 0,
+            total_to_pay: 0,
+            total_expired: 0,
+        },
         billDelete: null,
         resource: null,
         searchOptions: new SearchOptions(include)
@@ -13,6 +18,9 @@ export default () => {
     const mutations = {
         set(state,bills){
             state.bills = bills
+        },
+        setBillData(state,billData){
+            state.billData = billData
         },
         update(state, {index, bill}){
             state.bills.$set(index, bill)
@@ -26,7 +34,7 @@ export default () => {
         setOrder(state, key){
             state.searchOptions.order.key = key
             let sort = state.searchOptions.order.sort
-            state.searchOptions.order.sort = sort == 'desc' ? 'asc' : 'desc'
+            state.searchOptions.order.sort = sort === 'desc' ? 'asc' : 'desc'
         },
         setPagination(state, pagination){
             state.searchOptions.pagination = pagination
@@ -43,8 +51,9 @@ export default () => {
         query(context){
             let searchOptions = context.state.searchOptions
             return context.state.resource.query(searchOptions.createOptions()).then((response) => {
-                context.commit('set', response.data.data)
-                context.commit('setPagination', response.data.meta.pagination)
+                context.commit('set', response.data.bills.data)
+                context.commit('setPagination', response.data.bills)
+                context.commit('setBillData', response.data.bill_data)
             })
         },
         queryWidthSortBy(context, key){

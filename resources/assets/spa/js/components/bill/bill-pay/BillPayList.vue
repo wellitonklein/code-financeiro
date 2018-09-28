@@ -37,6 +37,7 @@
                             :per-page="searchOptions.pagination.per_page"
                             :total-records="searchOptions.pagination.total">
                 </pagination>
+                <bill-data namespace="billPay"></bill-data>
             </div>
             <div class="fixed-action-btn">
                 <a class="btn-floating btn-large" @click.prevent="openModalCreate()">
@@ -75,6 +76,7 @@
     import SearchComponent from '../../Search.vue'
     import BillPayCreateComponent from './BillPayCreate.vue'
     import BillPayUpdateComponent from './BillPayUpdate.vue'
+    import BillDataComponent from '../BillData.vue'
     import store from '../../../store/store'
 
     export default {
@@ -86,6 +88,7 @@
             'search': SearchComponent,
             'bill-pay-create': BillPayCreateComponent,
             'bill-pay-update': BillPayUpdateComponent,
+            'bill-data': BillDataComponent,
         },
         data(){
             return {

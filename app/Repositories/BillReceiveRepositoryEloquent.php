@@ -3,7 +3,7 @@
 namespace CodeFin\Repositories;
 
 use CodeFin\Models\BillReceive;
-use CodeFin\Presenters\BillReceivePresenter;
+use CodeFin\Presenters\BillPresenter;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 
@@ -40,7 +40,7 @@ class BillReceiveRepositoryEloquent extends BaseRepository implements BillReceiv
 
     public function presenter()
     {
-        return BillReceivePresenter::class;
+        return BillPresenter::class;
     }
 
 }
