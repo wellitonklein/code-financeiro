@@ -8,11 +8,11 @@
             return {
                 payment_type: 'credit_card',
                 credit_card: {
-                    number: '411111111111111',
-                    cvv: '123',
-                    expiration: '12/10',
-                    first_name: 'Nome',
-                    last_name: 'Sobrenome'
+                    number: '',
+                    cvv: '',
+                    expiration: '',
+                    first_name: '',
+                    last_name: ''
                 }
             }
         },
