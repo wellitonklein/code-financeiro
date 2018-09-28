@@ -9,16 +9,14 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
-
-    const ROLE_ADMIN = 'admin';
-
+    const ROLE_ADMIN = "admin";
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','client_id'
     ];
 
     /**
@@ -30,7 +28,8 @@ class User extends Authenticatable implements JWTSubject
         'password', 'remember_token',
     ];
 
-    public function client(){
+    public function client()
+    {
         return $this->belongsTo(Client::class);
     }
 
@@ -52,10 +51,10 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [
-            'user' => [
-                'id' => $this->id,
-                'name' => $this->name,
-                'email' => $this->email
+            'user'=>[
+                'id'=> $this->id,
+                'name'=> $this->name,
+                'email'=> $this->email,
             ]
         ];
     }
