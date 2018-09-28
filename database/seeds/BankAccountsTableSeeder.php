@@ -1,12 +1,12 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use CodeFin\Repositories\BankRepository;
-use CodeFin\Repositories\ClientRepository;
+use CodeFin\Repositories\Interfaces\BankRepository;
+use CodeFin\Repositories\Interfaces\ClientRepository;
 
 class BankAccountsTableSeeder extends Seeder
 {
-    use \CodeFin\Repositories\GetClientsTrait;
+    use \CodeFin\Repositories\Traits\GetClientsTrait;
     /**
      * Run the database seeds.
      *

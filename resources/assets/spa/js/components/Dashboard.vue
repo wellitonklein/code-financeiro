@@ -118,13 +118,12 @@
     import store from '../store/store'
     import VueCharts from 'vue-charts'
     import 'jquery.animate-number'
-    import ValidatorOffRemoveMin from '../mixins/validator-off-remove-mixin'
+    import {User} from '../services/resources';
 
     Vue.use(VueCharts)
 
     export default {
         name: 'Dashboard',
-        mixins: [ValidatorOffRemoveMin],
         data(){
             return {
                 loadingBankAccountList: true,
@@ -136,9 +135,6 @@
         computed:{
             bankAccounts(){
                 return store.state.bankAccount.bankAccounts
-            },
-            clientId(){
-                return store.state.auth.user.client_id
             },
             cashFlows(){
                 return store.state.cashFlow.cashFlowsMonthly
@@ -246,15 +242,14 @@
                 })
             },
             echo(){
-                Echo.private(`client.${this.clientId}`)
-                    .listen('.CodeFin.Events.BankAccountBalanceUpdatedEvent',(event) => {
-                        this.updateBalance(event.bankAccount)
-                        // console.log(event)
-                    })
+                User.get().then((response) => {
+                    Echo.private(`client.${response.data.client_id}`)
+                        .listen('.CodeFin.Events.BankAccountBalanceUpdatedEvent', (event)=>{
+                            this.updateBalance(event.bankAccount);
+                        });
+                })
             },
             findIndexBankAccount(id){
-                // console.log(`id : ${id}`)
-                // console.log(`bankAccounts : ${this.bankAccounts}`)
                 return this.bankAccounts.findIndex(item => {
                     return item.id === id ? id : -1
                 })

@@ -4,12 +4,13 @@ namespace CodeFin\Repositories;
 
 use CodeFin\Models\BillPay;
 use CodeFin\Presenters\BillPresenter;
-use Prettus\Repository\Eloquent\BaseRepository;
+use CodeFin\Repositories\Interfaces\BillPayRepository;
+use CodeFin\Repositories\Traits\BillRepositoryTrait;
 use Prettus\Repository\Criteria\RequestCriteria;
+use Prettus\Repository\Eloquent\BaseRepository;
 
 /**
- * Class BankRepositoryEloquent.
- *
+ * Class BillPayRepositoryEloquent
  * @package namespace CodeFin\Repositories;
  */
 class BillPayRepositoryEloquent extends BaseRepository implements BillPayRepository
@@ -42,5 +43,4 @@ class BillPayRepositoryEloquent extends BaseRepository implements BillPayReposit
     {
         return BillPresenter::class;
     }
-
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeFin\Repositories;
+namespace CodeFin\Repositories\Interfaces;
 
 use Carbon\Carbon;
 use Prettus\Repository\Contracts\RepositoryInterface;

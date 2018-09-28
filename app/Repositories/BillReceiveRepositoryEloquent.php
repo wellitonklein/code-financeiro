@@ -4,12 +4,14 @@ namespace CodeFin\Repositories;
 
 use CodeFin\Models\BillReceive;
 use CodeFin\Presenters\BillPresenter;
-use Prettus\Repository\Eloquent\BaseRepository;
+use CodeFin\Repositories\Interfaces\BillReceiveRepository;
+use CodeFin\Repositories\Traits\BillRepositoryTrait;
+use CodeFin\Validators\BillReceiveValidator;
 use Prettus\Repository\Criteria\RequestCriteria;
+use Prettus\Repository\Eloquent\BaseRepository;
 
 /**
- * Class BankRepositoryEloquent.
- *
+ * Class BillReceiveRepositoryEloquent
  * @package namespace CodeFin\Repositories;
  */
 class BillReceiveRepositoryEloquent extends BaseRepository implements BillReceiveRepository
@@ -30,6 +32,7 @@ class BillReceiveRepositoryEloquent extends BaseRepository implements BillReceiv
         return BillReceive::class;
     }
 
+
     /**
      * Boot up the repository, pushing criteria
      */
@@ -42,5 +45,4 @@ class BillReceiveRepositoryEloquent extends BaseRepository implements BillReceiv
     {
         return BillPresenter::class;
     }
-
 }

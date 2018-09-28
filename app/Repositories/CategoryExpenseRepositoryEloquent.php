@@ -3,6 +3,8 @@
 namespace CodeFin\Repositories;
 
 use CodeFin\Presenters\CategoryPresenter;
+use CodeFin\Repositories\Interfaces\CategoryExpenseRepository;
+use CodeFin\Repositories\Traits\CategoryRepositoryTrait;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use CodeFin\Models\CategoryExpense;

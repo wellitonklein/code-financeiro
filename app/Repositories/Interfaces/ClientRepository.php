@@ -1,15 +1,15 @@
 <?php
 
-namespace CodeFin\Repositories;
+namespace CodeFin\Repositories\Interfaces;
 
 use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
- * Interface BankRepository.
+ * Interface ClientRepository.
  *
  * @package namespace CodeFin\Repositories;
  */
-interface BankRepository extends RepositoryInterface
+interface ClientRepository extends RepositoryInterface
 {
     //
 }

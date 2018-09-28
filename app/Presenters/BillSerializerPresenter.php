@@ -1,25 +1,29 @@
 <?php
-
 namespace CodeFin\Presenters;
-
+use CodeFin\Serializer\BillSerializer;
 use CodeFin\Transformers\BillSerializerTransformer;
+use CodeFin\Transformers\BillTransformer;
 use Prettus\Repository\Presenter\FractalPresenter;
-
 /**
- * Class CategoryPresenter.
+ * Class BillPayPresenter
  *
  * @package namespace CodeFin\Presenters;
  */
 class BillSerializerPresenter extends FractalPresenter
 {
-    private $billPresenter;
-
-    public function __construct(BillPresenter $billPresenter)
+    /**
+     * @var BillPresenter
+     */
+    private $presenter;
+    /**
+     * BillPaySerializerPresenter constructor.
+     * @param BillPresenter $presenter
+     */
+    public function __construct(BillPresenter $presenter)
     {
         parent::__construct();
-        $this->billPresenter = $billPresenter;
+        $this->presenter = $presenter;
     }
-
     /**
      * Transformer
      *
@@ -27,6 +31,6 @@ class BillSerializerPresenter extends FractalPresenter
      */
     public function getTransformer()
     {
-        return new BillSerializerTransformer($this->billPresenter);
+        return new BillSerializerTransformer($this->presenter);
     }
 }

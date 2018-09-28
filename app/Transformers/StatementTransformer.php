@@ -2,34 +2,32 @@
 
 namespace CodeFin\Transformers;
 
-use CodeFin\Models\AbstractCategory;
-use CodeFin\Models\Statement;
 use League\Fractal\TransformerAbstract;
+use CodeFin\Models\Statement;
 
 /**
- * Class CategoryTransformer.
- *
+ * Class StatementTransformer
  * @package namespace CodeFin\Transformers;
  */
 class StatementTransformer extends TransformerAbstract
 {
 
-    protected $defaultIncludes = ['bankAccount'];
+    protected $availableIncludes = ['bankAccount'];
+
     /**
-     * Transform the CategoryRevenue entity.
-     *
-     * @param \CodeFin\Models\CategoryExpense $model
+     * Transform the \Statement entity
+     * @param \Statement $model
      *
      * @return array
      */
     public function transform(Statement $model)
     {
         return [
-            'id'              => (int) $model->id,
-            'date'            => $model->created_at->format('Y-m-d'),
-            'value'           => $model->value,
+            'id'         => (int) $model->id,
+            'date'         => $model->created_at->format('Y-m-d'),
+            'value'         => $model->value,
             'balance'         => $model->balance,
-            'bank_account_id' => (int)$model->bank_account_id,
+            'bank_account_id'         => (int)$model->bank_account_id,
         ];
     }
 

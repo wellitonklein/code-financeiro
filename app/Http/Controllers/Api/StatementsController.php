@@ -4,7 +4,7 @@ namespace CodeFin\Http\Controllers\Api;
 
 use CodeFin\Criteria\FindBetweenDateBRCriteria;
 use CodeFin\Http\Controllers\Controller;
-use CodeFin\Repositories\StatementRepository;
+use CodeFin\Repositories\Interfaces\StatementRepository;
 use Illuminate\Http\Request;
 
 /**

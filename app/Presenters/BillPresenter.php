@@ -1,11 +1,9 @@
 <?php
-
 namespace CodeFin\Presenters;
-
 use CodeFin\Transformers\BillTransformer;
 use Prettus\Repository\Presenter\FractalPresenter;
 /**
- * Class BillPresenter
+ * Class BillPayPresenter
  *
  * @package namespace CodeFin\Presenters;
  */

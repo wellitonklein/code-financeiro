@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeFin\Repositories;
+namespace CodeFin\Repositories\Interfaces;
 
 use Prettus\Repository\Contracts\RepositoryCriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
@@ -10,7 +10,7 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  *
  * @package namespace CodeFin\Repositories;
  */
-interface CategoryRevenueRepository extends RepositoryInterface, RepositoryCriteriaInterface
+interface CategoryExpenseRepository extends RepositoryInterface, RepositoryCriteriaInterface
 {
     //
 }

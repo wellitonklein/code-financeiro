@@ -4,9 +4,10 @@ namespace CodeFin\Http\Controllers\Api;
 
 use CodeFin\Http\Controllers\Controller;
 use CodeFin\Http\Controllers\Response;
+use CodeFin\Http\Requests;
 use CodeFin\Http\Requests\BankAccountCreateRequest;
 use CodeFin\Http\Requests\BankAccountUpdateRequest;
-use CodeFin\Repositories\BankAccountRepository;
+use CodeFin\Repositories\Interfaces\BankAccountRepository;
 use Illuminate\Http\Request;
 
 /**
@@ -62,8 +63,7 @@ class BankAccountsController extends Controller
     public function store(BankAccountCreateRequest $request)
     {
         $bankAccount = $this->repository->create($request->all());
-
-        return response()->json($bankAccount,201);
+        return response()->json($bankAccount, 201);
     }
 
     /**

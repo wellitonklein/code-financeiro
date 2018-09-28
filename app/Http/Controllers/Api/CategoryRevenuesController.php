@@ -4,7 +4,7 @@ namespace CodeFin\Http\Controllers\Api;
 
 use CodeFin\Criteria\WithDepthCategoriesCriteria;
 use CodeFin\Http\Controllers\Controller;
-use CodeFin\Repositories\CategoryRevenueRepository;
+use CodeFin\Repositories\Interfaces\CategoryRevenueRepository;
 
 /**
  * Class BankAccountsController.

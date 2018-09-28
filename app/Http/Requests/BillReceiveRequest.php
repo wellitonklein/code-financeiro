@@ -25,21 +25,23 @@ class BillReceiveRequest extends FormRequest
     public function rules()
     {
         $client = \Auth::guard('api')->user()->client;
+
         return [
-            'date_due' => 'required|date',
             'name' => 'required|max:255',
+            'date_due' => 'required|date',
             'value' => 'required|numeric',
             'done' => 'boolean',
-            'category_id' => Rule::exists('category_revenues','id')
-                ->where(function($query) use($client){
-                    $query->where('client_id',$client->id);
-                }),
-            'bank_account_id' => Rule::exists('bank_accounts','id')
-                ->where(function($query) use($client){
-                    $query->where('client_id',$client->id);
-                }),
+            'repeat' => 'boolean',
             'repeat_number' => 'required_if:repeat,true|integer|min:0',
             'repeat_type' => 'required_if:repeat,true|in:1,2',
+            'category_id' => Rule::exists('category_revenues', 'id')
+                ->where(function ($query) use ($client) {
+                    $query->where('client_id', $client->id);
+                }),
+            'bank_account_id' => Rule::exists('bank_accounts', 'id')
+                ->where(function ($query) use ($client) {
+                    $query->where('client_id', $client->id);
+                })
         ];
     }
 }

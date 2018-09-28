@@ -6,7 +6,7 @@
  * Time: 00:51
  */
 
-namespace CodeFin\Repositories;
+namespace CodeFin\Repositories\Traits;
 
 
 use Carbon\Carbon;

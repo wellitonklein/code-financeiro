@@ -2,7 +2,7 @@
 
 namespace CodeFin\Listeners;
 
-use CodeFin\Repositories\BankAccountRepository;
+use CodeFin\Repositories\Interfaces\BankAccountRepository;
 use Prettus\Repository\Events\RepositoryEventBase;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;

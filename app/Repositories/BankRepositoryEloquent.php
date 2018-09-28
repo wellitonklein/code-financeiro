@@ -4,6 +4,7 @@ namespace CodeFin\Repositories;
 
 use CodeFin\Events\BankStoredEvent;
 use CodeFin\Presenters\BankPresenter;
+use CodeFin\Repositories\Interfaces\BankRepository;
 use Illuminate\Http\UploadedFile;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;

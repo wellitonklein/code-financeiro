@@ -71,7 +71,8 @@
         },
         computed:{
             name(){
-                return store.state.auth.user.name
+                let user = store.state.auth.user;
+                return user ? user.name : '';
             }
         },
         ready(){

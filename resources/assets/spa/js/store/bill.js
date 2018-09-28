@@ -69,9 +69,9 @@ export default () => {
         query(context){
             let searchOptions = context.state.searchOptions
             return context.state.resource.query(searchOptions.createOptions()).then((response) => {
-                context.commit('set', response.data.bills.data)
-                context.commit('setPagination', response.data.bills)
-                context.commit('setBillData', response.data.bill_data)
+                context.commit('set', response.data.data.bills.data)
+                context.commit('setPagination', response.data.data.bills.meta.pagination)
+                context.commit('setBillData', response.data.data.bill_data)
             })
         },
         queryWidthSortBy(context, key){

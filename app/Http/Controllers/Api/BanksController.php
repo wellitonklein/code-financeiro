@@ -2,7 +2,7 @@
 
 namespace CodeFin\Http\Controllers\Api;
 
-use CodeFin\Repositories\BankRepository;
+use CodeFin\Repositories\Interfaces\BankRepository;
 use CodeFin\Http\Controllers\Controller;
 
 class BanksController extends Controller

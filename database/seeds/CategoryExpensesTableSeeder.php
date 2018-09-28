@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 
 class CategoryExpensesTableSeeder extends Seeder
 {
-    use \CodeFin\Repositories\GetClientsTrait;
+    use \CodeFin\Repositories\Traits\GetClientsTrait;
     /**
      * Run the database seeds.
      *
@@ -37,7 +37,7 @@ class CategoryExpensesTableSeeder extends Seeder
     }
 
     private function getCategoriesRoot(){
-        $repository = app(\CodeFin\Repositories\CategoryExpenseRepository::class);
+        $repository = app(\CodeFin\Repositories\Interfaces\CategoryExpenseRepository::class);
         $repository->skipPresenter(true);
         return $repository->all();
     }

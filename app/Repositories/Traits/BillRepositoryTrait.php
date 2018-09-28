@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeFin\Repositories;
+namespace CodeFin\Repositories\Traits;
 
 use Carbon\Carbon;
 use CodeFin\Events\BillStoredEvent;
@@ -87,7 +87,8 @@ trait BillRepositoryTrait
 
     protected function getQueryTotalByDone($done)
     {
-        return $this->getQueryTotal()->where('done','=',$done);
+        return $this->getQueryTotal()
+            ->where('done','=',$done);
     }
 
     protected function getTotalExpired()

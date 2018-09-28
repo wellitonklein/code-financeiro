@@ -4,6 +4,8 @@ namespace CodeFin\Repositories;
 
 use CodeFin\Models\CategoryRevenue;
 use CodeFin\Presenters\CategoryPresenter;
+use CodeFin\Repositories\Interfaces\CategoryRevenueRepository;
+use CodeFin\Repositories\Traits\CategoryRepositoryTrait;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 

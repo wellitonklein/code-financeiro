@@ -1,7 +1,5 @@
 <?php
-
 namespace CodeFin\Models;
-
 class BillReceive extends AbstractBill
 {
     public function category()

@@ -1,17 +1,16 @@
 <?php
 
-namespace CodeFin\Repositories;
+namespace CodeFin\Repositories\Interfaces;
 
 use Carbon\Carbon;
 use Prettus\Repository\Contracts\RepositoryCriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
- * Interface BankRepository.
- *
- * @package namespace CodeFin\Repositories;
+ * Interface BillReceiveRepository
+ * @package namespace CodeFin\Repositories\Interfaces;
  */
-interface BillPayRepository extends RepositoryInterface, RepositoryCriteriaInterface
+interface BillReceiveRepository extends RepositoryInterface, RepositoryCriteriaInterface
 {
     public function getTotalFromPeriod(Carbon $dateStart, Carbon $dateEnd);
 }

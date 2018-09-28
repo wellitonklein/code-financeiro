@@ -8,6 +8,7 @@ use CodeFin\Events\BankAccountBalanceUpdatedEvent;
 use CodeFin\Models\Bank;
 use CodeFin\Presenters\BankAccountPresenter;
 use CodeFin\Presenters\BankPresenter;
+use CodeFin\Repositories\Interfaces\BankAccountRepository;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use CodeFin\Models\BankAccount;
