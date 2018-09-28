@@ -13,7 +13,7 @@ class CreateBanksData extends Migration
      */
     public function up()
     {
-        $repository = app(\CodeFin\Repositories\BankRepository::class);
+        $repository = app(\CodeFin\Repositories\Interfaces\BankRepository::class);
         foreach ($this->getData() as $bankArray){
             $repository->create($bankArray);
         }
@@ -26,7 +26,7 @@ class CreateBanksData extends Migration
      */
     public function down()
     {
-        $repository = app(\CodeFin\Repositories\BankRepository::class);
+        $repository = app(\CodeFin\Repositories\Interfaces\BankRepository::class);
         $repository->skipPresenter(true);
         $count = count($this->getData());
 

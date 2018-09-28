@@ -39,7 +39,9 @@ class BankAccountRepositoryEloquent extends BaseRepository implements BankAccoun
         $model->balance = $model->balance + $value;
         $model->save();
         \DB::commit();
-        broadcast(new BankAccountBalanceUpdatedEvent($model));
+        if (!app()->runningInConsole()){
+            broadcast(new BankAccountBalanceUpdatedEvent($model));
+        }
         $this->popCriteria(LockTableCriteria::class);
         $this->skipPresenter = $skipPresenter;
 

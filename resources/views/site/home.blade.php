@@ -15,11 +15,14 @@
             <div class="row card z-depth-5">
                 <div class="card-content white-text center-align blue-grey">
                     <span class="card-title">Empresarial</span>
-                </div>
-                <div class="card-content maiin-content white center-align">
                     <p>
                         <span>R$ 25,00/mês</span>
                     </p>
+                </div>
+                <div class="card-content maiin-content white center-align">
+                    {{--<p>--}}
+                        {{--<span>R$ 25,00/mês</span>--}}
+                    {{--</p>--}}
                     <ul class="collection" id="plan-business">
                         <li class="collection-item">Contas a pagar</li>
                         <li class="collection-item">Contas a receber</li>
@@ -32,7 +35,7 @@
                     </ul>
                 </div>
                 <div class="card-action white center-align">
-                    <a href="{{-- route('site.subscriptions.create') --}}" class="btn btn-large waves-effect waves-light blue-grey darken-2">
+                    <a href="{{ route('site.subscriptions.create') }}" class="btn btn-large waves-effect waves-light blue-grey darken-2">
                         Contratar
                     </a>
                 </div>

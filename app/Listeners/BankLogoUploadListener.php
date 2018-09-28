@@ -4,7 +4,7 @@ namespace CodeFin\Listeners;
 
 use CodeFin\Events\BankStoredEvent;
 use CodeFin\Models\Bank;
-use CodeFin\Repositories\BankRepository;
+use CodeFin\Repositories\Interfaces\BankRepository;
 
 class BankLogoUploadListener
 {

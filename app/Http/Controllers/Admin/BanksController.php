@@ -6,7 +6,7 @@ use CodeFin\Http\Controllers\Controller;
 use CodeFin\Http\Controllers\Response;
 use CodeFin\Http\Requests\BankCreateRequest;
 use CodeFin\Http\Requests\BankUpdateRequest;
-use CodeFin\Repositories\BankRepository;
+use CodeFin\Repositories\Interfaces\BankRepository;
 
 /**
  * Class BanksController.

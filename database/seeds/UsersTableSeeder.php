@@ -11,7 +11,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $repository = app(\CodeFin\Repositories\ClientRepository::class);
+        $repository = app(\CodeFin\Repositories\Interfaces\ClientRepository::class);
         $clients = $repository->all();
 
         factory(\CodeFin\Models\User::class,1)

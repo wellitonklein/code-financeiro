@@ -32,7 +32,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(\CodeFin\Repositories\Interfaces\BillReceiveRepository::class, \CodeFin\Repositories\BillReceiveRepositoryEloquent::class);
 //        $this->app->bind(\CodeFin\Repositories\Interfaces\UserRepository::class, \CodeFin\Repositories\UserRepositoryEloquent::class);
         $this->app->bind(\CodeFin\Repositories\Interfaces\StatementRepository::class, \CodeFin\Repositories\StatementRepositoryEloquent::class);
-//        $this->app->bind(\CodeFin\Repositories\Interfaces\PlanRepository::class, \CodeFin\Repositories\PlanRepositoryEloquent::class);
+        $this->app->bind(\CodeFin\Repositories\Interfaces\PlanRepository::class, \CodeFin\Repositories\PlanRepositoryEloquent::class);
 //        $this->app->bind(\CodeFin\Repositories\Interfaces\SubscriptionRepository::class, \CodeFin\Repositories\SubscriptionRepositoryEloquent::class);
 //        $this->app->bind(\CodeFin\Repositories\Interfaces\OrderRepository::class, \CodeFin\Repositories\OrderRepositoryEloquent::class);
         //:end-bindings:

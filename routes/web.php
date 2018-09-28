@@ -19,6 +19,10 @@ Route::group(['prefix' => '/', 'as' => 'site.'], function (){
     Route::get('/', function (){
         return view('site.home');
     })->name('home');
+
+    Route::group(['prefix' => 'subscriptions', 'as' => 'subscriptions.'], function (){
+        Route::get('create', 'Site\SubscriptionsController@create')->name('create');
+    });
 });
 
 Route::get('/home', function (){

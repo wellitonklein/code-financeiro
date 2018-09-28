@@ -4,15 +4,16 @@ namespace CodeFin\Repositories;
 
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use CodeFin\Repositories\Interfaces\ClientRepository;
-use CodeFin\Models\Client;
-//use CodeFin\Validators\ClientValidator;
+use CodeFin\Repositories\Interfaces\PlanRepository;
+use CodeFin\Models\Plan;
+use CodeFin\Validators\PlanValidator;
 
 /**
- * Class ClientRepositoryEloquent
+ * Class PlanRepositoryEloquent.
+ *
  * @package namespace CodeFin\Repositories;
  */
-class ClientRepositoryEloquent extends BaseRepository implements ClientRepository
+class PlanRepositoryEloquent extends BaseRepository implements PlanRepository
 {
     /**
      * Specify Model class name
@@ -21,10 +22,10 @@ class ClientRepositoryEloquent extends BaseRepository implements ClientRepositor
      */
     public function model()
     {
-        return Client::class;
+        return Plan::class;
     }
 
-
+    
 
     /**
      * Boot up the repository, pushing criteria
@@ -33,4 +34,5 @@ class ClientRepositoryEloquent extends BaseRepository implements ClientRepositor
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
+    
 }

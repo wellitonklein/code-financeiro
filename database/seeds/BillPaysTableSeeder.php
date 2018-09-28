@@ -1,11 +1,11 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use CodeFin\Repositories\BillPayRepository;
+use CodeFin\Repositories\Interfaces\BillPayRepository;
 
 class BillPaysTableSeeder extends Seeder
 {
-    use \CodeFin\Repositories\GetClientsTrait;
+    use \CodeFin\Repositories\Traits\GetClientsTrait;
     /**
      * Run the database seeds.
      *
