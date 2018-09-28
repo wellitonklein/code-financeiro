@@ -22,7 +22,7 @@
     <header>
         <?php
         $menuConfig = [
-            'auth' => (boolean) Auth::check(),
+            'auth' => Auth::check(),
             'name' => Auth::check() ? Auth::user()->name : '',
             'menus' => [
                 [
