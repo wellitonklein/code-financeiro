@@ -15,6 +15,12 @@ Route::get('/', function () {
     return view('welcome');
 })->middleware('can:access-admin');
 
+Route::group(['prefix' => '/', 'as' => 'site.'], function (){
+    Route::get('/', function (){
+        return view('site.home');
+    })->name('home');
+});
+
 Route::get('/home', function (){
     return redirect()->route('admin.home');
 });

@@ -35,21 +35,23 @@ gulp.task('spa-config', () => {
         type: 'ini'
     })
 
-    var spaConfig = require('./spa.config')
-    var string = stringifyObject(spaConfig)
+    let spaConfig = require('./spa.config')
+    let string = stringifyObject(spaConfig)
     return file('config.js',`module.exports = ${string}`,{src: true})
         .pipe(gulp.dest('./resources/assets/spa/js'))
 })
 
 gulp.task('webpack-dev-server', () => {
-    var config = mergeWebpack(webpackConfig,webpackDevConfig)
-    var inlineHot = [
+    let config = mergeWebpack(webpackConfig,webpackDevConfig)
+
+    let inlineHot = [
         'webpack/hot/dev-server',
         `webpack-dev-server/client?http://${HOST}:8080`
     ]
-
-    config.entry.admin = [config.entry.admin].concat(inlineHot)
-    config.entry.spa = [config.entry.spa].concat(inlineHot)
+    
+    for (let key of Object.keys(config.entry)){
+        config.entry[key] = [config.entry[key]].concat(inlineHot)
+    }
 
     new WebpackDevServer(webpack(config),{
         hot: true,
@@ -71,6 +73,7 @@ gulp.task('webpack-dev-server', () => {
 elixir(mix => {
     mix.sass('./resources/assets/admin/sass/admin.scss')
         .sass('./resources/assets/spa/sass/spa.scss')
+        .sass('./resources/assets/site/sass/site.scss')
         .copy('./node_modules/materialize-css/fonts/roboto','./public/fonts/roboto')
 
     gulp.start('spa-config','webpack-dev-server')
@@ -79,5 +82,4 @@ elixir(mix => {
         host: HOST,
         proxy: `http://${HOST}:8080`
     })
-       //.webpack('admin.js');
 })
