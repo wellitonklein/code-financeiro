@@ -13,3 +13,7 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script type="text/javascript" src="https://js.iugu.com/v2"></script>
+@endpush

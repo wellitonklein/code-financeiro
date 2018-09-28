@@ -16,6 +16,11 @@
                 }
             }
         },
+        ready(){
+            Iugu.setAccountID("2E86487810A34EAA860008CA4E9593BC")
+            Iugu.setTestMode(true)
+            Iugu.setup()
+        },
         methods: {
             submit(){
 
