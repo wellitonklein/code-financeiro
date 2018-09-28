@@ -19,4 +19,9 @@ class SubscriptionsController extends Controller
         $plan = $this->planRepository->all()->first();
         return view('site.subscriptions.create', compact('plan'));
     }
+
+    public function store()
+    {
+
+    }
 }

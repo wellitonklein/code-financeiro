@@ -7,7 +7,8 @@
 </div>
 
 <div class="card-panel">
-    <form method="POST" action="">
+    <form method="POST" :action="action">
+        <input type="hidden" id="_token" :value="csrfToken"/>
         <div class="row center">
             <h5>Forma de pagamento</h5>
             <div class="input-field col s6">
@@ -20,7 +21,47 @@
             </div>
         </div>
         <div v-if="payment_type === 'credit_card'">
-            Mostrar os Dados de cartão
+            <p class="flow-text">Informe os dados do cartão de crédito para efetuar a assinatura</p>
+            <div class="row">
+                <div class="input-field col s5">
+                    <input type="text" id="number" v-model="credit_card.number"/>
+                    <label for="number" class="active">Número do cartão</label>
+                </div>
+
+                <div class="input-field col s4">
+                    <input type="text" id="cvv" v-model="credit_card.cvv"/>
+                    <label for="cvv" class="active">Código de segurança</label>
+                </div>
+
+                <div class="input-field col s3">
+                    <input placeholder="MM/AA" type="text" id="expiration" v-model="credit_card.expiration"/>
+                    <label for="expiration" class="active">Data de vencimento</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s6">
+                    <input type="text" id="first_name" v-model="credit_card.first_name"/>
+                    <label for="first_name" class="active">Primeiro nome</label>
+                </div>
+
+                <div class="input-field col s6">
+                    <input type="text" id="last_name" v-model="credit_card.last_name"/>
+                    <label for="last_name" class="active">Sobrenome</label>
+                </div>
+            </div>
+        </div>
+        <div v-else>
+            <p class="flow-text">Clique em <strong>ASSINAR</strong> para gerar o boleto</p>
+        </div>
+        <div class="row">
+            <div class="col m12">
+                <p class="center-align">
+                    <button class="btn btn-large btn-default" type="button" @click="submit()">
+                        Assinar
+                    </button>
+                </p>
+            </div>
         </div>
     </form>
 </div>
