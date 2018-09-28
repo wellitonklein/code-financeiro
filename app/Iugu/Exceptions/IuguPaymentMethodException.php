@@ -9,7 +9,7 @@ namespace CodeFin\Iugu\Exceptions;
  * Time: 17:28
  */
 
-class IuguCustomerException extends AbstractIuguException
+class IuguPaymentMethodException extends AbstractIuguException
 {
 
 }
