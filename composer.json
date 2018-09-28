@@ -14,7 +14,7 @@
         "league/fractal": "^0.15.0",
         "kalnoy/nestedset": "4.2.0",
         "pusher/pusher-php-server": "2.6.0",
-        "iugu/iugu": "1.0.6",
+        "iugu/iugu": "dev-master",
         "fzaninotto/faker": "~1.4",
         "ext-intl": "*",
         "hipsterjazzbo/landlord": "2.0.4",
