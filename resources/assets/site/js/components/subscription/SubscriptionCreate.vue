@@ -3,6 +3,7 @@
 <script type="text/javascript">
     export default {
         name: 'SubscriptionCreate',
+        token_payment: null,
         props: ['plan','csrfToken','action'],
         data(){
             return {
@@ -34,15 +35,20 @@
                         this.credit_card.cvv,
                     )
 
+                    let self = this
+
                     Iugu.createPaymentToken(creditCard, response => {
                         if (response.errors){
                             Materialize.toast('Erro ao processar cartão de crédito. Tente novamente mais tarde!', 4000)
                         }else{
-                            console.log(response.id)
+                            self.token_payment = response.id
+                            setTimeout(() => {
+                                $('#subscription-form')[0].submit()
+                            })
                         }
                     })
                 }else{
-
+                    $('#subscription-form')[0].submit()
                 }
             }
         }

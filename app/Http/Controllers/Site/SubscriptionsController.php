@@ -3,6 +3,7 @@
 namespace CodeFin\Http\Controllers\Site;
 
 use CodeFin\Http\Controllers\Controller;
+use CodeFin\Http\Requests\SubscriptionCreateRequest;
 use CodeFin\Repositories\Interfaces\PlanRepository;
 
 class SubscriptionsController extends Controller
@@ -20,8 +21,8 @@ class SubscriptionsController extends Controller
         return view('site.subscriptions.create', compact('plan'));
     }
 
-    public function store()
+    public function store(SubscriptionCreateRequest $request)
     {
-
+        dd($request);
     }
 }
