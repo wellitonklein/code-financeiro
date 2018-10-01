@@ -76,3 +76,11 @@ $factory->define(\CodeFin\Models\BillReceive::class, function (Faker\Generator $
         'done' => rand(0,1)
     ];
 });
+
+$factory->define(\CodeFin\Models\Plan::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->word,
+        'description' => $faker->word,
+        'value' => $faker->numberBetween(10,100)
+    ];
+});
