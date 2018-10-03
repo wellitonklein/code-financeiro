@@ -48,7 +48,7 @@ class SubscriptionsController extends Controller
             return redirect()->route('site.subscriptions.create');
         }
 
-//        return redirect()->route('site.subscriptions.successfully');
+        return redirect()->route('site.subscriptions.successfully');
     }
 
     public function successfully()

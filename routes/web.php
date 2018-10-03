@@ -26,6 +26,7 @@ Route::group(['prefix' => '/', 'as' => 'site.'], function (){
     Route::group(['prefix' => 'subscriptions', 'as' => 'subscriptions.'], function (){
         Route::get('create', 'Site\SubscriptionsController@create')->name('create')->middleware('auth');
         Route::post('store', 'Site\SubscriptionsController@store')->name('store')->middleware('auth');
+        Route::get('successfully','Site\SubscriptionsController@successfully')->name('successfully');
     });
 
     Route::get('login', 'Site\Auth\LoginController@showLoginForm')->name('login');
@@ -40,17 +41,3 @@ Route::get('/home', function (){
 Route::get('/app', function (){
     return view('layouts.spa');
 });
-//
-//Route::group([
-//    'prefix' => 'admin',
-//    'as' => 'admin.'
-//],function (){
-//    Auth::routes();
-//    Route::group(['middleware' => 'can:access-admin',],function (){
-//        Route::get('/home', 'HomeController@index')->name('home');
-//        Route::resource('banks','Admin\BanksController',['except' => 'show']);
-//    });
-//});
-//Auth::routes();
-//
-//Route::get('/home', 'HomeController@index');

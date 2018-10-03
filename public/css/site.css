@@ -10380,6 +10380,9 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
 
 body {
   background-color: #eceff1;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
 #app {
@@ -10398,6 +10401,13 @@ main {
 
 #plan-business > .collection-item {
   border: none;
+}
+
+.page-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
 }
 
 /*# sourceMappingURL=site.css.map */

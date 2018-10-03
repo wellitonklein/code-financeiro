@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -11,6 +12,7 @@
 
     <!-- Styles -->
     <link href="{{asset('css/site.css')}}" rel="stylesheet">
+
     <!-- Scripts -->
     <script>
         window.Laravel = <?php echo json_encode([
@@ -20,7 +22,6 @@
 </head>
 <body>
 <div id="app">
-
     <header>
         <?php
         $menuConfig = [
@@ -40,15 +41,14 @@
         ?>
         <site-menu :config="{{ json_encode($menuConfig) }}"></site-menu
     </header>
-
     <main>
         @yield('content')
     </main>
-
     <footer class="page-footer">
         <div class="footer-copyright">
             <div class="container">
-                @ {{ date('Y') }} <a class="grey-text text-lighten-4" href="https://github.com/wellitoncamposklein">Entre em contato</a>
+                © {{ date('Y') }}
+                <a class="grey-text text-lighten-4" href="https://github.com/wellitoncamposklein">Entre em contato</a>
             </div>
         </div>
     </footer>

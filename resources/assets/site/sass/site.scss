@@ -13,6 +13,9 @@
 
 body{
   background-color: color('blue-grey', 'lighten-5');
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
 #app {
@@ -31,4 +34,12 @@ main {
 
 #plan-business > .collection-item{
   border: none;
+}
+
+.page-footer{
+  @extend .page-footer;
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%
 }
