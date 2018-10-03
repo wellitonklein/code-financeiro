@@ -8,6 +8,9 @@
         </ul>
         <ul id="dropdown-logout" class='dropdown-content'>
             <li>
+                <a href="#" @click.prevent="goToMyFinancial()">Meu financeiro</a>
+            </li>
+            <li>
                 <a v-link="{name: 'auth.logout'}">Sair</a>
             </li>
         </ul>
@@ -46,6 +49,8 @@
 
 <script type="text/javascript">
     import store from '../store/store'
+    import appConfig from '../services/appConfig'
+    import JwtToken from '../services/jwt-token'
 
     export default {
         data(){
@@ -78,6 +83,14 @@
         ready(){
             $('.button-collapse').sideNav();
             $('.dropdown-button').dropdown();
+        },
+        methods: {
+            goToMyFinancial(){
+                window.open(
+                    `${appConfig.my_financial_path}?token=${JwtToken.token}`,
+                    '_blank'
+                )
+            }
         }
     };
 </script>

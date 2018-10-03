@@ -29,6 +29,12 @@ Route::group(['prefix' => '/', 'as' => 'site.'], function (){
         Route::get('successfully','Site\SubscriptionsController@successfully')->name('successfully');
     });
 
+    Route::group(['prefix' => 'my-financial', 'as' => 'my_financial'], function (){
+        Route::get('/', function (){
+            echo "teste";
+        })->middleware('auth.from_token');
+    });
+
     Route::get('login', 'Site\Auth\LoginController@showLoginForm')->name('login');
     Route::post('login', 'Site\Auth\LoginController@login');
     Route::post('logout', 'Site\Auth\LoginController@logout');
@@ -40,4 +46,16 @@ Route::get('/home', function (){
 
 Route::get('/app', function (){
     return view('layouts.spa');
+});
+
+Route::group([
+    'prefix' => 'admin',
+    'as' => 'admin.'
+], function (){
+    Auth::routes();
+
+    Route::group(['middleware' => 'can:access-admin'], function (){
+        Route::get('/home', 'HomeController@index')->name('home');
+        Route::resource('banks', 'Admin\BanksController', ['except' => 'show']);
+    });
 });
