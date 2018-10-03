@@ -10,14 +10,16 @@ use Illuminate\Queue\SerializesModels;
 class FirstSubscriptionPaid extends Mailable
 {
     use Queueable, SerializesModels;
-
+    /**
+     * @var Subscription
+     */
     public $subscription;
     public $user;
 
     /**
      * Create a new message instance.
      *
-     * @return void
+     * @param Subscription $subscription
      */
     public function __construct(Subscription $subscription)
     {

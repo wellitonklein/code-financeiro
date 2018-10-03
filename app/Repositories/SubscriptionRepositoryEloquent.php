@@ -6,7 +6,7 @@ use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use CodeFin\Repositories\Interfaces\SubscriptionRepository;
 use CodeFin\Models\Subscription;
-//use CodeFin\Validators\SubscriptionValidator;
+use CodeFin\Validators\SubscriptionValidator;
 
 /**
  * Class SubscriptionRepositoryEloquent

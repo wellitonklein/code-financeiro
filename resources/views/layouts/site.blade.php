@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Fácil Financeiro</title>
 
@@ -36,7 +38,7 @@
             'csrfToken' => csrf_token()
         ];
         ?>
-        <site-menu :config="{{ json_encode($menuConfig) }}"></site-menu>
+        <site-menu :config="{{ json_encode($menuConfig) }}"></site-menu
     </header>
 
     <main>

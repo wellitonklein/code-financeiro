@@ -13,7 +13,7 @@
 
 Route::get('/', function () {
     return view('welcome');
-})->middleware('can:access-admin');
+});
 
 Route::group(['prefix' => '/', 'as' => 'site.'], function (){
     Route::get('/', function (){
@@ -40,14 +40,17 @@ Route::get('/home', function (){
 Route::get('/app', function (){
     return view('layouts.spa');
 });
-
-Route::group([
-    'prefix' => 'admin',
-    'as' => 'admin.'
-],function (){
-    Auth::routes();
-    Route::group(['middleware' => 'can:access-admin',],function (){
-        Route::get('/home', 'HomeController@index')->name('home');
-        Route::resource('banks','Admin\BanksController',['except' => 'show']);
-    });
-});
+//
+//Route::group([
+//    'prefix' => 'admin',
+//    'as' => 'admin.'
+//],function (){
+//    Auth::routes();
+//    Route::group(['middleware' => 'can:access-admin',],function (){
+//        Route::get('/home', 'HomeController@index')->name('home');
+//        Route::resource('banks','Admin\BanksController',['except' => 'show']);
+//    });
+//});
+//Auth::routes();
+//
+//Route::get('/home', 'HomeController@index');

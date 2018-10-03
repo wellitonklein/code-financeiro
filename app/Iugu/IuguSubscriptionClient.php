@@ -27,6 +27,7 @@ class IuguSubscriptionClient
             'only_on_charge_success',
             'plan_identifier'
         ]));
+
         if(isset($result['errors'])){
             throw new IuguSubscriptionException($result['errors']);
         }

@@ -2,9 +2,7 @@
 
 namespace CodeFin\Http\Requests;
 
-use CodeFin\Http\Controllers\Api\CategoryRevenuesController;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class SubscriptionCreateRequest extends FormRequest
 {
@@ -27,7 +25,7 @@ class SubscriptionCreateRequest extends FormRequest
     {
         return [
             'payment_type' => 'required|in:bank_slip,credit_card',
-            'token_payment' => 'required_if:payment_type,credit_card'
+            'token_payment' => 'required_if:payment_type,credit_card',
         ];
     }
 }
