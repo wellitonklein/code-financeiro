@@ -15,10 +15,15 @@ use Illuminate\Http\Request;
 
 Route::post('hooks/iugu', 'Api\IuguController@hooks');
 Route::group(['middleware' => 'cors','as' => 'api.'],function (){
-    Route::post('access_token','Api\AuthController@accessToken')->name('access_token');
-    Route::post('refresh_token','Api\AuthController@refreshToken')->name('refresh_token');
 
-    Route::group(['middleware' => 'auth:api'], function (){
+    Route::post('access_token','Api\AuthController@accessToken')
+        ->name('access_token')
+        ->middleware('check-subscription:after');
+    Route::post('refresh_token','Api\AuthController@refreshToken')
+        ->name('refresh_token')
+        ->middleware('check-subscription:after');
+
+    Route::group(['middleware' => ['auth:api','check-subscription']], function (){
         Route::resource('banks','Api\BanksController', ['only' => ['index']]);
 
         Route::get('bank_accounts/lists','Api\BankAccountsController@lists')->name('bank_accounts.lists');
