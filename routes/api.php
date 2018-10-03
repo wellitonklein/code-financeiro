@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::post('hooks/iugu', 'Api\IuguController@hooks');
 Route::group(['middleware' => 'cors','as' => 'api.'],function (){
     Route::post('access_token','Api\AuthController@accessToken')->name('access_token');
     Route::post('refresh_token','Api\AuthController@refreshToken')->name('refresh_token');
