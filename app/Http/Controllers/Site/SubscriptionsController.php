@@ -38,7 +38,7 @@ class SubscriptionsController extends Controller
     public function store(SubscriptionCreateRequest $request)
     {
         $plan = $this->planRepository->all()->first();
-
+        
         try {
             $this->iuguSubscriptionManager->create(
                 Auth::user(), $plan, $request->all()
