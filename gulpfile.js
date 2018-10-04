@@ -72,7 +72,7 @@ gulp.task('webpack-dev-server', () => {
         console.log("Bundling project...")
     })
 })
-
+//
 elixir(mix => {
     mix.sass('./resources/assets/admin/sass/admin.scss')
         .sass('./resources/assets/spa/sass/spa.scss')
