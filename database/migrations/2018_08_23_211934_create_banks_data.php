@@ -1,8 +1,12 @@
 <?php
 
+use CodeFin\Models\Bank;
+use CodeFin\Repositories\Interfaces\BankRepository;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\Storage;
 
 class CreateBanksData extends Migration
 {
@@ -13,10 +17,13 @@ class CreateBanksData extends Migration
      */
     public function up()
     {
-        $repository = app(\CodeFin\Repositories\Interfaces\BankRepository::class);
-        foreach ($this->getData() as $bankArray){
+        /** @var BankRepository $repository */
+        $repository = app(BankRepository::class);
+
+        foreach ($this->getData() as $bankArray) {
             $repository->create($bankArray);
         }
+
     }
 
     /**
@@ -26,53 +33,59 @@ class CreateBanksData extends Migration
      */
     public function down()
     {
-        $repository = app(\CodeFin\Repositories\Interfaces\BankRepository::class);
+        /** @var BankRepository $repository */
+        $repository = app(BankRepository::class);
         $repository->skipPresenter(true);
+
         $count = count($this->getData());
 
-        foreach (range(1,$count) as $value){
-            $model = $repository->find($value);
-            $path = \CodeFin\Models\Bank::logosDir().'/'.$model->logo;
-            \Storage::disk('public')->delete($path);
-            $model->delete();
+        foreach (range(1,$count) as $id) {
+            $bank = $repository->find($id);
+            $path = Bank::LOGOS_DIR . '/' . $bank->logo;
+
+            Storage::disk('public')->delete($path);
+            echo "** Imagem do '$bank->name' deletada: " . $bank->logo . "\n";
+
+            $bank->delete();
         }
     }
 
-    public function getData(){
+    public function getData()
+    {
         return [
             [
-                'name' => 'Bitcoin Digital',
+                'name' => 'Bradesco',
                 'logo' => new \Illuminate\Http\UploadedFile(
-                    storage_path('app/files/banks/logos/bitcoin-digital.jpg'),
-                    'bitcoin-digital.jpg'
+                    storage_path('app/files/banks/logos/bradesco.JPG'),
+                    'bradesco.JPG'
                 )
             ],
             [
-                'name' => 'Conceito',
+                'name' => 'Banco do Brasil',
                 'logo' => new \Illuminate\Http\UploadedFile(
-                    storage_path('app/files/banks/logos/conceito.jpg'),
-                    'conceito.jpg'
+                    storage_path('app/files/banks/logos/brasil.gif'),
+                    'brasil.gif'
                 )
             ],
             [
-                'name' => 'Dinheiro Criativo',
+                'name' => 'Caixa',
                 'logo' => new \Illuminate\Http\UploadedFile(
-                    storage_path('app/files/banks/logos/dinheiro-criativo.jpg'),
-                    'dinheiro-criativo.jpg'
+                    storage_path('app/files/banks/logos/caixa.png'),
+                    'caixa.png'
                 )
             ],
             [
-                'name' => 'Dinheiro Criativo B',
+                'name' => 'Itaú',
                 'logo' => new \Illuminate\Http\UploadedFile(
-                    storage_path('app/files/banks/logos/dinheiro-criativo2.jpg'),
-                    'dinheiro-criativo2.jpg'
+                    storage_path('app/files/banks/logos/itau.jpg'),
+                    'itau.jpg'
                 )
             ],
             [
-                'name' => 'Moderno Dinheiro',
+                'name' => 'Santander',
                 'logo' => new \Illuminate\Http\UploadedFile(
-                    storage_path('app/files/banks/logos/moderno-dinheiro-verde.jpg'),
-                    'moderno-dinheiro-verde.jpg'
+                    storage_path('app/files/banks/logos/santander.png'),
+                    'santander.png'
                 )
             ],
         ];
