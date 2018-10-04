@@ -76,13 +76,13 @@
         },
         computed:{
             name(){
-                let user = store.state.auth.user;
-                return user ? user.name : '';
+                let user = store.state.auth.user
+                return user ? user.name : ''
             }
         },
         ready(){
-            $('.button-collapse').sideNav();
-            $('.dropdown-button').dropdown();
+            $('.button-collapse').sideNav()
+            $('.dropdown-button').dropdown()
         },
         methods: {
             goToMyFinancial(){
@@ -92,15 +92,15 @@
                 )
             }
         }
-    };
+    }
 </script>
 
 <style type="text/css" scoped>
     nav ul a{
-        font-size: 0.9rem;
+        font-size: 0.9rem
     }
 
     .brand-logo{
-        font-size: 1.5rem;
+        font-size: 1.5rem
     }
 </style>
