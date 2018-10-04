@@ -4297,7 +4297,7 @@
         "iugu/iugu": 20,
         "tymon/jwt-auth": 20
     },
-    "prefer-stable": false,
+    "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": ">=5.6.4",
