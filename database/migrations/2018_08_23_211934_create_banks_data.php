@@ -47,34 +47,34 @@ class CreateBanksData extends Migration
                     'bitcoin-digital.jpg'
                 )
             ],
-//            [
-//                'name' => 'Conceito',
-//                'logo' => new \Illuminate\Http\UploadedFile(
-//                    storage_path('app/files/banks/logos/conceito.jpg'),
-//                    'conceito.jpg'
-//                )
-//            ],
-//            [
-//                'name' => 'Dinheiro Criativo',
-//                'logo' => new \Illuminate\Http\UploadedFile(
-//                    storage_path('app/files/banks/logos/dinheiro-criativo.jpg'),
-//                    'dinheiro-criativo.jpg'
-//                )
-//            ],
-//            [
-//                'name' => 'Dinheiro Criativo B',
-//                'logo' => new \Illuminate\Http\UploadedFile(
-//                    storage_path('app/files/banks/logos/dinheiro-criativo2.jpg'),
-//                    'dinheiro-criativo2.jpg'
-//                )
-//            ],
-//            [
-//                'name' => 'Moderno Dinheiro',
-//                'logo' => new \Illuminate\Http\UploadedFile(
-//                    storage_path('app/files/banks/logos/moderno-dinheiro-verde.jpg'),
-//                    'moderno-dinheiro-verde.jpg'
-//                )
-//            ],
+            [
+                'name' => 'Conceito',
+                'logo' => new \Illuminate\Http\UploadedFile(
+                    storage_path('app/files/banks/logos/conceito.jpg'),
+                    'conceito.jpg'
+                )
+            ],
+            [
+                'name' => 'Dinheiro Criativo',
+                'logo' => new \Illuminate\Http\UploadedFile(
+                    storage_path('app/files/banks/logos/dinheiro-criativo.jpg'),
+                    'dinheiro-criativo.jpg'
+                )
+            ],
+            [
+                'name' => 'Dinheiro Criativo B',
+                'logo' => new \Illuminate\Http\UploadedFile(
+                    storage_path('app/files/banks/logos/dinheiro-criativo2.jpg'),
+                    'dinheiro-criativo2.jpg'
+                )
+            ],
+            [
+                'name' => 'Moderno Dinheiro',
+                'logo' => new \Illuminate\Http\UploadedFile(
+                    storage_path('app/files/banks/logos/moderno-dinheiro-verde.jpg'),
+                    'moderno-dinheiro-verde.jpg'
+                )
+            ],
         ];
     }
 }
