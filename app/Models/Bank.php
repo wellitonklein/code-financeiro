@@ -6,26 +6,27 @@ use Illuminate\Database\Eloquent\Model;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
-/**
- * Class Bank.
- *
- * @package namespace CodeFin\Models;
- */
 class Bank extends Model implements Transformable
 {
     use TransformableTrait;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+    const LOGOS_DIR = "banks/images";
+
     protected $fillable = [
         'name',
         'logo'
     ];
 
-    public static function logosDir(){
-        return 'banks/images';
+    public function getLogosDirAttribute()
+    {
+        return self::LOGOS_DIR;
     }
+
+    public function getLogoPathAttribute()
+    {
+        $folder = $this->getLogosDirAttribute();
+        $logo = $this->attributes['logo'];
+        return "storage/$folder/$logo";
+    }
+
 }
