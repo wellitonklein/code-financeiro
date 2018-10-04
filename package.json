@@ -5,6 +5,10 @@
     "dev": "gulp watch",
     "heroku-postbuild": "gulp"
   },
+  "engines": {
+    "node": "6.8.1",
+    "npm": "3.10.8"
+  },
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-env": "^0.4.0",
