@@ -54,38 +54,38 @@ class CreateBanksData extends Migration
     {
         return [
             [
-                'name' => 'Bradesco',
+                'name' => 'Bitcoin Digital',
                 'logo' => new \Illuminate\Http\UploadedFile(
-                    storage_path('app/files/banks/logos/bradesco.JPG'),
-                    'bradesco.JPG'
+                    storage_path('app/files/banks/logos/bitcoin-digital.jpg'),
+                    'bitcoin-digital.jpg'
                 )
             ],
             [
-                'name' => 'Banco do Brasil',
+                'name' => 'Conceito',
                 'logo' => new \Illuminate\Http\UploadedFile(
-                    storage_path('app/files/banks/logos/brasil.gif'),
-                    'brasil.gif'
+                    storage_path('app/files/banks/logos/conceito.jpg'),
+                    'conceito.jpg'
                 )
             ],
             [
-                'name' => 'Caixa',
+                'name' => 'Dinheiro Criativo',
                 'logo' => new \Illuminate\Http\UploadedFile(
-                    storage_path('app/files/banks/logos/caixa.png'),
-                    'caixa.png'
+                    storage_path('app/files/banks/logos/dinheiro-criativo.jpg'),
+                    'dinheiro-criativo.jpg'
                 )
             ],
             [
-                'name' => 'Itaú',
+                'name' => 'Dinheiro Criativo 2',
                 'logo' => new \Illuminate\Http\UploadedFile(
-                    storage_path('app/files/banks/logos/itau.jpg'),
-                    'itau.jpg'
+                    storage_path('app/files/banks/logos/dinheiro-criativo2.jpg'),
+                    'dinheiro-criativo2.jpg'
                 )
             ],
             [
-                'name' => 'Santander',
+                'name' => 'Moderno Dinheiro Verde',
                 'logo' => new \Illuminate\Http\UploadedFile(
-                    storage_path('app/files/banks/logos/santander.png'),
-                    'santander.png'
+                    storage_path('app/files/banks/logos/moderno-dinheiro-verde.jpg'),
+                    'moderno-dinheiro-verde.jpg'
                 )
             ],
         ];
