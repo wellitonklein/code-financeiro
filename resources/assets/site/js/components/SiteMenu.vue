@@ -1,32 +1,34 @@
 <template>
-    <ul :id="o.id" class="dropdown-content" v-for="o in config.menusDropdown">
-        <li v-for="item in o.items" :class="menuItemClass(item)">
-            <a :href="item.url">{{ item.name }}</a>
-        </li>
-    </ul>
-    <ul id="dropdown-logout" class="dropdown-content">
-        <li>
-            <a :href="config.urlLogout" @click.prevent="goToLogout()">Sair</a>
-        </li>
-        <form id="logout-form" :action="config.urlLogout" method="POST" style="display: none">
-            <input type="hidden" name="_token" :value="config.csrfToken"/>
-        </form>
-    </ul>
     <div class="navbar-fixed">
+        <ul :id="o.id" class="dropdown-content" v-for="o in config.menusDropdown">
+            <li v-for="item in o.items" :class="menuItemClass(item)">
+                <a :href="item.url">{{item.name}}</a>
+            </li>
+        </ul>
+        <ul id="dropdown-logout" class='dropdown-content' v-if="config.auth">
+            <li>
+                <a :href="config.urlLogout" @click.prevent="goToLogout()">Sair</a>
+
+                <form id="logout-form" :action="config.urlLogout" method="POST" style="display: none">
+                    <input type="hidden" name="_token" :value="config.csrfToken"/>
+                </form>
+            </li>
+
+        </ul>
         <nav>
             <div class="nav-wrapper">
-                <div class="col s12">
-                    <div class="container">
-                        <a href="#" class="left brand-logo">Fácil Financeiro</a>
+                <div class="row">
+                    <div class="col s12">
+                        <a href="#" class="brand-logo">Code Financeiro</a>
                         <a href="#" data-activates="nav-mobile" class="button-collapse">
                             <i class="material-icons">menu</i>
                         </a>
                         <ul class="right hide-on-med-and-down">
                             <li v-for="o in config.menus" :class="menuItemClass(o)">
                                 <a v-if="o.dropdownId" class="dropdown-button" href="!#" :data-activates="o.dropdownId">
-                                    {{ o.name }} <i class="material-icons right">arrow_drop_down</i>
+                                    {{o.name}} <i class="material-icons right">arrow_drop_down</i>
                                 </a>
-                                <a v-else :href="o.url">{{ o.name }}</a>
+                                <a v-else :href="o.url">{{o.name}}</a>
                             </li>
                             <li v-if="config.auth">
                                 <a class="dropdown-button" href="!#" data-activates="dropdown-logout">
@@ -34,13 +36,13 @@
                                 </a>
                             </li>
                         </ul>
+                        <ul id="nav-mobile" class="side-nav">
+                            <li v-for="o in config.menus">
+                                <a :href="o.url">{{o.name}}</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-                <ul id="nav-mobile" class="side-nav">
-                    <li v-for="o in config.menus">
-                        <a :href="o.url">{{ o.name }}</a>
-                    </li>
-                </ul>
             </div>
         </nav>
     </div>
@@ -72,18 +74,17 @@
                 $('#logout-form').submit()
             },
             menuItemClass(menu){
-                var menuClass = ['active']
-                if (menu.active) {
+                let menuClass = ['active']
+                if(menu.active){
                     return menuClass
                 }
-
-                if (menu.dropdownId !== undefined){
-                    var dropdown = this.config.menusDropdown.find((element) => {
+                if(menu.dropdownId !== undefined){
+                    let dropdown = this.config.menusDropdown.find((element)=>{
                         return element.id === menu.dropdownId
                     })
-                    if (dropdown){
-                        for (var o of dropdown.items){
-                            if (o.active){
+                    if(dropdown){
+                        for(let o of dropdown.items){
+                            if(o.active){
                                 return menuClass
                             }
                         }
