@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cb1d01a5cef4513f8b197b3b51d2b881",
+    "content-hash": "ae2771a3f8fc3158f02a278d6f099996",
     "packages": [
         {
             "name": "barryvdh/laravel-cors",
@@ -313,27 +313,26 @@
         },
         {
             "name": "iugu/iugu",
-            "version": "dev-master",
+            "version": "1.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/iugu/iugu-php.git",
-                "reference": "05b1c8e89ec91df6f30ce02b960d5069516b468f"
+                "reference": "e22635ca112d2a5b003372d966261314135257ed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/iugu/iugu-php/zipball/05b1c8e89ec91df6f30ce02b960d5069516b468f",
-                "reference": "05b1c8e89ec91df6f30ce02b960d5069516b468f",
+                "url": "https://api.github.com/repos/iugu/iugu-php/zipball/e22635ca112d2a5b003372d966261314135257ed",
+                "reference": "e22635ca112d2a5b003372d966261314135257ed",
                 "shasum": ""
             },
             "require": {
                 "ext-curl": "*",
                 "ext-json": "*",
                 "ext-mbstring": "*",
-                "php": ">=5.4"
+                "php": ">=5.2"
             },
             "require-dev": {
-                "php-vcr/php-vcr": "^1.4",
-                "phpunit/phpunit": "^6"
+                "simpletest/simpletest": "1.1.5"
             },
             "type": "library",
             "autoload": {
@@ -358,7 +357,7 @@
                 "iugu",
                 "pagamentos"
             ],
-            "time": "2018-02-28T21:07:50+00:00"
+            "time": "2015-11-25T10:36:10+00:00"
         },
         {
             "name": "jakub-onderka/php-console-color",
@@ -4203,7 +4202,6 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "iugu/iugu": 20,
         "tymon/jwt-auth": 20
     },
     "prefer-stable": true,
