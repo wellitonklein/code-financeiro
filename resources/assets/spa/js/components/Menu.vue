@@ -35,7 +35,7 @@
                                 </a>
                             </li>
                         </ul>
-                        <ul id="nav-mobile" class="side-nav">
+                        <ul id="nav-mobile" class="side-nav right">
                             <li v-for="o in menus">
                                 <a v-link="{name: o.url}">{{o.name}}</a>
                             </li>
@@ -81,7 +81,7 @@
             }
         },
         ready(){
-            $('.button-collapse').sidenav()
+            $('.button-collapse').sideNav()
             $('.dropdown-button').dropdown()
         },
         methods: {
