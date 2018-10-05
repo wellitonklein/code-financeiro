@@ -19,7 +19,7 @@
             <div class="nav-wrapper">
                 <div class="row">
                     <div class="col s12">
-                        <a href="#" class="brand-logo">Code FinanceiroS</a>
+                        <a href="#" class="brand-logo">Code Financeiro</a>
                         <a href="#" data-activates="nav-mobile" class="button-collapse">
                             <i class="material-icons">menu</i>
                         </a>
