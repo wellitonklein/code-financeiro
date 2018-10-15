@@ -2,9 +2,6 @@
 
 use CodeFin\Models\Bank;
 use CodeFin\Repositories\Interfaces\BankRepository;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\Storage;
 

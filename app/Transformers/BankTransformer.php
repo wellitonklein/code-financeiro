@@ -2,20 +2,20 @@
 
 namespace CodeFin\Transformers;
 
+use Illuminate\Support\Facades\Request;
 use League\Fractal\TransformerAbstract;
 use CodeFin\Models\Bank;
 
 /**
- * Class BankTransformer.
- *
+ * Class BankTransformer
  * @package namespace CodeFin\Transformers;
  */
 class BankTransformer extends TransformerAbstract
 {
+
     /**
-     * Transform the Bank entity.
-     *
-     * @param \CodeFin\Models\Bank $model
+     * Transform the \Bank entity
+     * @param \Bank $model
      *
      * @return array
      */
@@ -23,16 +23,20 @@ class BankTransformer extends TransformerAbstract
     {
         return [
             'id'         => (int) $model->id,
-            'name'       => $model->name,
-            'logo'       => $this->makeLogoPath($model),
+            'name'         => $model->name,
+            'logo'         => $this->makeLogoPath($model),
+
+            /* place your other model properties here */
+
             'created_at' => $model->created_at,
             'updated_at' => $model->updated_at
         ];
     }
 
-    public function makeLogoPath(Bank $model){
+    private function makeLogoPath(Bank $model)
+    {
         $url = url('/');
-        $folder = Bank::logosDir();
+        $folder = $model->logosDir;
         return "$url/storage/$folder/{$model->logo}";
     }
 }
