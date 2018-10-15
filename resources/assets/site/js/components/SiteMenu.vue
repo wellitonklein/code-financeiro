@@ -66,7 +66,7 @@
             }
         },
         ready(){
-            $('.button-collapse').sideNav()
+            $('.button-collapse').sideNav('show')
             $('.dropdown-button').dropdown()
         },
         methods: {
