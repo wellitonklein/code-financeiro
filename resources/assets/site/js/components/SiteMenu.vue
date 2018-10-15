@@ -66,8 +66,8 @@
             }
         },
         ready(){
-            // $('.button-collapse').sideNav('open')
-            $('.dropdown-button').dropdown('open')
+            // $('.button-collapse').sideNav()
+            // $('.dropdown-button').dropdown()
         },
         methods: {
             goToLogout(){
