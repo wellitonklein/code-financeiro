@@ -67,7 +67,7 @@
         },
         ready(){
             // $('.button-collapse').sideNav('open')
-            $('.dropdown-button').dropdown()
+            $('.dropdown-button').dropdown('open')
         },
         methods: {
             goToLogout(){
